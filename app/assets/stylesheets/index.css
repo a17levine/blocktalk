@@ -1,0 +1,26 @@
+.hour {
+  width: 90%;
+  height: 40px;
+  border: 1px solid black;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.day {
+  border: 1px solid red;
+  width: 25%;
+  float: left;
+}
+
+.schedule {
+	width: 960px;
+	height: 1000px;
+}
+
+div.ui-selecting {
+	background-color: gray;
+}
+
+div.ui-selected {
+	background-color: blue;
+}
