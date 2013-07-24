@@ -62,8 +62,9 @@
 	    });
 	});
 
-	var now = moment().startOf('day').format("YYYY/MM/DD, HH");
+	var now = moment().startOf('day').subtract('h',1);
+	var num = 0
 	$('.hour').each(function(){
-		$(this).attr("data-time", now);
+		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
 	})
 });
