@@ -1,4 +1,6 @@
 class TimeBlock < ActiveRecord::Base
 	belongs_to :user
-  # attr_accessible :title, :body
+	belongs_to :meeting
+  
+  attr_accessible :start_time, :meeting_id
 end
