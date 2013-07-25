@@ -60,10 +60,14 @@
 	            console.log(result)
 	        }
 	    });
-	// var result = $( "#select-result" ).empty();
-	// $( "ui-selected", this ).each(function() {
-	// 	var index = $( ".hours" ).index( this );
-	// 	result.append ( " #" + ( index + 1 ) );
-	// 	});
 	});
+
+	var date = moment().format("MM/DD/YYYY")
+	$('.day_header').text(date);
+
+	var now = moment().startOf('day').subtract('h',1);
+	var num = 0
+	$('.hour').each(function(){
+		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
+	})
 });

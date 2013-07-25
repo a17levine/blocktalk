@@ -1,9 +1,18 @@
 .icon-chevron-sign-left{
-float:left;
+  float: left;
+  display: inline-block;
+  margin: 10px;
 }
 
 .icon-chevron-sign-right {
-float:left;
+  float: left;
+  display: inline-block;
+  margin: 10px;
+}
+
+.day_header {
+  margin: 5px auto;
+  text-align: center;
 }
 
 .hour {
@@ -22,9 +31,10 @@ float:left;
 .day {
   border: 1px solid red;
   width: 250px;
-/*  float: left;*/
   padding: 10px 0;
   margin: 0 auto;
+  display: inline-block;
+  float: left;
 }
 
 .schedule {
