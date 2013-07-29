@@ -13,3 +13,15 @@
  *= require foundation_and_overrides
  */
  @import "foundation";
+
+ $primaryColor: blue;
+
+ h1 {
+ 	display: inline-block;
+	color: $primaryColor;
+ }
+
+ h6 {
+ 	display: inline-block;
+ 	vertical-align: -5px;
+ }
