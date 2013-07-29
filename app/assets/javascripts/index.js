@@ -63,6 +63,8 @@
 	})
 	//On click, forward button adds 1 day to the date variable.
 	$('.icon-chevron-sign-right').click(function(){
+		//fly right
+		slideScheduleLeft()
 		//adds 1 day to the date variable
 		date.add('d',1);
 		//updates the day header with the new date variable in the format.
@@ -85,8 +87,30 @@
 		});
 	});
 
+ 	function slideScheduleRight(){
+ 		//add class to slide right, wait, then add class to slide from left side.
+ 		$(".day").addClass("slideToRight").delay(300).queue(function(){
+ 			$(".day").addClass("slideFromLeft");
+ 			$(this).dequeue();
+ 		});
+ 		window.setTimeout(function(){$(".day").removeClass("slideToRight")
+									 $(".day").removeClass("slideFromLeft")},600);
+ 	}
+
+ 	function slideScheduleLeft(){
+ 		//add class to slide right, wait, then add class to slide from left side.
+ 		$(".day").addClass("slideToLeft").delay(300).queue(function(){
+ 			$(".day").addClass("slideFromRight");
+ 			$(this).dequeue();
+ 		});
+ 		window.setTimeout(function(){$(".day").removeClass("slideToLeft")
+									 $(".day").removeClass("slideFromRight")},600);
+ 	}
+
 	//On click, back button removes one day from the date variable.
 	$('.icon-chevron-sign-left').click(function(){
+		//fly left
+		slideScheduleRight()
 		//subtracts 1 day from the date variable
 		date.subtract('d',1);
 		//updates the day header with the new date variable in the format.
