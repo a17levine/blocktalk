@@ -1,29 +1,3 @@
-// $(document).ready(function(){
-
-// times = []
-  
-//   $('.hour').mousedown(function(){
-//     $(this).toggleClass('chosen')
-//   });
-// });
-
-
-
-// $(document).ready(function(){
-//   $(function() {
-//     $( ".day" ).selectable({	
-//       stop: function() {
-//         var result = $( "#select-result" ).empty();
-//         $( ".ui-selected", this ).each(function() {
-//           var index = $( ".hour" ).index( this );
-//           result.append( " #" + ( index + 1 ) );
-//         });
-//       }
-//     });
-//   });
-
-// });
-
  $(document).ready(function(){
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
@@ -67,7 +41,7 @@
 	            //clears the queue
 	            _deselectQueue = [];
 
-	            var result = $( "#select-result" );//.empty
+	            var result = $( "#select-result" ).empty();
 	            $( ".ui-selected", this ).each(function() {
 	            	// var index = $( ".hour" ).index( this );
 	            	var time = this.getAttribute('data-time');
@@ -101,7 +75,16 @@
 		})
 		//For now, remove ui-selected class on click.
 		$('.ui-selected').removeClass('ui-selected');
+		//When forward button is clicked, check already-selected times
+		$.each(selectionArray, function(index, selection){
+			$('.hour').each(function(){
+				if ($( this ).attr('data-time') == selection){
+					$( this ).addClass('ui-selected');	
+				}
+			})
+		});
 	});
+
 	//On click, back button removes one day from the date variable.
 	$('.icon-chevron-sign-left').click(function(){
 		//subtracts 1 day from the date variable
@@ -116,6 +99,14 @@
 		})
 		//For now, remove ui-selected class on click.
 		$('.ui-selected').removeClass('ui-selected');
-
+		//When back button is clicked, check already-selected times
+		$.each(selectionArray, function(index, selection){
+			$('.hour').each(function(){
+				if ($( this ).attr('data-time') == selection){
+					$( this ).addClass('ui-selected');	
+				}
+			})
+		});
+			
 	});
 });
