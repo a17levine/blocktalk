@@ -1,13 +1,30 @@
-.icon-chevron-sign-left{
+.inner-wrapper {
+  margin: 0 auto;
+  width: 255px;
+  overflow: hidden;
   float: left;
+}
+
+.outer-wrapper {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.clear{
+  clear: both;
+}
+
+.icon-chevron-sign-left{
   display: inline-block;
   margin: 10px;
+  margin-right: 15px;
+  float: left;
 }
 
 .icon-chevron-sign-right {
-  float: left;
   display: inline-block;
   margin: 10px;
+  float: right;
 }
 
 .day_header {
@@ -34,11 +51,74 @@
   padding: 10px 0;
   margin: 0 auto;
   display: inline-block;
+  border-radius: 8px;
   float: left;
 }
 
+@-webkit-keyframes flyinright {
+  0%{margin-left: 400px;
+     margin-right: -400px;}
+  100%{margin-left: auto;
+       margin-right: auto;}
+}
+
+@-webkit-keyframes flyoutright {
+  0%{margin-left: 0;
+     margin-right: 0;}
+  100%{margin-left: 400px;
+       margin-right: -400px;}
+}
+
+@-webkit-keyframes flyinleft {
+  0%{
+    margin-left: -400px;
+    margin-right: 400px;}
+  100%{
+    margin-left: auto;
+    margin-right: auto;}
+}
+
+@-webkit-keyframes flyoutleft {
+  0%{
+    margin-left: auto;
+    margin-right: auto;}
+  100%{
+    margin-left: -400px;
+    margin-right: 400px;}
+}
+
+
+
+.slideToLeft{
+  -webkit-animation-name: flyoutleft;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear; 
+}
+
+.slideToRight{
+  -webkit-animation-name: flyoutright;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+}
+
+.slideFromLeft{
+  -webkit-animation-name: flyinleft;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+}
+
+.slideFromRight{
+  -webkit-animation-name: flyinright;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+}
+
 .schedule {
-	width: 960px;
+	width: 100%;
 	height: 1000px;
 }
 

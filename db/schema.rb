@@ -11,14 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130725161530) do
+ActiveRecord::Schema.define(:version => 20130729191033) do
 
   create_table "meetings", :force => true do |t|
-    t.integer  "host"
-    t.integer  "guest"
-    t.integer  "agreed_time_block"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "host_id"
+    t.integer  "guest_id"
+    t.integer  "time_block_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "meetings_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "meeting_id"
   end
 
   create_table "time_blocks", :force => true do |t|
