@@ -133,4 +133,11 @@
 		});
 			
 	});
+	$('.submit').click(function(){
+		//When submit button is pressed, take times...
+		
+		//convert them into moment.js objects
+		
+		moment("1995-12-25-04", "YYYY-MM-DD-HH");
+	});
 });
