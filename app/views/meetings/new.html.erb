@@ -1,0 +1,6 @@
+<h1>This is the new view, hidden cells below</h1>
+
+<%= form_tag("/meetings", method: "post") do %>
+  <%= hidden_field_tag(:creation_data, "This is data in the hidden cell") %>
+	<%= submit_tag("Next") %>
+<% end %>

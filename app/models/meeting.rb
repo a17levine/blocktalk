@@ -10,12 +10,16 @@ class Meeting < ActiveRecord::Base
   
   attr_accessible :host, :guest, :agreed_time_block, :host_id
 
- 
-
-  # def assign_creator_as_host(user)
-  # 	#self.update_attribute(:host_id, user.id)
-  # 	puts "this is a puts of what self.users is after create =========="
-  # 	puts user.inspect
-  # end
-
+  def self.create_meeting(host_email, start_times_array_in_iso8601)
+  	@user = User.return_user_from_email(host_email)
+  	@meeting = @user.meetings.create(host_id: @user.id)
+		start_times_array_in_iso8601.each do |startTimeIso8601|
+			unless @meeting.timeblocks.find_by_start_time(DateTime.iso8601(startTimeIso8601))
+				# this didn't do what I wanted. the idea was to
+				# avoid having duplicate info be generated if the
+				# submit button was hit twice. oh well, not a big issue now
+			@meeting.timeblocks.create(start_time: DateTime.iso8601(startTimeIso8601))
+			end
+		end
+  end
 end
