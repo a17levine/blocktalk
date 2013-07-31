@@ -136,7 +136,7 @@
 	$('.large.button').click(function(){
 		//When submit button is pressed, take times...
 		//convert them into moment.js objects
-		
+
 		var avails = []
 		$(selectionArray).each(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
@@ -144,13 +144,38 @@
 			console.log(avails)
 		});
 		
+		//Convert Moment object into JS Date object to get timezone
+		//Turning crude date into a moment string, then splitting it
+		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
+		//Getting the last item (timezone) in resulting array
+		label = label.pop();
+		//Shaving off parentheses
+		label = label.replace(/[()]/g,'');
 		
 
-		// var hostTimes = { 
-		// // 	'email' : placeEmailHere, 
-		// 	'timezone' : {'tzname' : Eastern, 'tzformat' : moment(avails[0]).format('ZZ')}
-		// 	'availTimes' : avails			], 
-  // 		}
+		var createMessage = 
+		{ 
+			"createMessage"  :
+			{
+		// 	'hostEmail' : placeEmailHere, 
+			'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+			'timeZoneLabel'  : label, 
+			'availableDates' : avails, 
+			}
+  		}
 		
+		
+
+
+		// .each(function(){
+		// 	var label = moment(this, "YYYY/MM/DD, HH");
+		// 	console.log(label[0].toDate)
+		// });
+
+		// console.log(label.toDate)
+
+		// console.log(avails[0].toDate().split(' '))
+		// var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+
 	});
 });
