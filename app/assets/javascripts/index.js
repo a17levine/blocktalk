@@ -133,9 +133,10 @@
 		});
 			
 	});
-	$('.large.button').click(function(){
-		//When submit button is pressed, take times...
-		//convert them into moment.js objects
+	$('.large.button').click(function(event){
+		//When submit button is pressed, prevent default
+  		event.preventDefault();
+		//Now take times and convert them into moment.js objects
 
 		var avails = []
 		$(selectionArray).each(function(){
@@ -153,6 +154,7 @@
 		label = label.replace(/[()]/g,'');
 		
 
+
 		var createMessage = 
 		{ 
 			"createMessage"  :
@@ -163,19 +165,6 @@
 			'availableDates' : avails, 
 			}
   		}
-		
-		
-
-
-		// .each(function(){
-		// 	var label = moment(this, "YYYY/MM/DD, HH");
-		// 	console.log(label[0].toDate)
-		// });
-
-		// console.log(label.toDate)
-
-		// console.log(avails[0].toDate().split(' '))
-		// var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
 
 	});
 });
