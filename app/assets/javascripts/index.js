@@ -154,12 +154,11 @@
 		label = label.replace(/[()]/g,'');
 		
 
-
 		var createMessage = 
 		{ 
 			"createMessage"  :
 			{
-		// 	'hostEmail' : placeEmailHere, 
+			'hostEmail'  	 : $('.hostEmail').val(), 
 			'timeZoneOffset' : moment(avails[0]).format('ZZ'),
 			'timeZoneLabel'  : label, 
 			'availableDates' : avails, 

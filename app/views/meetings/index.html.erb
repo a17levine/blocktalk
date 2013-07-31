@@ -1,10 +1,10 @@
 <p id="feedback">
   <span>You've selected:</span> <span id="select-result">none</span>.
 </p>
-
-<div class="schedule">
-  <div class="outer-wrapper">
-    <i class="icon-chevron-sign-left icon-4x"></i>
+<div class="row">
+  <div class="schedule large-4 columns">
+    <div class="outer-wrapper">
+      <i class="icon-chevron-sign-left icon-4x"></i>
       <div class="inner-wrapper">
         <div class="selectable day">
           <h3 class="day_header"></h3>
@@ -34,10 +34,42 @@
           <div class="ui-state-default hour" data-time="23">11p</div>
         </div>
         <br class="clear">
-        <div class="submit">
+        
+
+      </div>
+      <i class="icon-chevron-sign-right icon-4x"></i>
+    </div>
+  </div>
+    <div class="large-6 columns inputs">
+      <form>
+        <div class="row">
+          <div class="small-8">
+            <div class="row">
+              <div class="small-3 columns">
+                <label for="right-label" class="right inline">Your Email</label>
+              </div>
+              <div class="small-9 columns">
+                <input type="text" class="hostEmail" id="right-label" placeholder="Your Email">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-8">
+            <div class="row">
+              <div class="small-3 columns">
+                <label for="right-label" class="right inline">Their Email</label>
+              </div>
+              <div class="small-9 columns">
+                <input type="text" id="right-label" placeholder="Their Email">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row submit">
             <a href="#" class="large button">Send Times</a>
         </div>
-      </div>
-    <i class="icon-chevron-sign-right icon-4x"></i>
+      </form>  
+    </div>
   </div>
 </div>
