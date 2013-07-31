@@ -11,6 +11,3 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require_tree .
-
-//= require foundation
-$(document).foundation();

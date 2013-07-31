@@ -135,19 +135,21 @@
 	});
 	$('.large.button').click(function(){
 		//When submit button is pressed, take times...
-
+		//convert them into moment.js objects
+		
 		var avails = []
 		$(selectionArray).each(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
 			avails.push(m);
 			console.log(avails)
 		});
-		//convert them into moment.js objects
 		
+		
+
 		// var hostTimes = { 
 		// // 	'email' : placeEmailHere, 
-		// 	'timezone' : 
-		// 	'availTimes' : avails   			], 
+		// 	'timezone' : {'tzname' : Eastern, 'tzformat' : moment(avails[0]).format('ZZ')}
+		// 	'availTimes' : avails			], 
   // 		}
 		
 	});
