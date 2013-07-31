@@ -21,11 +21,6 @@ ActiveRecord::Schema.define(:version => 20130729191033) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "meetings_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "meeting_id"
-  end
-
   create_table "time_blocks", :force => true do |t|
     t.datetime "start_time"
     t.integer  "meeting_id"
