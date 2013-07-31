@@ -121,6 +121,8 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    zeroclipboard-rails (0.0.4)
+      railties (>= 3.1)
     zurb-foundation (4.0.9)
       sass (>= 3.2.0)
 
@@ -139,4 +141,5 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)
+  zeroclipboard-rails
   zurb-foundation (~> 4.0.0)
