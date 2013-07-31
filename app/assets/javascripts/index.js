@@ -155,15 +155,31 @@
 		
 
 		var createMessage = 
-		{ 
-			"createMessage"  :
-			{
-			'hostEmail'  	 : $('.hostEmail').val(), 
-			'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-			'timeZoneLabel'  : label, 
-			'availableDates' : avails, 
-			}
-  		}
+			{ 
+				"createMessage"  : 
+					{
+					'hostEmail'  	 : $('.hostEmail').val(), 
+					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+					'timeZoneLabel'  : label, 
+					'availableDates' : avails, 
+					}
+	  		}
+  		// console.log(createMessage);
 
-	});
+  		// $.ajax({  
+  		// 	type: "POST",  
+  		// 	url: "/meetings",  
+  		// 	data: createMessage,  
+  		// 	success: function(){  
+    // 			alert('This shit succeeded')
+    // 			// $('#contact_form').html("<div id='message'></div>");  
+			 //    // $('#message').html("<h2>Contact Form Submitted!</h2>")  
+			 //    // .append("<p>We will be in touch soon.</p>")  
+			 //    // .hide()  
+			 //    // .fadeIn(1500, function() {  
+    //   		// 	$('#message').append("<img id='checkmark' src='images/check.png' />");  
+		  //   		return false; 
+		  //   	}) 
+			 
+	})
 });
