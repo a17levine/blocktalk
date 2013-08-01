@@ -131,10 +131,55 @@ div.ui-selected {
 }
 
 div.submit {
-  width: 100%;
+  width: 200px;
   margin-top: 5px;
+  margin: 0 auto;
 }
 
 a.button {
   text-decoration: none;
+}
+
+.rightcontent {
+  float: left;
+}
+
+/*DATEPICKER*/
+
+#datepicker {
+  width: 260px;
+  margin: 100px;
+  margin-bottom: 50px;
+}
+
+table.ui-datepicker-calendar {
+  border: none;
+}
+
+.ui-datepicker-title {
+  text-align: center;
+}
+
+.ui-icon.ui-icon-circle-triangle-e,
+.ui-icon.ui-icon-circle-triangle-w {
+  display: none;
+}
+
+.ui-datepicker tbody td {
+  text-align: center;
+  width: 30px;
+  height: 30px;
+}
+
+table tr {
+  background: #fff !important;
+}
+
+p.ui-state-default {
+  margin: 0;
+}
+
+.selectedDate p{
+  font-weight: bold;
+  color: blue;
 }

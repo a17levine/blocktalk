@@ -47,6 +47,21 @@
 	            	var time = this.getAttribute('data-time');
 	            	result.append( " #" + (time) );
 	            });
+
+	          	//STYLE THE DAYS ON THE CALENDAR
+              //remove all existing selectedDate classes
+              $('td').removeClass('selectedDate');
+              //loop through each member of the selection array, and if the day matches
+              //the day of the month, add the selectedDate class to that day on the calendar.
+              $.each(selectionArray, function(index, selection){
+                $('td').each(function(i){
+                  if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+                    &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+                    ){
+                    $(this).addClass("selectedDate");
+                  }
+                });
+              })
 	        }
 	    });
 	});
@@ -85,6 +100,22 @@
 				}
 			})
 		});
+		//Update the calendar to the current date.
+		var myDate = date.toDate()
+		$('#datepicker').datepicker('setDate', myDate);
+
+		$('td').removeClass('selectedDate');
+        //loop through each member of the selection array, and if the day matches
+        //the day of the month, add the selectedDate class to that day on the calendar.
+	    $.each(selectionArray, function(index, selection){
+	      $('td').each(function(i){
+	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+	          ){
+	          $(this).addClass("selectedDate");
+	           }
+            });
+          })
 	});
 
  	function slideScheduleRight(){
@@ -131,6 +162,23 @@
 				}
 			})
 		});
+
+		//Update the calendar to the current date.
+		var myDate = date.toDate()
+		$('#datepicker').datepicker('setDate', myDate);
+			
+		$('td').removeClass('selectedDate');
+        //loop through each member of the selection array, and if the day matches
+        //the day of the month, add the selectedDate class to that day on the calendar.
+	    $.each(selectionArray, function(index, selection){
+	      $('td').each(function(i){
+	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+	          ){
+	          $(this).addClass("selectedDate");
+	           }
+            });
+          })
 			
 	});
 	$('.large.button').click(function(){
@@ -153,4 +201,15 @@
   // 		}
 		
 	});
+
+
+	//CALENDAR
+	$(function(){  
+        $('#datepicker').datepicker({  
+            inline: false,  
+            showOtherMonths: false,  
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
+        });  
+    });  
+
 });
