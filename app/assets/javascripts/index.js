@@ -47,6 +47,21 @@
 	            	var time = this.getAttribute('data-time');
 	            	result.append( " #" + (time) );
 	            });
+
+	          	//STYLE THE DAYS ON THE CALENDAR
+              //remove all existing selectedDate classes
+              $('td').removeClass('selectedDate');
+              //loop through each member of the selection array, and if the day matches
+              //the day of the month, add the selectedDate class to that day on the calendar.
+              $.each(selectionArray, function(index, selection){
+                $('td').each(function(i){
+                  if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+                    &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+                    ){
+                    $(this).addClass("selectedDate");
+                  }
+                });
+              })
 	        }
 	    });
 	});
@@ -85,6 +100,22 @@
 				}
 			})
 		});
+		//Update the calendar to the current date.
+		var myDate = date.toDate()
+		$('#datepicker').datepicker('setDate', myDate);
+
+		$('td').removeClass('selectedDate');
+        //loop through each member of the selection array, and if the day matches
+        //the day of the month, add the selectedDate class to that day on the calendar.
+	    $.each(selectionArray, function(index, selection){
+	      $('td').each(function(i){
+	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+	          ){
+	          $(this).addClass("selectedDate");
+	           }
+            });
+          })
 	});
 
  	function slideScheduleRight(){
@@ -131,7 +162,24 @@
 				}
 			})
 		});
+
+		//Update the calendar to the current date.
+		var myDate = date.toDate()
+		$('#datepicker').datepicker('setDate', myDate);
 			
+		$('td').removeClass('selectedDate');
+        //loop through each member of the selection array, and if the day matches
+        //the day of the month, add the selectedDate class to that day on the calendar.
+	    $.each(selectionArray, function(index, selection){
+	      $('td').each(function(i){
+	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+	          ){
+	          $(this).addClass("selectedDate");
+	           }
+            });
+          })	
+
 	});
 	$('.large.button').click(function(event){
 		//When submit button is pressed, prevent default
@@ -154,7 +202,13 @@
 		label = label.replace(/[()]/g,'');
 		
 
-		var createMessage = 
+		// var hostTimes = { 
+		// // 	'email' : placeEmailHere, 
+		// 	'timezone' : {'tzname' : Eastern, 'tzformat' : moment(avails[0]).format('ZZ')}
+		// 	'availTimes' : avails			], 
+  // 		}
+		
+  		    		var createMessage = 
 			{ 
 				"createMessage"  : 
 					{
@@ -164,9 +218,8 @@
 					'availableDates' : avails, 
 					}
 	  		}
-  		console.log(createMessage);
 
-  		$.ajax({  
+	  		$.ajax({  
   			type: "POST",  
   			url: "/meetings",  
   			data: createMessage,  
@@ -184,3 +237,37 @@
 		})
 	})
 });
+
+	
+
+
+	//CALENDAR
+	$(function(){  
+        $('#datepicker').datepicker({  
+            inline: false,  
+            showOtherMonths: false,  
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
+        });  
+    });  
+
+});
+
+			 
+
+
+   		// console.log(createMessage);
+
+  		// $.ajax({  
+  		// 	type: "POST",  
+  		// 	url: "/meetings",  
+  		// 	data: createMessage,  
+  		// 	success: function(){  
+    // 			alert('This shit succeeded')
+    // 			// $('#contact_form').html("<div id='message'></div>");  
+			 //    // $('#message').html("<h2>Contact Form Submitted!</h2>")  
+			 //    // .append("<p>We will be in touch soon.</p>")  
+			 //    // .hide()  
+			 //    // .fadeIn(1500, function() {  
+    //   		// 	$('#message').append("<img id='checkmark' src='images/check.png' />");  
+		  //   		return false; 
+		  //   	}) 
