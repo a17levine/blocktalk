@@ -1,46 +1,6 @@
 %h1 Horray show page
 
-%p These times work for _________, let them know what works for you. 
-
-.row
-  .schedule.large-5.columns
-    .outer-wrapper
-      %i.icon-chevron-sign-left.icon-4x
-      .inner-wrapper
-        .selectable.day
-          %h3.day_header
-          .ui-state-default.hour(data-time="00") 12m
-          .ui-state-default.hour(data-time="01") 1a
-          .ui-state-default.hour(data-time="02") 2a
-          .ui-state-default.hour(data-time="03") 3a
-          .ui-state-default.hour(data-time="04") 4a
-          .ui-state-default.hour(data-time="05") 5a
-          .ui-state-default.hour(data-time="06") 6a
-          .ui-state-default.hour(data-time="07") 7a
-          .ui-state-default.hour(data-time="08") 8a
-          .ui-state-default.hour(data-time="09") 9a
-          .ui-state-default.hour(data-time="10") 10a
-          .ui-state-default.hour(data-time="11") 11a
-          .ui-state-default.hour(data-time="12") 12n
-          .ui-state-default.hour(data-time="13") 1p
-          .ui-state-default.hour(data-time="14") 2p
-          .ui-state-default.hour(data-time="15") 3p
-          .ui-state-default.hour(data-time="16") 4p
-          .ui-state-default.hour(data-time="17") 5p
-          .ui-state-default.hour(data-time="18") 6p
-          .ui-state-default.hour(data-time="19") 7p
-          .ui-state-default.hour(data-time="20") 8p
-          .ui-state-default.hour(data-time="21") 9p
-          .ui-state-default.hour(data-time="22") 10p
-          .ui-state-default.hour(data-time="23") 11p
-        %br.clear
-      %i.icon-chevron-sign-right.icon-4x
-  .large-4.columns.inputs
-    %form
-      %input(type="text" class="hostEmail" id="right-label" placeholder="Your Email")
-      .rightcontent
-    %div#datepicker
-    .submit
-      %a(href="#" class="large button") Send Times
-
-
+-if @meeting.planned
+	= render partial: "display_meeting"
+-else
+	= render partial: "guest_choose"
