@@ -181,10 +181,11 @@
           })	
 
 	});
-	$('.large.button').click(function(){
-		//When submit button is pressed, take times...
-		//convert them into moment.js objects
-		
+	$('.large.button').click(function(event){
+		//When submit button is pressed, prevent default
+  		event.preventDefault();
+		//Now take times and convert them into moment.js objects
+
 		var avails = []
 		$(selectionArray).each(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
@@ -192,6 +193,13 @@
 			console.log(avails)
 		});
 		
+		//Convert Moment object into JS Date object to get timezone
+		//Turning crude date into a moment string, then splitting it
+		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
+		//Getting the last item (timezone) in resulting array
+		label = label.pop();
+		//Shaving off parentheses
+		label = label.replace(/[()]/g,'');
 		
 
 		// var hostTimes = { 
@@ -212,4 +220,33 @@
         });  
     });  
 
+});
+		var createMessage = 
+			{ 
+				"createMessage"  : 
+					{
+					'hostEmail'  	 : $('.hostEmail').val(), 
+					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+					'timeZoneLabel'  : label, 
+					'availableDates' : avails, 
+					}
+	  		}
+  		// console.log(createMessage);
+
+  		// $.ajax({  
+  		// 	type: "POST",  
+  		// 	url: "/meetings",  
+  		// 	data: createMessage,  
+  		// 	success: function(){  
+    // 			alert('This shit succeeded')
+    // 			// $('#contact_form').html("<div id='message'></div>");  
+			 //    // $('#message').html("<h2>Contact Form Submitted!</h2>")  
+			 //    // .append("<p>We will be in touch soon.</p>")  
+			 //    // .hide()  
+			 //    // .fadeIn(1500, function() {  
+    //   		// 	$('#message').append("<img id='checkmark' src='images/check.png' />");  
+		  //   		return false; 
+		  //   	}) 
+			 
+	})
 });
