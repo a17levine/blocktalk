@@ -22,4 +22,13 @@ class Meeting < ActiveRecord::Base
 			end
 		end
   end
+
+  def guest_json
+  	@available_times_in_iso = ""
+  	self.timeblocks.each do |timeblock|
+  		@available_times_in_iso << "'#{timeblock.start_time.iso8601}',"
+  	end
+  	@available_times_in_iso.chomp!(",")
+  	@guest_json = "{'guestMessage':{'hostEmail': '#{self.host.email.split('@').first}','availableDates': [#{@available_times_in_iso}]}}"
+  end
 end
