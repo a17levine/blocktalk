@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729191033) do
+ActiveRecord::Schema.define(:version => 20130801214121) do
 
   create_table "meetings", :force => true do |t|
     t.integer  "host_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130729191033) do
     t.integer  "time_block_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.boolean  "planned"
   end
 
   create_table "meetings_users", :id => false, :force => true do |t|
