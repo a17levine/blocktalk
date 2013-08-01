@@ -4,7 +4,7 @@
 	  "guestMessage": 
 	  {
 	    "hostEmail": "silas@e.com",
-	    "availableDates": ["-4712-01-01T00:00:00+00:00","2013-08-03T21:23:12Z","2013-08-04T21:23:56Z", "2013-08-05T21:24:09Z"]
+	    "availableDates": ["2013-08-03T21:23:12Z","2013-08-04T21:23:56Z", "2013-08-05T21:24:09Z"]
 	  }
 	};
 
@@ -90,7 +90,7 @@
 	// 
 
 	// Snap calendar show to that date. 
-		dateCalibrate = moment(dateCalibrate);
+		date = moment(dateCalibrate);
 
 
 	//Current date.  Displayed in the header. 
