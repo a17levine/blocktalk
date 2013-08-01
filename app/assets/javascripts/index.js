@@ -178,8 +178,8 @@
 	          $(this).addClass("selectedDate");
 	           }
             });
-          })
-			
+          })	
+
 	});
 	$('.large.button').click(function(){
 		//When submit button is pressed, take times...
