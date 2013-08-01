@@ -208,6 +208,18 @@
 		// 	'availTimes' : avails			], 
   // 		}
 		
+  		    		var createMessage = 
+			{ 
+				"createMessage"  : 
+					{
+					'hostEmail'  	 : $('.hostEmail').val(), 
+					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+					'timeZoneLabel'  : label, 
+					'availableDates' : avails, 
+					}
+	  		}
+
+
 	});
 
 
@@ -221,17 +233,11 @@
     });  
 
 });
-		var createMessage = 
-			{ 
-				"createMessage"  : 
-					{
-					'hostEmail'  	 : $('.hostEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-					'timeZoneLabel'  : label, 
-					'availableDates' : avails, 
-					}
-	  		}
-  		// console.log(createMessage);
+
+			 
+
+
+   		// console.log(createMessage);
 
   		// $.ajax({  
   		// 	type: "POST",  
@@ -247,6 +253,3 @@
     //   		// 	$('#message').append("<img id='checkmark' src='images/check.png' />");  
 		  //   		return false; 
 		  //   	}) 
-			 
-	})
-});

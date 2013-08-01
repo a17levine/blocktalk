@@ -1,3 +1,7 @@
+.row {
+  margin: 0 auto !important;
+}
+
 .inner-wrapper {
   margin: 0 auto;
   width: 255px;
@@ -152,7 +156,6 @@ a.button {
 
 #datepicker {
   width: 260px;
-  margin: 100px;
   margin-bottom: 50px;
 }
 
@@ -186,4 +189,9 @@ p.ui-state-default {
 .selectedDate p{
   font-weight: bold;
   color: blue;
+}
+
+.hostEmail {
+  height: 30px !important;
+  border-radius: 5px !important;
 }
