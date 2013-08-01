@@ -1,4 +1,23 @@
  $(document).ready(function(){
+	
+ 	var hostChoices = {
+	  "guestMessage": 
+	  {
+	    "hostEmail": "silas@e.com",
+	    "availableDates": ["-4712-01-01T00:00:00+00:00","2013-08-03T21:23:12Z","2013-08-04T21:23:56Z", "2013-08-05T21:24:09Z"]
+	  }
+	};
+
+	// hostChoices=new Object();
+	// hostChoices.guestMessage={};
+	// hostChoices.guestMessage.hostEmail="silas@e.com";
+	// hostChoices.guestMessage.availableDates="silas@e.com";
+	// hostChoices.lastname="Doe";
+	// hostChoices.age=50;
+	// hostChoices.eyecolor="blue";
+
+
+
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
 	$(function() {
@@ -66,8 +85,17 @@
 	    });
 	});
 
+ 	// Grab first available date (from host array)
+		var dateCalibrate = hostChoices["guestMessage"]["availableDates"][0];
+	// 
+
+	// Snap calendar show to that date. 
+		dateCalibrate = moment(dateCalibrate);
+
+
 	//Current date.  Displayed in the header. 
-	var date = moment();
+	// var date = moment();
+	
 	$('.day_header').text(date.format("MM/DD/YYYY"));
 
 	//adds the date and certain number of hours to each div

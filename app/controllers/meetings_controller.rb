@@ -52,6 +52,7 @@ class MeetingsController < ApplicationController
 	end
 
 	def show
+
 		# @meeting = Meeting.find(params[:id])
 
 		# if a time has not been chosen, show the available
