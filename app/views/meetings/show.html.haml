@@ -1,6 +1,9 @@
+- javascript 'show.js'
+- javascript 'myjquery.ui.datepicker.js'
+
 %h1 Horray show page
 
--if @meeting.planned
+- if @meeting.planned
 	= render partial: "display_meeting"
--else
+- else
 	= render partial: "guest_choose"

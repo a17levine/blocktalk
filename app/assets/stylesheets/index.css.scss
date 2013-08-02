@@ -95,28 +95,28 @@
 
 .slideToLeft{
   -webkit-animation-name: flyoutleft;
-  -webkit-animation-duration: .3s;
+  -webkit-animation-duration: .1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear; 
 }
 
 .slideToRight{
   -webkit-animation-name: flyoutright;
-  -webkit-animation-duration: .3s;
+  -webkit-animation-duration: .1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
 }
 
 .slideFromLeft{
   -webkit-animation-name: flyinleft;
-  -webkit-animation-duration: .3s;
+  -webkit-animation-duration: .1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
 }
 
 .slideFromRight{
   -webkit-animation-name: flyinright;
-  -webkit-animation-duration: .3s;
+  -webkit-animation-duration: .1s;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
 }
@@ -189,9 +189,15 @@ p.ui-state-default {
 .selectedDate p{
   font-weight: bold;
   color: blue;
+  font-size: 15px;
 }
 
 .hostEmail {
+  height: 30px !important;
+  border-radius: 5px !important;
+}
+
+.guestEmail {
   height: 30px !important;
   border-radius: 5px !important;
 }

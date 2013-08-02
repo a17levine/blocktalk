@@ -19,7 +19,15 @@
 
 
 	var _selectRange = false, _deselectQueue = [];
-	var selectionArray = [];
+	var selectionArray = []
+  var avails = hostChoices["guestMessage"]["availableDates"];
+  $(avails).each(function(){
+      var m = moment(this).format("YYYY/MM/DD, HH")
+      selectionArray.push(m);
+    });
+  console.log(selectionArray)
+
+
 	$(function() {
 	    $( ".selectable" ).selectable({
 	        selecting: function (event, ui) {
@@ -104,6 +112,15 @@
 	$('.hour').each(function(){
 		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
 	})
+
+	$.each(selectionArray, function(index, selection){
+		$('.hour').each(function(){
+			if ($( this ).attr('data-time') == selection){
+				$( this ).addClass('ui-selected');	
+			}
+		})
+	});
+
 	//On click, forward button adds 1 day to the date variable.
 	$('.icon-chevron-sign-right').click(function(){
 		//fly right
@@ -148,22 +165,22 @@
 
  	function slideScheduleRight(){
  		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToRight").delay(300).queue(function(){
+ 		$(".day").addClass("slideToRight").delay(100).queue(function(){
  			$(".day").addClass("slideFromLeft");
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToRight")
-									 $(".day").removeClass("slideFromLeft")},600);
+									 $(".day").removeClass("slideFromLeft")},200);
  	}
 
  	function slideScheduleLeft(){
  		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToLeft").delay(300).queue(function(){
+ 		$(".day").addClass("slideToLeft").delay(100).queue(function(){
  			$(".day").addClass("slideFromRight");
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToLeft")
-									 $(".day").removeClass("slideFromRight")},600);
+									 $(".day").removeClass("slideFromRight")},200);
  	}
 
 	//On click, back button removes one day from the date variable.
@@ -229,21 +246,19 @@
 		//Shaving off parentheses
 		label = label.replace(/[()]/g,'');
 		
-  		var createMessage = 
+  		var guestChoice = 
 			{ 
-				"createMessage"  : 
+				"guestChoice"  : 
 					{
-					'hostEmail'  	 : $('.hostEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-					'timeZoneLabel'  : label, 
-					'availableDates' : avails, 
+					'guestEmail'  	 : $('.guestEmail').val(), 
+					'chosenTime' 	 : moment(avails[0]).format('ZZ'),
 					}
 	  		}
 
 	  		$.ajax({  
   			type: "POST",  
-  			url: "/meetings",  
-  			data: createMessage,  
+  			url: "/meetings/[:id]",  
+  			data: guestChoice,  
   			success: function(){  
     			alert('This shit succeeded');	
 		    	} 

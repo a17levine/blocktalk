@@ -1,6 +1,7 @@
  $(document).ready(function(){
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
+
 	$(function() {
 	    $( ".selectable" ).selectable({
 	        selecting: function (event, ui) {
@@ -120,22 +121,22 @@
 
  	function slideScheduleRight(){
  		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToRight").delay(300).queue(function(){
+ 		$(".day").addClass("slideToRight").delay(100).queue(function(){
  			$(".day").addClass("slideFromLeft");
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToRight")
-									 $(".day").removeClass("slideFromLeft")},600);
+									 $(".day").removeClass("slideFromLeft")},200);
  	}
 
  	function slideScheduleLeft(){
  		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToLeft").delay(300).queue(function(){
+ 		$(".day").addClass("slideToLeft").delay(100).queue(function(){
  			$(".day").addClass("slideFromRight");
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToLeft")
-									 $(".day").removeClass("slideFromRight")},600);
+									 $(".day").removeClass("slideFromRight")},200);
  	}
 
 	//On click, back button removes one day from the date variable.
@@ -155,13 +156,13 @@
 		//For now, remove ui-selected class on click.
 		$('.ui-selected').removeClass('ui-selected');
 		//When back button is clicked, check already-selected times
-		$.each(selectionArray, function(index, selection){
+		window.setTimeout($.each(selectionArray, function(index, selection){
 			$('.hour').each(function(){
 				if ($( this ).attr('data-time') == selection){
 					$( this ).addClass('ui-selected');	
 				}
 			})
-		});
+		}),1000);
 
 		//Update the calendar to the current date.
 		var myDate = date.toDate()
@@ -224,11 +225,11 @@
 
 	//CALENDAR
 	$(function(){  
-        $('#datepicker').datepicker({  
-            inline: false,  
-            showOtherMonths: false,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-    });  
+    $('#datepicker').datepicker({  
+      inline: false,  
+      showOtherMonths: false,  
+      dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    });
 
+  });
 });
