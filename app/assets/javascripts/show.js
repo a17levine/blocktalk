@@ -229,21 +229,19 @@
 		//Shaving off parentheses
 		label = label.replace(/[()]/g,'');
 		
-  		var createMessage = 
+  		var guestChoice = 
 			{ 
-				"createMessage"  : 
+				"guestChoice"  : 
 					{
-					'hostEmail'  	 : $('.hostEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-					'timeZoneLabel'  : label, 
-					'availableDates' : avails, 
+					'guestEmail'  	 : $('.guestEmail').val(), 
+					'chosenTime' 	 : moment(avails[0]).format('ZZ'),
 					}
 	  		}
 
 	  		$.ajax({  
   			type: "POST",  
-  			url: "/meetings",  
-  			data: createMessage,  
+  			url: "/meetings/[:id]",  
+  			data: guestChoice,  
   			success: function(){  
     			alert('This shit succeeded');	
 		    	} 
