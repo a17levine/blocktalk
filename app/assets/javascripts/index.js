@@ -126,7 +126,7 @@
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToRight")
-									 $(".day").removeClass("slideFromLeft")},600);
+									 $(".day").removeClass("slideFromLeft")},200);
  	}
 
  	function slideScheduleLeft(){
@@ -136,7 +136,7 @@
  			$(this).dequeue();
  		});
  		window.setTimeout(function(){$(".day").removeClass("slideToLeft")
-									 $(".day").removeClass("slideFromRight")},600);
+									 $(".day").removeClass("slideFromRight")},200);
  	}
 
 	//On click, back button removes one day from the date variable.
