@@ -54,7 +54,9 @@
   border: 1px solid black;
   border-bottom: none;
   margin: 0 auto;
-  text-align: right;
+  // text-align: right;
+  background-color: #C7C7C7;
+  text-indent: -999999px
 }
 
 .hour:last-child{
@@ -143,8 +145,9 @@ div.ui-selecting {
 }
 
 div.ui-selected {
-	background-color: #89A9F0;
+	background-color: #9AE39A;
   font-weight: bold;
+  text-align: right;
 }
 
 .inputs {
@@ -202,7 +205,7 @@ p.ui-state-default {
 .selectedDate p{
   // font-weight: bold;
   width: 1.6em;
-  background-color: #89A9F0;
+  background-color: #9AE39A;
   // font-size: 15px;
   border-radius: 5px;
 }
