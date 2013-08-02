@@ -50,7 +50,7 @@
 }
 
 .day {
-  border: 1px solid red;
+  // border: 1px solid red;
   width: 250px;
   padding: 10px 0;
   margin: 0 auto;
@@ -131,7 +131,8 @@ div.ui-selecting {
 }
 
 div.ui-selected {
-	background-color: blue;
+	background-color: #89A9F0;
+  font-weight: bold;
 }
 
 .inputs {
@@ -187,9 +188,11 @@ p.ui-state-default {
 }
 
 .selectedDate p{
-  font-weight: bold;
-  color: blue;
-  font-size: 15px;
+  // font-weight: bold;
+  width: 1.6em;
+  background-color: #89A9F0;
+  // font-size: 15px;
+  border-radius: 5px;
 }
 
 .hostEmail {
