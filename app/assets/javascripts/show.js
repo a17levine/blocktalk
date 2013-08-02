@@ -14,6 +14,7 @@
 
 	$(function() {
 	    $( ".selectable" ).selectable({
+	    	// $(this).filter($('div.selectdivs'))
 	        selecting: function (event, ui) {
 	        	//Not sure what this does
 	            if (event.detail == 0) {
