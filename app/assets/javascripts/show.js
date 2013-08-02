@@ -2,16 +2,6 @@
 	
  	var hostChoices = guestMessage;
 
-	// hostChoices=new Object();
-	// hostChoices.guestMessage={};
-	// hostChoices.guestMessage.hostEmail="silas@e.com";
-	// hostChoices.guestMessage.availableDates="silas@e.com";
-	// hostChoices.lastname="Doe";
-	// hostChoices.age=50;
-	// hostChoices.eyecolor="blue";
-
-
-
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = []
   var avails = hostChoices["guestMessage"]["availableDates"];
