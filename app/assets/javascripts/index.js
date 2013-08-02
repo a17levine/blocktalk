@@ -1,6 +1,7 @@
  $(document).ready(function(){
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
+
 	$(function() {
 	    $( ".selectable" ).selectable({
 	        selecting: function (event, ui) {
@@ -224,11 +225,14 @@
 
 	//CALENDAR
 	$(function(){  
-        $('#datepicker').datepicker({  
-            inline: false,  
-            showOtherMonths: false,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-    });  
-
+    $('#datepicker').datepicker({  
+      inline: false,  
+      showOtherMonths: false,  
+      dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], 
+      onSelect: function(selected, event){
+      	return false;
+      }
+    });
+    $('td').removeAttr('data-event');   
+    });
 });
