@@ -1,12 +1,6 @@
  $(document).ready(function(){
 	
- 	var hostChoices = {
-	  "guestMessage": 
-	  {
-	    "hostEmail": "silas@e.com",
-	    "availableDates": ["2013-08-03T21:23:12Z","2013-08-04T21:23:56Z", "2013-08-05T21:24:09Z"]
-	  }
-	};
+ 	var hostChoices = guestMessage;
 
 	// hostChoices=new Object();
 	// hostChoices.guestMessage={};
