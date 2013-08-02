@@ -218,9 +218,10 @@
   			url: "/meetings",  
   			data: createMessage,  
   			success: function(){  
-    			alert('This shit succeeded');	
 		    	} 
-		})
+			})
+	  	
+	  	alert('Send this link to your friend! \n\n \t www.blocktalk.io/X6E8h4is0e');
 	})
 
 	//CALENDAR
