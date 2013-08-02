@@ -21,6 +21,21 @@ class Meeting < ActiveRecord::Base
 		end
   end
 
+  def process_guest(guest_email)
+		@guest = User.return_user_from_email(guest_email)
+		self.users << @guest # associate guest user to meeting array of users
+		self.guest = @guest # set guest as guest on the meeting
+		self.save
+		@guest
+  end
+
+  def process_chosen_time(chosen_time_in_iso8601)
+  	@time = self.timeblocks.find_by_start_time(DateTime.iso8601(chosen_time_in_iso8601))
+  	self.agreed_time_block = @time # on meeting, set agreed_time_block to the timeblock ID
+  	self.planned = true
+  	self.save
+  end
+
   def guest_json
   	@available_times_in_iso = ""
   	self.timeblocks.each do |timeblock|
