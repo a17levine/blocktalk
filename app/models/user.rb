@@ -6,10 +6,6 @@ class User < ActiveRecord::Base
   def self.return_user_from_email(email)
   	#see if user exists
   	#return user when complete
-  	if User.find_by_email(email)
-  		User.find_by_email(email)
-  	else
-  		User.create(email: email)
-  	end
+    User.find_or_create_by_email(email)
   end
 end

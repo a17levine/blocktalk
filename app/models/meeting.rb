@@ -16,9 +16,10 @@ class Meeting < ActiveRecord::Base
 				# this didn't do what I wanted. the idea was to
 				# avoid having duplicate info be generated if the
 				# submit button was hit twice. oh well, not a big issue now
-			@meeting.timeblocks.create(start_time: DateTime.iso8601(startTimeIso8601))
+			 @meeting.timeblocks.create(start_time: DateTime.iso8601(startTimeIso8601))
 			end
 		end
+    @meeting
   end
 
   def process_guest(guest_email)
@@ -30,7 +31,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def process_chosen_time(chosen_time_in_iso8601)
-  	@time = self.timeblocks.find_by_start_time(DateTime.iso8601(chosen_time_in_iso8601))
+  	@time = self.timeblocks.find_by_start_time(DateTime.iso8601(chosen_time_in_iso8601)) #finding the timeblock that matches
   	self.agreed_time_block = @time # on meeting, set agreed_time_block to the timeblock ID
   	self.planned = true
   	self.save
