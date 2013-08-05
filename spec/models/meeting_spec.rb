@@ -1,13 +1,5 @@
 require 'spec_helper'
 
-# before this motherfucker starts, we need to create a meeting
-# with an email address and an ISO time block
-
-# then we need to "process a time" on that meeting
-# the result of which will mark agreed_time_block with that timeblock object
-
-# it will also mark the meeting as "planned=true"
-
 describe Meeting do
   let(:meeting) { Meeting.create_meeting('foo@bar.com', ["2013-08-05T10:28:01-05:00"]) }
 
