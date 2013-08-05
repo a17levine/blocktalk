@@ -244,7 +244,7 @@
   			type: "POST",  
   			url: "/meetings/[:id]",  
   			data: guestChoice,  
-  			success: function(){  
+  			success: function(response){  
     			alert('This shit succeeded');	
 		    	} 
 		})
