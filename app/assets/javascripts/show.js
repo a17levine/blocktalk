@@ -1,82 +1,32 @@
  $(document).ready(function(){
 	
- 	var hostChoices = guestMessage;
-
-	var _selectRange = false, _deselectQueue = [];
-	var selectionArray = []
+  var hostChoices = guestMessage;
+  var _selectRange = false, _deselectQueue = [];
+  var selectionArray = []
+  var finalTime = ""
   var avails = hostChoices["guestMessage"]["availableDates"];
+  //push all of the selections made by the first user onto selectionArray, so that
+  //it can be displayed in the view
   $(avails).each(function(){
       var m = moment(this).format("YYYY/MM/DD, HH")
       selectionArray.push(m);
-    });
-  console.log(selectionArray)
+  });
 
-
-	$(function() {
-	    $( ".selectable" ).selectable({
-	    	// $(this).filter($('div.selectdivs'))
-	        selecting: function (event, ui) {
-	        	//Not sure what this does
-	            if (event.detail == 0) {
-	                _selectRange = true;
-	                return true;
-
-	            }
-	            //if div has already been selected, adds div to queue
-	            //to be deselected.
-	            if ($(ui.selecting).hasClass('ui-selected')) {
-	                _deselectQueue.push(ui.selecting);
-	            }
-
-	            var time2 = $(ui.selecting)[0].getAttribute('data-time');
-	            if (jQuery.inArray(time2, selectionArray)==-1){
-	            	selectionArray.push(time2);
-	            }
-	            else {
-	            	selectionArray.splice( $.inArray(time2,selectionArray),1 );
-	            }
-	            console.log(selectionArray);
-	        },
-	        unselecting: function (event, ui) {
-	            $(ui.unselecting).addClass('ui-selected');
-	        },
-	        stop: function () {
-	            if (!_selectRange) {
-	            	//removes selected class from everything in the queue.
-	                $.each(_deselectQueue, function (ix, de) {
-	                    $(de)
-	                        .removeClass('ui-selecting')
-	                        .removeClass('ui-selected');
-	                });
-	            }
-	            _selectRange = false;
-	            //clears the queue
-	            _deselectQueue = [];
-
-	            var result = $( "#select-result" ).empty();
-	            $( ".ui-selected", this ).each(function() {
-	            	// var index = $( ".hour" ).index( this );
-	            	var time = this.getAttribute('data-time');
-	            	result.append( " #" + (time) );
-	            });
-
-	          	//STYLE THE DAYS ON THE CALENDAR
-              //remove all existing selectedDate classes
-              $('td').removeClass('selectedDate');
-              //loop through each member of the selection array, and if the day matches
-              //the day of the month, add the selectedDate class to that day on the calendar.
-              $.each(selectionArray, function(index, selection){
-                $('td').each(function(i){
-                  if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
-                    &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
-                    ){
-                    $(this).addClass("selectedDate");
-                  }
-                });
-              })
-	        }
-	    });
+		//STYLE THE DAYS ON THE CALENDAR
+	//remove all existing selectedDate classes
+	$('td').removeClass('selectedDate');
+	//loop through each member of the selection array, and if the day matches
+	//the day of the month, add the selectedDate class to that day on the calendar.
+	$.each(selectionArray, function(index, selection){
+	$('td').each(function(i){
+	  if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
+	    &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
+	    ){
+	    $(this).addClass("selectedDate");
+	  }
 	});
+	});
+
 
  	// Grab first available date (from host array)
 		var dateCalibrate = hostChoices["guestMessage"]["availableDates"][0];
@@ -84,10 +34,6 @@
 
 	// Snap calendar show to that date. 
 		date = moment(dateCalibrate);
-
-
-	//Current date.  Displayed in the header. 
-	// var date = moment();
 	
 	$('.day_header').text(date.format("MM/DD/YYYY"));
 
@@ -120,7 +66,10 @@
 		//set the data-time attributes of each div to one hour increments, starting at 12AM.
 		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
 		})
+		//cancel the previous click function
+		$('.ui-selected').unbind();
 		//For now, remove ui-selected class on click.
+		$('.ui-selected').removeClass('chosen');
 		$('.ui-selected').removeClass('ui-selected');
 		//When forward button is clicked, check already-selected times
 		$.each(selectionArray, function(index, selection){
@@ -130,6 +79,16 @@
 				}
 			})
 		});
+
+ 	$('.ui-selected').click(function() {
+		finalTime = this.getAttribute('data-time');
+ 		$('.hour').removeClass('chosen');
+ 		$(this).addClass('chosen');
+ 		console.log(finalTime);
+ 		});
+
+
+
 		//Update the calendar to the current date.
 		var myDate = date.toDate()
 		$('#datepicker').datepicker('setDate', myDate);
@@ -182,7 +141,10 @@
 		//set the data-time attributes of each div to one hour increments, starting at 12AM.
 		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
 		})
+		//cancel the previous click function
+		$('.ui-selected').unbind();
 		//For now, remove ui-selected class on click.
+		$('.ui-selected').removeClass('chosen');
 		$('.ui-selected').removeClass('ui-selected');
 		//When back button is clicked, check already-selected times
 		$.each(selectionArray, function(index, selection){
@@ -192,6 +154,20 @@
 				}
 			})
 		});
+
+		//check if any times have been chosen for the final selection
+		$('.hour').each(function(){
+			if ($( this ).attr('data-time') == finalTime){
+				$( this ).addClass('chosen');
+			}
+		});
+
+ 		$('.ui-selected').click(function() {
+			finalTime = this.getAttribute('data-time');
+ 			$('.hour').removeClass('chosen');
+ 			$(this).addClass('chosen');
+ 			console.log(finalTime);
+ 		});
 
 		//Update the calendar to the current date.
 		var myDate = date.toDate()
@@ -249,6 +225,14 @@
 		    	} 
 		})
 	})
+
+ 	$('.ui-selected').click(function() {
+		finalTime = this.getAttribute('data-time');
+ 		$('.hour').removeClass('chosen');
+ 		$(this).addClass('chosen');
+ 		console.log(finalTime);
+	});
+
 
 	//CALENDAR
 	$(function(){  
