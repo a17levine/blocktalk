@@ -14,13 +14,26 @@
     selectionArray.push(m);
   });
 
+  //  **  CALENDAR  **
+  $(function(){  
+        $('#datepicker').datepicker({  
+            inline: false,  
+            showOtherMonths: false,  
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
+        });  
+
+        styleCalendar()
+
+    });  
+
  	// Grab first available date from host array
 	var dateCalibrate = hostChoices["guestMessage"]["availableDates"][0];
 	// Snap the show view to that date. 
 	date = moment(dateCalibrate);
   paintDay(0)
   selectFinalTime()
-  styleCalendar()
+
+  disableButtons()
 
 	// ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
@@ -34,6 +47,7 @@
     paintDay(1)
     selectFinalTime()
     styleCalendar()
+    disableButtons()
 
 	});
 
@@ -49,6 +63,7 @@
     paintDay(-1)
     selectFinalTime()
     styleCalendar()
+    disableButtons()
 
 	});
 
@@ -89,15 +104,6 @@
 		    	} 
 		})
 	})
-
-	//  **  CALENDAR  **
-	$(function(){  
-        $('#datepicker').datepicker({  
-            inline: false,  
-            showOtherMonths: false,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-    });  
 
  	function slideScheduleRight(){
  		//add class to slide right, wait, then add class to slide from left side.
@@ -159,12 +165,35 @@
     //loop through each member of the selection array, and if the day matches
     //the day of the month, add the selectedDate class to that day on the calendar.
     $.each(selectionArray, function(index, selection){
-      $('td').each(function(i){
-        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") &&
+      $('td').each(function(){
+        if ($( this ).text() == moment(selection, "YYYY/MM/DD, HH").format("D") &&
             date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M"))
           { $(this).addClass("selectedDate"); }
       });
     })
   }
+
+function disableButtons() {
+  var l = 0
+  var r = 0
+  var newdate = moment(date)
+  console.log(newdate.endOf('day').format("YYYY/MM/DD, HH"))
+
+  $.each( selectionArray, function(index, selection){
+    if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
+      l=1
+    }
+    else if (selection > newdate.endOf('day').format("YYYY/MM/DD, HH")){
+      r=1
+    }
+
+  });
+  //If not, disable the backwards button
+  if (l == 0){$('.icon-chevron-sign-left').hide()}
+  else {$('.icon-chevron-sign-left').show()};
+  
+  if (r == 0){$('.icon-chevron-sign-right').hide()}
+  else {$('.icon-chevron-sign-right').show()};
+}
 
 });
