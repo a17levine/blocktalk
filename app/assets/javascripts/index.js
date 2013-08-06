@@ -1,4 +1,3 @@
- $(document).ready(function(){
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
 
@@ -232,5 +231,4 @@
       dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     });
 
-  });
-});
+ });

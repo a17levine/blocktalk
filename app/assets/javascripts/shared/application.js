@@ -12,7 +12,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.selectable
+//= require myjquery.ui.datepicker
 //= require zeroclipboard
-//= require_tree ./shared/
+//= require_tree ./shared
 
 
