@@ -1,6 +1,6 @@
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
-
+$(document).ready(function(){
 	$(function() {
 	    $( ".selectable" ).selectable({
 	        selecting: function (event, ui) {
@@ -232,3 +232,4 @@
     });
 
  });
+})
