@@ -1,5 +1,15 @@
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
+
+	//CALENDAR
+$(function(){  
+	$('#datepicker').datepicker({  
+	  inline: false,  
+	  showOtherMonths: false,  
+	  dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	});
+});
+
 $(document).ready(function(){
 	$(function() {
 	    $( ".selectable" ).selectable({
@@ -222,14 +232,4 @@ $(document).ready(function(){
 	  	
 	  	alert('Send this link to your friend! \n\n \t www.blocktalk.io/X6E8h4is0e');
 	})
-
-	//CALENDAR
-	$(function(){  
-    $('#datepicker').datepicker({  
-      inline: false,  
-      showOtherMonths: false,  
-      dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    });
-
- });
 })
