@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //- require jquery-ui
 //= require jquery.ui.datepicker
 //= require jquery.ui.selectable
@@ -18,3 +19,5 @@
 //= require_tree ./shared/
 
 
+
+$(document).foundation();
