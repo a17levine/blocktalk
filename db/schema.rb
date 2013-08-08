@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801214121) do
+ActiveRecord::Schema.define(:version => 20130808194522) do
 
   create_table "meetings", :force => true do |t|
     t.integer  "host_id"
@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(:version => 20130801214121) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "latest_time_zone"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "latest_time_zone_offset"
   end
 
 end

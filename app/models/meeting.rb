@@ -8,10 +8,15 @@ class Meeting < ActiveRecord::Base
   
   attr_accessible :host, :guest, :time_block_id, :host_id, :planned #:agreed_time_block
 
-  def self.create_meeting(host_email, start_times_array_in_iso8601)
-  	@user = User.return_user_from_email(host_email)
+  def self.create_meeting(parameters)
+  	@host_email = parameters[:createMessage][:hostEmail]
+    @start_times_array_in_iso8601 = parameters[:createMessage][:availableDates]
+
+    @user = User.return_user_from_email(@host_email)
+    @user.latest_time_zone = parameters[:createMessage][:timeZoneLabel] #assign the user the latest_time_zone with the label of the time zone
+    @user.latest_time_zone_offset = parameters[:createMessage][:timeZoneOffset] #assign the user the latest_time_zone_offset with the string offset of the time zone
   	@meeting = @user.meetings.create(host_id: @user.id, planned: false)
-		start_times_array_in_iso8601.each do |startTimeIso8601|
+		@start_times_array_in_iso8601.each do |startTimeIso8601|
 			unless @meeting.timeblocks.find_by_start_time(DateTime.iso8601(startTimeIso8601))
 				# this didn't do what I wanted. the idea was to
 				# avoid having duplicate info be generated if the
@@ -19,6 +24,7 @@ class Meeting < ActiveRecord::Base
 			@meeting.timeblocks.create(start_time: DateTime.iso8601(startTimeIso8601))
 			end
 		end
+    @user.save
     @meeting
   end
 
@@ -44,5 +50,12 @@ class Meeting < ActiveRecord::Base
   	end
   	@available_times_in_iso.chomp!(",")
   	@guest_json = "{'guestMessage':{'hostEmail': '#{self.host.email.split('@').first}','availableDates': [#{@available_times_in_iso}]}}"
+  end
+
+  def time_zones_match?
+    # result = tru
+    # self.users.each do |user|
+    #   user.
+    # end
   end
 end
