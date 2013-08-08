@@ -70,10 +70,20 @@ div.icon-div {
   border-bottom: none;
   margin: 0 auto;
   text-align: right;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
-.hour:last-child{
-  border-bottom: 1px solid black;
+div.hour:nth-of-type(1) {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 2px solid black;
+}
+
+.hour:last-child {
+  border-bottom: 2px solid black;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .day {
@@ -172,12 +182,13 @@ div.ignore {
 
 div.submit {
   width: 200px;
-  margin-top: 5px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 a.button {
   text-decoration: none;
+  border-radius: 4px;
 }
 
 .rightcontent {
@@ -227,8 +238,9 @@ p.ui-state-default {
 }
 
 .hostEmail {
-  height: 30px !important;
+  height: 40px !important;
   border-radius: 5px !important;
+  font-size: 25px !important;
 }
 
 .guestEmail {
