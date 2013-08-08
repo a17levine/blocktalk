@@ -74,15 +74,12 @@
   		event.preventDefault();
 		//Take times and convert them into moment.js objects
 		var avails = []
-		$(selectionArray).each(function(){
-			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
-			avails.push(m);
-			console.log(avails)
-		});
+		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
+		avails.push(m);
 		
 		//Convert Moment object into JS Date object to get timezone
 		//Turning crude date into a moment string, then splitting it
-		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
+		var label = moment(finalTime, "YYYY/MM/DD, HH").toDate().toString().split(' ');
 		//Getting the last item (timezone) in resulting array
 		label = label.pop();
 		//Shaving off parentheses
@@ -175,21 +172,21 @@
     })
   }
 
-function disableButtons() {
-  var l = 0
-  var r = 0
-  var newdate = moment(date)
-  console.log(newdate.endOf('day').format("YYYY/MM/DD, HH"))
+  function disableButtons() {
+    var l = 0
+    var r = 0
+    var newdate = moment(date)
+    console.log(newdate.endOf('day').format("YYYY/MM/DD, HH"))
 
-  $.each( selectionArray, function(index, selection){
-    if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
-      l=1
-    }
-    else if (selection > newdate.endOf('day').format("YYYY/MM/DD, HH")){
-      r=1
-    }
+    $.each( selectionArray, function(index, selection){
+      if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
+        l=1
+      }
+      else if (selection > newdate.endOf('day').format("YYYY/MM/DD, HH")){
+        r=1
+      }
 
-  });
+    });
   //If not, disable the backwards button
   if (l == 0){$('.icon-chevron-sign-left').hide()}
   else {$('.icon-chevron-sign-left').show()};
