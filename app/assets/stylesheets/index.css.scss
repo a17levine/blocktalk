@@ -27,7 +27,13 @@
 }
 
 .clear{
-  clear: both;
+  .clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+  }
 }
 
 .icon-chevron-sign-left{
@@ -40,7 +46,7 @@
 .icon-chevron-sign-right {
   display: inline-block;
   margin: 10px;
-  float: right;
+  float: left;
 }
 
 .day_header {

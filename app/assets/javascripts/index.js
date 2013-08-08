@@ -1,7 +1,16 @@
- $(document).ready(function(){
 	var _selectRange = false, _deselectQueue = [];
 	var selectionArray = [];
 
+	//CALENDAR
+$(function(){  
+	$('#datepicker').datepicker({  
+	  inline: false,  
+	  showOtherMonths: false,  
+	  dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	});
+});
+
+$(document).ready(function(){
 	$(function() {
 	    $( ".selectable" ).selectable({
 	        selecting: function (event, ui) {
@@ -66,6 +75,9 @@
 	        }
 	    });
 	});
+
+	//Lightbox activation
+	// $(".fancybox").fancybox();
 
 	//Current date.  Displayed in the header. 
 	var date = moment();
@@ -222,14 +234,4 @@
 		    	} 
 			})
 	})
-
-	//CALENDAR
-	$(function(){  
-    $('#datepicker').datepicker({  
-      inline: false,  
-      showOtherMonths: false,  
-      dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    });
-
-  });
-});
+})

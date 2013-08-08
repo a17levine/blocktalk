@@ -1,6 +1,7 @@
-- javascript 'index.js'
-- javascript 'myjquery.ui.datepicker.js'
 - stylesheet 'index.css.scss'
+
+= content_for :head do
+  = javascript_include_tag "index"
 
 / %p#feedback
 /   %span You've selected
@@ -8,7 +9,7 @@
 /     none
 
 .row
-  .schedule.large-5.columns
+  .schedule.large-6.columns
     .outer-wrapper
       %i.icon-chevron-sign-left.icon-4x
       .inner-wrapper
@@ -38,8 +39,10 @@
           .ui-state-default.hour(data-time="21") 9p
           .ui-state-default.hour(data-time="22") 10p
           .ui-state-default.hour(data-time="23") 11p
-        %br.clear
-      %i.icon-chevron-sign-right.icon-4x
+    %i.icon-chevron-sign-right.icon-4x
+    %a.fancybox{:href => "large_image.jpg", :title => "moosie"}
+      %img{:src => "http://www.mbgnet.net/sets/taiga/animals/moose.jpg"}
+      
   .large-4.columns.inputs
     %div#datepicker
     %form
@@ -47,5 +50,6 @@
       .rightcontent
     .submit
       %a(href="#" class="large button") Send Times
+
 
 

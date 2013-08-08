@@ -11,6 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //= require jquery
 //= require jquery_ujs
+//= require foundation
+//- require jquery-ui
 //= require jquery.ui.selectable
 //= require zeroclipboard
+//= require_tree ./shared/
 
+
+
+$(document).foundation();
