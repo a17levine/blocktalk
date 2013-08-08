@@ -1,12 +1,11 @@
 
-
-
 $(document).ready(function(){
 
 	var _selectRange = false
 	var _deselectQueue = []
 	var selectionArray = []
   var date = moment()
+  //Setting up variable for Lightbox later on
   var meetingId = ''
 
 
@@ -65,7 +64,7 @@ $(document).ready(function(){
 	  })
   });
 
-  //Lightbox activation
+  //Prepare the lightbox
   $(".fancybox").fancybox({
           afterLoad   : function() {
             this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
@@ -137,14 +136,7 @@ $(document).ready(function(){
         meetingId = response;
 
         // Display the lightbox
-        $(".large.button").fancybox({
-          afterLoad   : function() {
-            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
-          }
-        });
-        $("#test").click();
+        $(".fancybox").click();
 
       } 
     })

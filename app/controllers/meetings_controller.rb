@@ -9,7 +9,7 @@ class MeetingsController < ApplicationController
 
 	def create
 		@meeting = Meeting.create_meeting(params[:createMessage][:hostEmail], params[:createMessage][:availableDates])
-		ConfirmationTimeMailer.confirmation_time_email(params[:createMessage][:hostEmail]).deliver!
+		# ConfirmationTimeMailer.confirmation_time_email(params[:createMessage][:hostEmail]).deliver!
 		respond_to do |format|
 			format.js  { }
 		end
