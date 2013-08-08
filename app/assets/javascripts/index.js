@@ -1,4 +1,6 @@
 
+var meetingId = '';
+
 $(document).ready(function(){
 
 	var _selectRange = false
@@ -60,8 +62,16 @@ $(document).ready(function(){
 	  })
   });
 
+	//Link generation for Lightbox
+	
+
 	//Lightbox activation
-	// $(".fancybox").fancybox();
+	$(".fancybox").fancybox({
+    	afterLoad   : function() {
+        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+        this.content = '<h2>-' + meetingId + '</h2>' + this.content.html();
+    	}
+	});
 
   paintDay(0)
   // disableButtons()  // need to add this to disable anything in the past.
@@ -121,7 +131,7 @@ $(document).ready(function(){
   			url: "/meetings",  
   			data: createMessage,  
   			success: function(response){
-  				alert(response)
+  				meetingId = response;
 		    	} 
 			})
 	})
