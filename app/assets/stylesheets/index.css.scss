@@ -43,7 +43,7 @@ div.icon-div {
   float: left;
 }
 
-.icon-chevron-sign-left{
+.icon-chevron-sign-left {
   display: inline-block;
   margin: 10px;
   margin-right: 15px;
@@ -65,12 +65,13 @@ div.icon-div {
 
 .hour {
   width: 90%;
-  height: 27px;
-  border: 1px solid black;
+  height: 26px;
+  border: 1px dashed #999;
   border-bottom: none;
   margin: 0 auto;
   text-align: center;
-  
+  line-height: 2px;
+  font-size: 14px;
   border-left: 2px solid black;
   border-right: 2px solid black;
 }
@@ -199,7 +200,7 @@ a.button {
 /*DATEPICKER*/
 
 #datepicker {
-  width: 260px;
+  margin: 0 auto;
   margin-bottom: 50px;
 }
 
@@ -214,6 +215,10 @@ table.ui-datepicker-calendar {
 .ui-icon.ui-icon-circle-triangle-e,
 .ui-icon.ui-icon-circle-triangle-w {
   display: none;
+}
+
+.ui-datepicker-calendar {
+  margin: 0 auto;
 }
 
 .ui-datepicker tbody td {
