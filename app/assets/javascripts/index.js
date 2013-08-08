@@ -1,5 +1,5 @@
 
-var meetingId = '';
+
 
 $(document).ready(function(){
 
@@ -7,6 +7,7 @@ $(document).ready(function(){
 	var _deselectQueue = []
 	var selectionArray = []
   var date = moment()
+  var meetingId = ''
 
 
   //CALENDAR
@@ -64,16 +65,15 @@ $(document).ready(function(){
 	  })
   });
 
-	//Link generation for Lightbox
-	
+  //Lightbox activation
+  $(".fancybox").fancybox({
+          afterLoad   : function() {
+            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+          }
+        });
 
-	//Lightbox activation
-	$(".fancybox").fancybox({
-    	afterLoad   : function() {
-        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-        this.content = '<h2>-' + meetingId + '</h2>' + this.content.html();
-    	}
-	});
   paintDay(0)
   disableBeforeNow()
   disableButtons()  // need to add this to disable anything in the past.
@@ -128,15 +128,27 @@ $(document).ready(function(){
 					}
 	  		}
 
-	  		var ajaxRequest = $.ajax({  
-  			type: "POST",  
-  			url: "/meetings",  
-  			data: createMessage,  
-  			success: function(response){
-  				meetingId = response;
-		    	} 
-			})
-	})
+    var ajaxRequest = $.ajax({  
+      type: "POST",  
+      url: "/meetings",  
+      data: createMessage,  
+      success: function(response){
+        //Setting Lightbox variable to the AJAX response
+        meetingId = response;
+
+        // Display the lightbox
+        $(".large.button").fancybox({
+          afterLoad   : function() {
+            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+          }
+        });
+        $("#test").click();
+
+      } 
+    })
+  })
 
   function slideScheduleRight(){
     //add class to slide right, wait, then add class to slide from left side.
