@@ -1,4 +1,6 @@
 
+var meetingId = '';
+
 $(document).ready(function(){
 
 	var _selectRange = false
@@ -67,7 +69,7 @@ $(document).ready(function(){
 	$(".fancybox").fancybox({
     	afterLoad   : function() {
         this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-        this.content = '<h2>___link___</h2>' + this.content.html();
+        this.content = '<h2>-' + meetingId + '</h2>' + this.content.html();
     	}
 	});
 
@@ -129,7 +131,7 @@ $(document).ready(function(){
   			url: "/meetings",  
   			data: createMessage,  
   			success: function(response){
-  				alert(response)
+  				meetingId = response;
 		    	} 
 			})
 	})
