@@ -68,13 +68,15 @@ $(document).ready(function(){
 	
 
 	//Lightbox activation
-	$(".fancybox").fancybox({
-    	afterLoad   : function() {
-        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-        var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-        this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
-    	}
-	});
+  $(".fancybox").fancybox({
+          afterLoad   : function() {
+            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+          }
+        });
+
+
   paintDay(0)
   disableBeforeNow()
   disableButtons()  // need to add this to disable anything in the past.
@@ -118,26 +120,37 @@ $(document).ready(function(){
 		//Shaving off parentheses
 		label = label.replace(/[()]/g,'');
 		
-  		var createMessage = 
-			{ 
-				"createMessage"  : 
-					{
-					'hostEmail'  	 : $('.hostEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-					'timeZoneLabel'  : label, 
-					'availableDates' : avails, 
-					}
-	  		}
+		var createMessage = 
+		{ 
+			"createMessage"  : 
+				{
+				'hostEmail'  	 : $('.hostEmail').val(), 
+				'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+				'timeZoneLabel'  : label, 
+				'availableDates' : avails, 
+				}
+  	}
 
-	  		var ajaxRequest = $.ajax({  
-  			type: "POST",  
-  			url: "/meetings",  
-  			data: createMessage,  
-  			success: function(response){
-  				//Setting Lightbox variable to the AJAX response
-  				meetingId = response;
-		    	} 
-			})
+		var ajaxRequest = $.ajax({  
+			type: "POST",  
+			url: "/meetings",  
+			data: createMessage,  
+			success: function(response){
+				//Setting Lightbox variable to the AJAX response
+				meetingId = response;
+
+        // Display the lightbox
+        $(".large.button").fancybox({
+          afterLoad   : function() {
+            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+          }
+        });
+        $("#test").click();
+
+	    } 
+		})
 	})
 
   function slideScheduleRight(){
