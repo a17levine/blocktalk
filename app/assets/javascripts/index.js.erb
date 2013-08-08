@@ -1,4 +1,4 @@
-
+//Setting up variable for Lightbox later on
 var meetingId = '';
 
 $(document).ready(function(){
@@ -62,14 +62,15 @@ $(document).ready(function(){
 	  })
   });
 
-	//Link generation for Lightbox
+	
 	
 
 	//Lightbox activation
 	$(".fancybox").fancybox({
     	afterLoad   : function() {
         this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-        this.content = '<h2>-' + meetingId + '</h2>' + this.content.html();
+        var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+        this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
     	}
 	});
 
@@ -131,6 +132,7 @@ $(document).ready(function(){
   			url: "/meetings",  
   			data: createMessage,  
   			success: function(response){
+  				//Setting Lightbox variable to the AJAX response
   				meetingId = response;
 		    	} 
 			})
