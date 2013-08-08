@@ -3,15 +3,12 @@
 = content_for :head do
   = javascript_include_tag "index"
 
-/ %p#feedback
-/   %span You've selected
-/   %span#select-result
-/     none
-
 .row
   .schedule.large-6.columns
     .outer-wrapper
-      %i.icon-chevron-sign-left.icon-4x
+      .icon-div
+        %i.icon-chevron-sign-left.icon-4x
+        .clear
       .inner-wrapper
         .selectable.day
           %h3.day_header
@@ -39,13 +36,14 @@
           .ui-state-default.hour(data-time="21") 9p
           .ui-state-default.hour(data-time="22") 10p
           .ui-state-default.hour(data-time="23") 11p
-    %i.icon-chevron-sign-right.icon-4x
-    
+    .icon-div  
+      %i.icon-chevron-sign-right.icon-4x
+      .clear
 
-    %a.fancybox{:href => "#test"} Open
-    #test{:style => "display:none;width:300px;"}
-    %p
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque blandit, mi sed sollicitudin hendrerit, elit elit tristique velit, ut sagittis urna dolor non metus. Fusce viverra lacus sit amet urna porttitor eu mollis massa hendrerit.
+    / %a.fancybox{:href => "#test"} Open
+    / #test{:style => "display:none;width:300px;"}
+    / %p
+    /   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque blandit, mi sed sollicitudin hendrerit, elit elit tristique velit, ut sagittis urna dolor non metus. Fusce viverra lacus sit amet urna porttitor eu mollis massa hendrerit.
       
   .large-4.columns.inputs
     %div#datepicker

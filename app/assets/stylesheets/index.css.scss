@@ -36,17 +36,26 @@
   }
 }
 
+div.icon-div {
+  width: 80px;
+  height: 55px;
+  display: inline-block;
+  float: left;
+}
+
 .icon-chevron-sign-left{
   display: inline-block;
   margin: 10px;
   margin-right: 15px;
   float: left;
+  text-shadow: 4px 4px 4px #bbb;
 }
 
 .icon-chevron-sign-right {
   display: inline-block;
   margin: 10px;
   float: left;
+  text-shadow: 4px 4px 4px #bbb;
 }
 
 .day_header {
@@ -151,6 +160,10 @@ div.ui-selecting {
 div.ui-selected {
 	background-color: #89A9F0;
   font-weight: bold;
+}
+
+div.ignore {
+  background-color: #ccc;
 }
 
 .inputs {
