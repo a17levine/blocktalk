@@ -76,6 +76,9 @@ $(document).ready(function(){
 	    });
 	});
 
+	//Lightbox activation
+	// $(".fancybox").fancybox();
+
 	//Current date.  Displayed in the header. 
 	var date = moment();
 	$('.day_header').text(date.format("MM/DD/YYYY"));
