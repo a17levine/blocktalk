@@ -76,13 +76,14 @@ $(document).ready(function(){
 	    });
 	});
 
+	//Link generation for Lightbox
+	
+
 	//Lightbox activation
 	$(".fancybox").fancybox({
-		openEffect  : 'none',
-    	closeEffect : 'none',
     	afterLoad   : function() {
-        this.inner.prepend( '<h1>1. My custom title</h1>' );
-        this.content = '<h1>2. My custom title</h1>' + this.content.html();
+        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+        this.content = '<h2>___link___</h2>' + this.content.html();
     	}
 	});
 
