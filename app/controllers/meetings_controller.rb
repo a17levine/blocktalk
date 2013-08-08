@@ -20,11 +20,6 @@ class MeetingsController < ApplicationController
 	end
 
 	def choose_time
-		puts "========================================="
-		puts "choose time function ran"
-		puts "Here are the params:"
-		puts params.inspect
-
 		@meeting = Meeting.find(params[:id])
 		puts "@meeting is #{@meeting}"
 		@guest = @meeting.process_guest(params[:guestChoice][:guestEmail]) #this creates the user, adds it to the meeting users, sets as guest
