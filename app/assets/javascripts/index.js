@@ -116,15 +116,14 @@ $(document).ready(function(){
 					}
 	  		}
 
-	  		$.ajax({  
+	  		var ajaxRequest = $.ajax({  
   			type: "POST",  
   			url: "/meetings",  
   			data: createMessage,  
-  			success: function(){  
+  			success: function(response){
+  				alert(response)
 		    	} 
 			})
-	  	
-	  	alert('Send this link to your friend! \n\n \t www.blocktalk.io/X6E8h4is0e');
 	})
 
   function slideScheduleRight(){

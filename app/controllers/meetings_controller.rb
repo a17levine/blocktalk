@@ -9,6 +9,10 @@ class MeetingsController < ApplicationController
 
 	def create
 		@meeting = Meeting.create_meeting(params[:createMessage][:hostEmail], params[:createMessage][:availableDates])
+
+		respond_to do |format|
+			format.js  { }
+		end
 	end
 
 	def show
