@@ -1,6 +1,4 @@
-
-
- $(document).ready(function(){
+$(document).ready(function(){
 	
   var hostChoices = guestMessage;
   var avails = hostChoices["guestMessage"]["availableDates"];
@@ -18,14 +16,12 @@
 
   //  **  CALENDAR  **
   $(function(){  
-        $('#datepicker').datepicker({  
-            inline: false,  
-            showOtherMonths: false,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-
-        styleCalendar()
-
+    $('#datepicker').datepicker({  
+        inline: false,  
+        showOtherMonths: false,  
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
+    });  
+    styleCalendar() 
     });  
 
  	// Grab first available date from host array
@@ -41,7 +37,6 @@
 	$('.icon-chevron-sign-right').click(function(){
     //cancel the now outdated click functions
     $('.ui-selected').unbind();
-		//fly right
 		slideScheduleLeft()
     //Remove classes
     $('.ui-selected').removeClass('chosen');
@@ -57,7 +52,6 @@
 	$('.icon-chevron-sign-left').click(function(){
     //cancel the previous click function
     $('.ui-selected').unbind();
-		//fly left
 		slideScheduleRight()
     //Remove classes.
     $('.ui-selected').removeClass('chosen');
@@ -69,6 +63,7 @@
 
 	});
 
+  // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
@@ -183,8 +178,6 @@
     var l = 0
     var r = 0
     var newdate = moment(date)
-    console.log(newdate.endOf('day').format("YYYY/MM/DD, HH"))
-
     $.each( selectionArray, function(index, selection){
       if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
         l=1
@@ -200,6 +193,7 @@
   
   if (r == 0){$('.icon-chevron-sign-right').hide()}
   else {$('.icon-chevron-sign-right').show()};
-}
+  }
+
 
 });

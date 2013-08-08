@@ -1,199 +1,98 @@
-	var _selectRange = false, _deselectQueue = [];
-	var selectionArray = [];
-
-	//CALENDAR
-$(function(){  
-	$('#datepicker').datepicker({  
-	  inline: false,  
-	  showOtherMonths: false,  
-	  dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-	});
-});
 
 $(document).ready(function(){
+
+	var _selectRange = false
+	var _deselectQueue = []
+	var selectionArray = []
+  var date = moment()
+
+
+  //CALENDAR
+  $(function(){  
+    $('#datepicker').datepicker({  
+      inline: false,  
+      showOtherMonths: false,  
+      dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    });
+    styleCalendar()
+  });
+
+  //SELECTABLE
 	$(function() {
-	    $( ".selectable" ).selectable({
-	        selecting: function (event, ui) {
-	        	//Not sure what this does
-	            if (event.detail == 0) {
-	                _selectRange = true;
-	                return true;
+    $( ".selectable" ).selectable({
+      selecting: function (event, ui) {
+        //Not sure what this does
+        if (event.detail == 0) {
+	        _selectRange = true;
+	        return true;
+	            }
+	      //if div has already been selected, adds div to queue
+	      //to be deselected.
+	      if ($(ui.selecting).hasClass('ui-selected')) {
+	        _deselectQueue.push(ui.selecting);
+	            }
+	      var time2 = $(ui.selecting)[0].getAttribute('data-time');
+	      if (jQuery.inArray(time2, selectionArray)==-1){
+	        selectionArray.push(time2);
+	            }
+	      else {
+	        selectionArray.splice( $.inArray(time2,selectionArray),1 );
+	            }
+	    },
+	    unselecting: function (event, ui) {
+	      $(ui.unselecting).addClass('ui-selected');
+	    },
+	    stop: function () {
+	      if (!_selectRange) {
+	      //removes selected class from everything in the queue.
+	        $.each(_deselectQueue, function (ix, de) {
+	          $(de)
+	            .removeClass('ui-selecting')
+	            .removeClass('ui-selected');
+	        });
+	      }
+	      _selectRange = false;
+	      //clears the queue
+	      _deselectQueue = [];
 
-	            }
-	            //if div has already been selected, adds div to queue
-	            //to be deselected.
-	            if ($(ui.selecting).hasClass('ui-selected')) {
-	                _deselectQueue.push(ui.selecting);
-	            }
+        styleCalendar()
+	    }
+	  })
+  });
 
-	            var time2 = $(ui.selecting)[0].getAttribute('data-time');
-	            if (jQuery.inArray(time2, selectionArray)==-1){
-	            	selectionArray.push(time2);
-	            }
-	            else {
-	            	selectionArray.splice( $.inArray(time2,selectionArray),1 );
-	            }
-	            console.log(selectionArray);
-	        },
-	        unselecting: function (event, ui) {
-	            $(ui.unselecting).addClass('ui-selected');
-	        },
-	        stop: function () {
-	            if (!_selectRange) {
-	            	//removes selected class from everything in the queue.
-	                $.each(_deselectQueue, function (ix, de) {
-	                    $(de)
-	                        .removeClass('ui-selecting')
-	                        .removeClass('ui-selected');
-	                });
-	            }
-	            _selectRange = false;
-	            //clears the queue
-	            _deselectQueue = [];
-
-	            var result = $( "#select-result" ).empty();
-	            $( ".ui-selected", this ).each(function() {
-	            	// var index = $( ".hour" ).index( this );
-	            	var time = this.getAttribute('data-time');
-	            	result.append( " #" + (time) );
-	            });
-
-	          	//STYLE THE DAYS ON THE CALENDAR
-              //remove all existing selectedDate classes
-              $('td').removeClass('selectedDate');
-              //loop through each member of the selection array, and if the day matches
-              //the day of the month, add the selectedDate class to that day on the calendar.
-              $.each(selectionArray, function(index, selection){
-                $('td').each(function(i){
-                  if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
-                    &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
-                    ){
-                    $(this).addClass("selectedDate");
-                  }
-                });
-              })
-	        }
-	    });
-	});
+	//Link generation for Lightbox
+	
 
 	//Lightbox activation
-	// $(".fancybox").fancybox();
+	$(".fancybox").fancybox({
+    	afterLoad   : function() {
+        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+        this.content = '<h2>___link___</h2>' + this.content.html();
+    	}
+	});
 
-	//Current date.  Displayed in the header. 
-	var date = moment();
-	$('.day_header').text(date.format("MM/DD/YYYY"));
-
-	//adds the date and certain number of hours to each div
-	var now = date.startOf('day').subtract('h',1);
-	var num = 0
-	$('.hour').each(function(){
-		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
-	})
-	//On click, forward button adds 1 day to the date variable.
+  paintDay(0)
+  // disableButtons()  // need to add this to disable anything in the past.
+  
+  // ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
-		//fly right
 		slideScheduleLeft()
-		//adds 1 day to the date variable
-		date.add('d',1);
-		//updates the day header with the new date variable in the format.
-		$('.day_header').text(date.format("MM/DD/YYYY"));
-		//now variable becomes 11PM of the day before the new date variable.
-		var now = date.startOf('day').subtract('h',1);
-		$('.hour').each(function(){
-		//set the data-time attributes of each div to one hour increments, starting at 12AM.
-		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
-		})
-		//For now, remove ui-selected class on click.
-		$('.ui-selected').removeClass('ui-selected');
-		//When forward button is clicked, check already-selected times
-		$.each(selectionArray, function(index, selection){
-			$('.hour').each(function(){
-				if ($( this ).attr('data-time') == selection){
-					$( this ).addClass('ui-selected');	
-				}
-			})
-		});
-		//Update the calendar to the current date.
-		var myDate = date.toDate()
-		$('#datepicker').datepicker('setDate', myDate);
-
-		$('td').removeClass('selectedDate');
-        //loop through each member of the selection array, and if the day matches
-        //the day of the month, add the selectedDate class to that day on the calendar.
-	    $.each(selectionArray, function(index, selection){
-	      $('td').each(function(i){
-	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
-	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
-	          ){
-	          $(this).addClass("selectedDate");
-	           }
-            });
-          })
+    //remove pre-existing ui-selected class
+    $('.ui-selected').removeClass('ui-selected');
+		paintDay(1)
+    styleCalendar()
 	});
 
- 	function slideScheduleRight(){
- 		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToRight").delay(100).queue(function(){
- 			$(".day").addClass("slideFromLeft");
- 			$(this).dequeue();
- 		});
- 		window.setTimeout(function(){$(".day").removeClass("slideToRight")
-									 $(".day").removeClass("slideFromLeft")},200);
- 	}
-
- 	function slideScheduleLeft(){
- 		//add class to slide right, wait, then add class to slide from left side.
- 		$(".day").addClass("slideToLeft").delay(100).queue(function(){
- 			$(".day").addClass("slideFromRight");
- 			$(this).dequeue();
- 		});
- 		window.setTimeout(function(){$(".day").removeClass("slideToLeft")
-									 $(".day").removeClass("slideFromRight")},200);
- 	}
-
-	//On click, back button removes one day from the date variable.
+  // ** ON BACKWARDS BUTTON CLICK **
 	$('.icon-chevron-sign-left').click(function(){
-		//fly left
 		slideScheduleRight()
-		//subtracts 1 day from the date variable
-		date.subtract('d',1);
-		//updates the day header with the new date variable in the format.
-		$('.day_header').text(date.format("MM/DD/YYYY"));
-		//now variable becomes 11PM of the day before the new date variable.
-		var now = date.startOf('day').subtract('h',1);
-		$('.hour').each(function(){
-		//set the data-time attributes of each div to one hour increments, starting at 12AM.
-		$(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
-		})
-		//For now, remove ui-selected class on click.
-		$('.ui-selected').removeClass('ui-selected');
-		//When back button is clicked, check already-selected times
-		window.setTimeout($.each(selectionArray, function(index, selection){
-			$('.hour').each(function(){
-				if ($( this ).attr('data-time') == selection){
-					$( this ).addClass('ui-selected');	
-				}
-			})
-		}),1000);
-
-		//Update the calendar to the current date.
-		var myDate = date.toDate()
-		$('#datepicker').datepicker('setDate', myDate);
-			
-		$('td').removeClass('selectedDate');
-        //loop through each member of the selection array, and if the day matches
-        //the day of the month, add the selectedDate class to that day on the calendar.
-	    $.each(selectionArray, function(index, selection){
-	      $('td').each(function(i){
-	        if ($(this).text() == moment(selection, "YYYY/MM/DD, HH").format("D") 
-	          &&  date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M")
-	          ){
-	          $(this).addClass("selectedDate");
-	           }
-            });
-          })	
-
+    //remove pre-existing ui-selected class
+    $('.ui-selected').removeClass('ui-selected');
+		paintDay(-1)
+    styleCalendar()
 	});
+
+  // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
@@ -234,4 +133,88 @@ $(document).ready(function(){
 		    	} 
 			})
 	})
+
+  function slideScheduleRight(){
+    //add class to slide right, wait, then add class to slide from left side.
+    $(".day").addClass("slideToRight").delay(100).queue(function(){
+      $(".day").addClass("slideFromLeft");
+      $(this).dequeue();
+    });
+    window.setTimeout(function(){$(".day").removeClass("slideToRight")
+                   $(".day").removeClass("slideFromLeft")},200);
+  }
+
+  function slideScheduleLeft(){
+    //add class to slide right, wait, then add class to slide from left side.
+    $(".day").addClass("slideToLeft").delay(100).queue(function(){
+      $(".day").addClass("slideFromRight");
+      $(this).dequeue();
+    });
+    window.setTimeout(function(){$(".day").removeClass("slideToLeft")
+                   $(".day").removeClass("slideFromRight")},200);
+  }
+
+  function paintDay(numdays){
+    //adds numdays days to the date variable (-1 or +1)
+    date.add('d',numdays);
+    console.log(date.format("MM/DD/YYYY"))
+    //updates the day header with the new date variable in the format.
+    $('.day_header').text(date.format("MM/DD/YYYY"));
+    //now variable becomes 11PM of the day before the new date variable.
+    var now = date.startOf('day').subtract('h',1);
+    //set the data-time attributes of each div to one hour increments, starting at 12AM.
+    $('.hour').each(function(){
+      //set the data-time attributes of each div to one hour increments, starting at 12AM.
+      $(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
+      //add ui-selected class to each previously selected hour
+      })
+
+    $.each(selectionArray, function(index, selection){
+      $('.hour').each(function(){
+        if ($( this ).attr('data-time') == selection){
+          $( this ).addClass('ui-selected');  
+        }
+      });
+    });
+
+
+  }
+
+  function styleCalendar() {
+    //Update the calendar to the current date.
+    $('#datepicker').datepicker('setDate', date.toDate());
+    $('td').removeClass('selectedDate');
+    //loop through each member of the selection array, and if the day matches
+    //the day of the month, add the selectedDate class to that day on the calendar.
+    $.each(selectionArray, function(index, selection){
+      $('td').each(function(){
+        if ($( this ).text() == moment(selection, "YYYY/MM/DD, HH").format("D") &&
+            date.format("M")== moment(selection, "YYYY/MM/DD, HH").format("M"))
+          { $(this).addClass("selectedDate"); }
+      });
+    })
+  }
+
+  // function disableButtons() {
+  //   var l = 0
+  //   var r = 0
+  //   var newdate = moment(date)
+  //   $.each( selectionArray, function(index, selection){
+  //     if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
+  //       l=1
+  //     }
+  //     else if (selection > newdate.endOf('day').format("YYYY/MM/DD, HH")){
+  //       r=1
+  //     }
+
+  //   });
+  // //If not, disable the backwards button
+  // if (l == 0){$('.icon-chevron-sign-left').hide()}
+  // else {$('.icon-chevron-sign-left').show()};
+  
+  // if (r == 0){$('.icon-chevron-sign-right').hide()}
+  // else {$('.icon-chevron-sign-right').show()};
+  // }
+
+
 })
