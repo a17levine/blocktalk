@@ -6,7 +6,7 @@ class Meeting < ActiveRecord::Base
 	belongs_to :guest,  class_name: "User", foreign_key: "guest_id"
 	belongs_to :agreed_time_block, class_name: "TimeBlock", foreign_key: "time_block_id"
   
-  attr_accessible :host, :guest, :agreed_time_block, :host_id, :planned
+  attr_accessible :host, :guest, :time_block_id, :host_id, :planned #:agreed_time_block
 
   def self.create_meeting(host_email, start_times_array_in_iso8601)
   	@user = User.return_user_from_email(host_email)
@@ -31,7 +31,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def process_chosen_time(chosen_time_in_iso8601)
-  	@time = self.timeblocks.find_by_start_time(DateTime.iso8601(chosen_time_in_iso8601))
+  	@time = self.timeblocks.find_by_start_time(Time.zone.at(DateTime.iso8601(chosen_time_in_iso8601).to_i))
   	self.agreed_time_block = @time # on meeting, set agreed_time_block to the timeblock ID
   	self.planned = true
   	self.save

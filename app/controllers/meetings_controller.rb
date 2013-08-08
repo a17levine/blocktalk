@@ -25,9 +25,14 @@ class MeetingsController < ApplicationController
 		puts "Here are the params:"
 		puts params.inspect
 
-		# @meeting = Meeting.find(params[:id])
-		# @guest = @meeting.process_guest(params[:guestChoice][:email])
-		# @meeting.process_chosen_time(params[:guestChoice][:chosenTime])
+		@meeting = Meeting.find(params[:id])
+		puts "@meeting is #{@meeting}"
+		@guest = @meeting.process_guest(params[:guestChoice][:guestEmail]) #this creates the user, adds it to the meeting users, sets as guest
+		puts "@guest is #{@guest}"
+		puts "chosen time is #{params[:guestChoice][:availableDate]}"
+		@meeting.process_chosen_time(params[:guestChoice][:availableDate])
 		 # send emails to both parties
+
+		render nothing: true
 	end
 end
