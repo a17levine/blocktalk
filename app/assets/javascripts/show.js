@@ -90,9 +90,13 @@
 				"guestChoice"  : 
 					{
 					'guestEmail' : $('.guestEmail').val(), 
-					'chosenTime' : moment(avails[0]).format('ZZ'),
+					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+          'timeZoneLabel' : label,
+          'availableDate' : avails[0]
 					}
 	  		}
+
+        console.log(guestChoice);
 
 	  		$.ajax({  
   			type: "POST",  
