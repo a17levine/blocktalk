@@ -19,6 +19,7 @@ class Meeting < ActiveRecord::Base
 			@meeting.timeblocks.create(start_time: DateTime.iso8601(startTimeIso8601))
 			end
 		end
+    @meeting
   end
 
   def process_guest(guest_email)
