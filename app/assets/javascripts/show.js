@@ -96,11 +96,14 @@
 					}
 	  		}
 
+        var meetingId = window.location.href.split('/').pop()
+        var guestURL = "/meetings/" + meetingId
+
         console.log(guestChoice);
 
 	  		$.ajax({  
   			type: "POST",  
-  			url: "/meetings/[:id]",  
+  			url: guestURL,  
   			data: guestChoice,  
   			success: function(response){  
     			alert('This shit succeeded');	
