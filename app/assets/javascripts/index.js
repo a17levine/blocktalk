@@ -7,6 +7,7 @@ $(document).ready(function(){
   var date = moment();
   //Setting up variable for Lightbox later on
   var meetingId = ''
+  var meetingLink = ''
 
   //CALENDAR
   $(function(){  
@@ -63,12 +64,16 @@ $(document).ready(function(){
 	  })
   });
 
-  //Prepare the lightbox
+  
   $(".fancybox").fancybox({
+           //used to be window.location.href
           afterLoad   : function() {
             this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+            this.content = "<textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='70'>" + meetingLink + '</textarea>' + '<br />' + 
+            "<div class='row'><a href='" + meetingLink + "'><h6>click to proceed</h6></a></div>";
+             
+            // Copy Button for later:      "<p><input type='button' data-clipboard-target='fetext' id='copy' class='button' name='copy' value='copy' data-clipboard-text='Test'/></p>"
+            // Document Icon for later:    "<i class='icon-file-text-alt icon-4x'></i>"
           }
         });
 
@@ -124,6 +129,7 @@ $(document).ready(function(){
 					}
 	  		}
 
+    
     var ajaxRequest = $.ajax({  
       type: "POST",  
       url: "/meetings",  
@@ -132,9 +138,12 @@ $(document).ready(function(){
         //Setting Lightbox variable to the AJAX response
         meetingId = response;
 
+        //Prepare the lightbox
+        meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
         // Display the lightbox
         $(".fancybox").click();
-      } 
+      }
+
     })
   })
 
@@ -253,4 +262,39 @@ $(document).ready(function(){
       }
     })
   }
+
+  //Zero Clipboard integration
+  // var clip = new ZeroClipboard($("#zeroclip"));
+  // });
+
+  // $("#clear-test").on("click", function(){
+  //   $("#fe_text").val(meetingLink);
+  //   $("#testarea").val("");
+
+    // $('a#zclip').zclip({
+    //   path:'js/ZeroClipboard.swf',
+    //   copy:$('p#zclip').text()
+    // });
+
+    // $('a#copy-zclip').zclip({
+    //   path:'js/ZeroClipboard.swf',
+    //   copy:function(){return $('input#zclip').val();}
+    // });
+
+    // // _______________________
+    // //set path
+    // ZeroClipboard.setMoviePath('http://davidwalsh.name/demo/ZeroClipboard.swf');
+    // //create client
+    // var clip = new ZeroClipboard.Client();
+    // //event
+    // clip.addEventListener('mousedown',function() {
+    // clip.setText(document.getElementById('box-content').value);
+    // });
+    // clip.addEventListener('complete',function(client,text) {
+    //   alert('copied: ' + text);
+    // });
+    // //glue it to the button
+    // clip.glue('copy');
+
+
 })
