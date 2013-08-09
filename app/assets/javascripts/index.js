@@ -1,12 +1,12 @@
 
 $(document).ready(function(){
 
-	var _selectRange = false
-	var _deselectQueue = []
-	var selectionArray = []
-  var date = moment()
+	var _selectRange = false;
+	var _deselectQueue = [];
+	var selectionArray = [];
+  var date = moment();
   //Setting up variable for Lightbox later on
-  var meetingId = ''
+  var meetingId = '';
 
 
   //CALENDAR
@@ -16,8 +16,8 @@ $(document).ready(function(){
       showOtherMonths: false,  
       dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     });
-    styleCalendar()
-    clickCalendarDates()
+    styleCalendar();
+    clickCalendarDates();
   });
 
   //SELECTABLE
@@ -73,26 +73,26 @@ $(document).ready(function(){
           }
         });
 
-  paintDay(0)
-  disableBeforeNow()
-  disableButtons()  // need to add this to disable anything in the past.
+  paintDay(0);
+  disableBeforeNow();
+  disableButtons();  // need to add this to disable anything in the past.
   
   // ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
-		slideScheduleLeft()
-		paintDay(1)
-    disableBeforeNow()
-    styleCalendar()
-    disableButtons()
+		slideScheduleLeft();
+		paintDay(1);
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
   // ** ON BACKWARDS BUTTON CLICK **
 	$('.icon-chevron-sign-left').click(function(){
-		slideScheduleRight()
-		paintDay(-1)
-    disableBeforeNow()
-    styleCalendar()
-    disableButtons()
+		slideScheduleRight();
+		paintDay(-1);
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
   // ** ON SUBMIT BUTTON CLICK **
@@ -137,7 +137,6 @@ $(document).ready(function(){
 
         // Display the lightbox
         $(".fancybox").click();
-
       } 
     })
   })

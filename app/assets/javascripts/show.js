@@ -6,6 +6,8 @@ $(document).ready(function(){
   var _deselectQueue = []
   var selectionArray = []
   var finalTime = ""
+  //Setting up variable for Lightbox later on
+  var meetingId = ''
 
   //Push all of the selections made by the first user into selectionArray, so that
   //they can be displayed in the view
@@ -21,17 +23,27 @@ $(document).ready(function(){
         showOtherMonths: false,  
         dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
     });  
-    styleCalendar() 
-    });  
+    styleCalendar(); 
+  });  
 
  	// Grab first available date from host array
 	var dateCalibrate = hostChoices["guestMessage"]["availableDates"][0];
 	// Snap the show view to that date. 
 	date = moment(dateCalibrate);
-  paintDay(0)
-  selectFinalTime()
+  paintDay(0);
+  selectFinalTime();
 
-  disableButtons()
+  disableButtons();
+
+  //Prepare the lightbox
+  $(".fancybox").fancybox({
+    afterLoad   : function() {
+      this.inner.prepend( '<h1>Real Talk, Right Quick:</h1>' );
+      var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+      this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+    }
+  });
+
 
 	// ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
@@ -80,31 +92,35 @@ $(document).ready(function(){
 		//Shaving off parentheses
 		label = label.replace(/[()]/g,'');
 		
-  		var guestChoice = 
+  	var guestChoice = 
 			{ 
-				"guestChoice"  : 
+				"guestChoice": 
 					{
 					'guestEmail' : $('.guestEmail').val(), 
 					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
           'timeZoneLabel' : label,
           'availableDate' : avails[0]
 					}
-	  		}
+	  	};
 
-        var meetingId = window.location.href.split('/').pop()
-        var guestURL = "/meetings/" + meetingId
+        var meetingId = window.location.href.split('/').pop();
+        var guestURL = "/meetings/" + meetingId;
 
         console.log(guestChoice);
 
-	  		$.ajax({  
-  			type: "POST",  
-  			url: guestURL,  
-  			data: guestChoice,  
-  			success: function(response){  
-    			alert('This shit succeeded');	
-		    	} 
-		})
-	})
+	  $.ajax({  
+			type: "POST",  
+			url: guestURL,  
+			data: guestChoice,  
+			success: function(response){  
+  			//Setting Lightbox variable to the AJAX response
+        meetingId = response;
+
+        // Display the lightbox
+        $(".fancybox").click();
+      }
+    });
+  });
 
  	function slideScheduleRight(){
  		//add class to slide right, wait, then add class to slide from left side.
@@ -187,13 +203,11 @@ $(document).ready(function(){
       }
 
     });
-  //If not, disable the backwards button
-  if (l == 0){$('.icon-chevron-sign-left').hide()}
-  else {$('.icon-chevron-sign-left').show()};
-  
-  if (r == 0){$('.icon-chevron-sign-right').hide()}
-  else {$('.icon-chevron-sign-right').show()};
+    //If not, disable the backwards button
+    if (l == 0){$('.icon-chevron-sign-left').hide()}
+    else {$('.icon-chevron-sign-left').show()};
+    
+    if (r == 0){$('.icon-chevron-sign-right').hide()}
+    else {$('.icon-chevron-sign-right').show()};
   }
-
-
 });
