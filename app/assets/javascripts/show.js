@@ -5,8 +5,9 @@ function makeHelperText(){
 }
 
 
+
+
 $(document).ready(function(){
-  // var meetingId = <%= @meeting.id %>
   var guestURL = "/meetings/" + meetingId;
   console.log("guestURL is " + guestURL);
 	
