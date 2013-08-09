@@ -1,12 +1,12 @@
-//Setting up variable for Lightbox later on
-var meetingId = '';
 
 $(document).ready(function(){
 
-	var _selectRange = false
-	var _deselectQueue = []
-	var selectionArray = []
-  var date = moment()
+	var _selectRange = false;
+	var _deselectQueue = [];
+	var selectionArray = [];
+  var date = moment();
+  //Setting up variable for Lightbox later on
+  var meetingId = '';
 
 
   //CALENDAR
@@ -16,12 +16,14 @@ $(document).ready(function(){
       showOtherMonths: false,  
       dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     });
-    styleCalendar()
+    styleCalendar();
+    clickCalendarDates();
   });
 
   //SELECTABLE
 	$(function() {
     $( ".selectable" ).selectable({
+      filter: "div:not(.ignore)",
       selecting: function (event, ui) {
         //Not sure what this does
         if (event.detail == 0) {
@@ -62,37 +64,35 @@ $(document).ready(function(){
 	  })
   });
 
-	
-	
+  //Prepare the lightbox
+  $(".fancybox").fancybox({
+          afterLoad   : function() {
+            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
+            var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
+            this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+          }
+        });
 
-	//Lightbox activation
-	$(".fancybox").fancybox({
-    	afterLoad   : function() {
-        this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-        var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-        this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
-    	}
-	});
-
-  paintDay(0)
-  // disableButtons()  // need to add this to disable anything in the past.
+  paintDay(0);
+  disableBeforeNow();
+  disableButtons();  // need to add this to disable anything in the past.
   
   // ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
-		slideScheduleLeft()
-    //remove pre-existing ui-selected class
-    $('.ui-selected').removeClass('ui-selected');
-		paintDay(1)
-    styleCalendar()
+		slideScheduleLeft();
+		paintDay(1);
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
   // ** ON BACKWARDS BUTTON CLICK **
 	$('.icon-chevron-sign-left').click(function(){
-		slideScheduleRight()
-    //remove pre-existing ui-selected class
-    $('.ui-selected').removeClass('ui-selected');
-		paintDay(-1)
-    styleCalendar()
+		slideScheduleRight();
+		paintDay(-1);
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
   // ** ON SUBMIT BUTTON CLICK **
@@ -127,17 +127,19 @@ $(document).ready(function(){
 					}
 	  		}
 
-	  		var ajaxRequest = $.ajax({  
-  			type: "POST",  
-  			url: "/meetings",  
-  			data: createMessage,  
-  			success: function(response){
-          
-  				//Setting Lightbox variable to the AJAX response
-  				meetingId = response;
-		    	} 
-			})
-	})
+    var ajaxRequest = $.ajax({  
+      type: "POST",  
+      url: "/meetings",  
+      data: createMessage,  
+      success: function(response){
+        //Setting Lightbox variable to the AJAX response
+        meetingId = response;
+
+        // Display the lightbox
+        $(".fancybox").click();
+      } 
+    })
+  })
 
   function slideScheduleRight(){
     //add class to slide right, wait, then add class to slide from left side.
@@ -160,6 +162,7 @@ $(document).ready(function(){
   }
 
   function paintDay(numdays){
+    $('.ui-selected').removeClass('ui-selected');
     //adds numdays days to the date variable (-1 or +1)
     date.add('d',numdays);
     console.log(date.format("MM/DD/YYYY"))
@@ -181,8 +184,14 @@ $(document).ready(function(){
         }
       });
     });
+  }
 
-
+  function clickCalendarDates(){
+      $('td').click(function(){
+      var dayclicked = $( this ).text()
+      var currentday = date.format("D")
+      paintDay(dayclicked-currentday)
+    })
   }
 
   function styleCalendar() {
@@ -198,28 +207,25 @@ $(document).ready(function(){
           { $(this).addClass("selectedDate"); }
       });
     })
+    clickCalendarDates()
   }
 
-  // function disableButtons() {
-  //   var l = 0
-  //   var r = 0
-  //   var newdate = moment(date)
-  //   $.each( selectionArray, function(index, selection){
-  //     if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
-  //       l=1
-  //     }
-  //     else if (selection > newdate.endOf('day').format("YYYY/MM/DD, HH")){
-  //       r=1
-  //     }
+  function disableButtons() {
+    // console.log(moment().format("MM/DD/YYYY") + " Hello")
+    if (date.format("MM/DD/YYYY") <= moment().format("MM/DD/YYYY")){
+          $('.icon-chevron-sign-left').hide()
+    }
+    else {$('.icon-chevron-sign-left').show()};
+    }
 
-  //   });
-  // //If not, disable the backwards button
-  // if (l == 0){$('.icon-chevron-sign-left').hide()}
-  // else {$('.icon-chevron-sign-left').show()};
-  
-  // if (r == 0){$('.icon-chevron-sign-right').hide()}
-  // else {$('.icon-chevron-sign-right').show()};
-  // }
-
-
+  function disableBeforeNow() {
+    //disable all divs whos data-times are in the past.
+    $('div').each(function(){
+      if ($(this).attr("data-time") <= moment().format("YYYY/MM/DD, HH")){
+        $(this).addClass("ignore")
+      }
+      else {$(this).removeClass("ignore") 
+      }
+    })
+  }
 })

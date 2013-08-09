@@ -10,5 +10,4 @@ class ConfirmationTimeMailer < ActionMailer::Base
     # binding.pry
     mail(to: "<#{@host.email}>, <#{@guest.email}>", subject: @subject_line)
   end
-
 end
