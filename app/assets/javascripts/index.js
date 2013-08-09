@@ -1,13 +1,12 @@
 
 $(document).ready(function(){
 
-	var _selectRange = false;
-	var _deselectQueue = [];
-	var selectionArray = [];
+	var _selectRange = false
+	var _deselectQueue = []
+	var selectionArray = []
   var date = moment();
   //Setting up variable for Lightbox later on
-  var meetingId = '';
-
+  var meetingId = ''
 
   //CALENDAR
   $(function(){  
@@ -75,7 +74,7 @@ $(document).ready(function(){
 
   paintDay(0);
   disableBeforeNow();
-  disableButtons();  // need to add this to disable anything in the past.
+  disableButtons();
   
   // ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
@@ -161,6 +160,21 @@ $(document).ready(function(){
                    $(".day").removeClass("slideFromRight")},200);
   }
 
+  function displayDateHelper(){
+    //if currently on today's calendar, display "tomorrow"
+    if (moment().format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("today")}
+    //if on tomorrow's calendar, display "tomorrow"
+    else if (moment().add("day",1).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("tomorrow")}
+    //if on the next day's calendar, display "the day after"
+    else if (moment().add("day",2).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("the day after")
+    }
+    //otherwise display the date in this format --> mon march 2nd
+    else {$('h3.day_helper').text(date.format("ddd MMMM Do"))}
+  }
+
   function paintDay(numdays){
     $('.ui-selected').removeClass('ui-selected');
     //adds numdays days to the date variable (-1 or +1)
@@ -168,6 +182,7 @@ $(document).ready(function(){
     console.log(date.format("MM/DD/YYYY"))
     //updates the day header with the new date variable in the format.
     $('.day_header').text(date.format("MM/DD/YYYY"));
+    displayDateHelper();
     //now variable becomes 11PM of the day before the new date variable.
     var now = date.startOf('day').subtract('h',1);
     //set the data-time attributes of each div to one hour increments, starting at 12AM.
@@ -187,11 +202,22 @@ $(document).ready(function(){
   }
 
   function clickCalendarDates(){
-      $('td').click(function(){
+      $('td:not(.disable)').click(function(){
       var dayclicked = $( this ).text()
       var currentday = date.format("D")
       paintDay(dayclicked-currentday)
     })
+  }
+
+  function disableCalendarDates(){
+    if ($('span.ui-datepicker-month').text() == moment().format("MMMM")){
+      $('td').each(function(){
+        if (parseInt($( this ).text()) < parseInt(moment().format("D"))){
+          console.log("this: " + $( this ).text() + "  now: " + moment().format("D"))
+          $(this).addClass("disable")
+        }
+      })
+    }
   }
 
   function styleCalendar() {
@@ -207,6 +233,8 @@ $(document).ready(function(){
           { $(this).addClass("selectedDate"); }
       });
     })
+
+    disableCalendarDates()
     clickCalendarDates()
   }
 

@@ -1,10 +1,3 @@
-var helperArray = ["today", "tomorrow", "the next day"]
-
-function makeHelperText(){
-  $('.day_helper').first().text("");
-}
-
-
 $(document).ready(function(){
   // var meetingId = <%= @meeting.id %>
   var guestURL = "/meetings/" + meetingId;
