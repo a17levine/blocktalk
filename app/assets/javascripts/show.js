@@ -38,13 +38,14 @@ $(document).ready(function(){
 
   //Prepare the lightbox
   $(".fancybox").fancybox({
+    'type': 'inline',
     afterLoad   : function() {
-      this.inner.prepend( '<h1>Real Talk, Right Quick:</h1>' );
-      this.inner.prepend( '<h3>Check your email for a calendar invite</h3>' );
-      // var meetingLink = window.location.href + 'meetings/' + meetingId + '/';
-      // this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>";
+      this.inner.append( '<h1>real talk, right quick:</h1>' );
+      this.inner.append( '<h3>we just emailed you. check for a calendar invite.</h3>' );
     }
   });
+
+
 
 
 	// ** ON FORWARD BUTTON CLICK **
@@ -105,7 +106,9 @@ $(document).ready(function(){
 					}
 	  	};
 
-        console.log(guestChoice);
+    $('.button').first().attr("disabled", "disabled")
+
+       
 
 
 	  $.ajax({  
@@ -116,6 +119,7 @@ $(document).ready(function(){
   			//Setting Lightbox variable to the AJAX response
         // Display the lightbox
         $(".fancybox").click();
+        $('.fancybox-error').hide();
       }
     });
   });

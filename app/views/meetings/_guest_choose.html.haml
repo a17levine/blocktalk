@@ -4,6 +4,8 @@
   guestMessage = #{@meeting.guest_json}
   meetingId = #{@meeting.id}
 .row
+  %h3= "these times work for #{@meeting.host.email_username}. please choose one."
+.row
   .schedule.large-6.columns
     .outer-wrapper
       .icon-div
@@ -40,17 +42,17 @@
           .ui-state-default.hour(data-time="23") 11p
     .icon-div    
       %i.icon-chevron-sign-right.icon-4x
-      .clear
+        .clear
   .large-5.columns.inputs
     %div#datepicker
     %form
       %input(type="email" class="guestEmail" id="right-label" placeholder="your email address")
       .rightcontent
     .submit
-      %a(href="#" class="large button") Choose Time
-		
-//		%a.fancybox{:href => "#"} sup
-//		#test{:style => "display:none;width:300px;"}
+      %a(href="#" class="large button") confirm time slot
+
+    %a.fancybox{:href => "#"} 
+    / #test{:style => "display:none;width:300px;"}
 
 
 

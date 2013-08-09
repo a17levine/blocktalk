@@ -129,6 +129,7 @@ $(document).ready(function(){
 					}
 	  		}
 
+    $('.button').first().attr("disabled", "disabled")
     
     var ajaxRequest = $.ajax({  
       type: "POST",  
