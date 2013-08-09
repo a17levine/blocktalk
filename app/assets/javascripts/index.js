@@ -177,7 +177,6 @@ $(document).ready(function(){
     $('.ui-selected').removeClass('ui-selected');
     //adds numdays days to the date variable (-1 or +1)
     date.add('d',numdays);
-    console.log(date.format("MM/DD/YYYY"))
     //updates the day header with the new date variable in the format.
     $('.day_header').text(date.format("MM/DD/YYYY"));
     displayDateHelper();
