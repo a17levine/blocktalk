@@ -4,14 +4,14 @@
   = javascript_include_tag "index"
 
 .row
-  .schedule.large-6.columns
+  .schedule.large-6.small-12.columns
     .outer-wrapper
       .icon-div
         %i.icon-chevron-sign-left.icon-4x
         .clear
       .inner-wrapper
         .selectable.day
-          %h3.day_helper today
+          %h3.day_helper
           %h5.day_header
           %br
           .ui-state-default.hour(data-time="00") 12m
@@ -41,8 +41,7 @@
     .icon-div  
       %i.icon-chevron-sign-right.icon-4x
       .clear
-      
-  .large-5.columns.inputs
+  .large-5.small-12.columns.inputs
     %div#datepicker
     %form
       %input(type="email" class="hostEmail" id="right-label" placeholder="your email address")
