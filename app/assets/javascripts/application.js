@@ -15,8 +15,7 @@
 //- require jquery-ui
 //= require jquery.ui.selectable
 //= require zeroclipboard
-//= require_tree ./shared/
-
+//= require_tree ./shared
 
 
 $(document).foundation();

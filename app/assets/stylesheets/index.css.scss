@@ -253,3 +253,10 @@ p.ui-state-default {
   height: 30px !important;
   border-radius: 5px !important;
 }
+
+textarea {
+  // width: 65%;
+  font-size: 40px;
+  display: inline-block;
+  resize: none;
+}
