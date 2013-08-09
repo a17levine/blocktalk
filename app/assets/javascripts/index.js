@@ -99,12 +99,10 @@ $(document).ready(function(){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
 		//Now take times and convert them into moment.js objects
-
 		var avails = []
 		$(selectionArray).each(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
 			avails.push(m);
-			console.log(avails)
 		});
 		
 		//Convert Moment object into JS Date object to get timezone
