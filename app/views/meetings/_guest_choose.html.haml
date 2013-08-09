@@ -1,4 +1,4 @@
-%h1 Please select a time
+/ %h1 Please select a time
 
 :javascript
   guestMessage = #{@meeting.guest_json}
@@ -12,7 +12,7 @@
       .inner-wrapper
         .selectable.day
           %h3.day_helper
-          %h3.day_header
+          %h5.day_header
           %br
           .ui-state-default.hour(data-time="00") 12m
           .ui-state-default.hour(data-time="01") 1a
@@ -38,9 +38,9 @@
           .ui-state-default.hour(data-time="21") 9p
           .ui-state-default.hour(data-time="22") 10p
           .ui-state-default.hour(data-time="23") 11p
-      .icon-div    
-        %i.icon-chevron-sign-right.icon-4x
-        .clear
+    .icon-div    
+      %i.icon-chevron-sign-right.icon-4x
+      .clear
   .large-5.columns.inputs
     %div#datepicker
     %form
