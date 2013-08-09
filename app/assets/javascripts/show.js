@@ -1,18 +1,28 @@
+var helperArray = ["today", "tomorrow", "the next day"]
+
+function makeHelperText(){
+  $('.day_helper').first().text("");
+}
+
+
 $(document).ready(function(){
+  // var meetingId = <%= @meeting.id %>
+  var guestURL = "/meetings/" + meetingId;
+  console.log("guestURL is " + guestURL);
 	
   var hostChoices = guestMessage;
   var avails = hostChoices["guestMessage"]["availableDates"];
-  var _selectRange = false 
-  var _deselectQueue = []
-  var selectionArray = []
-  var finalTime = ""
+  var _selectRange = false;
+  var _deselectQueue = [];
+  var selectionArray = [];
+  var finalTime = "";
   //Setting up variable for Lightbox later on
-  var meetingId = ''
+  
 
   //Push all of the selections made by the first user into selectionArray, so that
   //they can be displayed in the view
   $(avails).each(function(){
-    var m = moment(this).format("YYYY/MM/DD, HH")
+    var m = moment(this).format("YYYY/MM/DD, HH");
     selectionArray.push(m);
   });
 
@@ -39,8 +49,9 @@ $(document).ready(function(){
   $(".fancybox").fancybox({
     afterLoad   : function() {
       this.inner.prepend( '<h1>Real Talk, Right Quick:</h1>' );
-      var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-      this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+      this.inner.prepend( '<h3>Check your email for a calendar invite</h3>' );
+      // var meetingLink = window.location.href + 'meetings/' + meetingId + '/';
+      // this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>";
     }
   });
 
@@ -49,14 +60,14 @@ $(document).ready(function(){
 	$('.icon-chevron-sign-right').click(function(){
     //cancel the now outdated click functions
     $('.ui-selected').unbind();
-		slideScheduleLeft()
+		slideScheduleLeft();
     //Remove classes
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
+    paintDay(1);
+    selectFinalTime();
+    styleCalendar();
+    disableButtons();
 
 	});
 
@@ -64,14 +75,14 @@ $(document).ready(function(){
 	$('.icon-chevron-sign-left').click(function(){
     //cancel the previous click function
     $('.ui-selected').unbind();
-		slideScheduleRight()
+		slideScheduleRight();
     //Remove classes.
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(-1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
+    paintDay(-1);
+    selectFinalTime();
+    styleCalendar();
+    disableButtons();
 
 	});
 
@@ -80,7 +91,7 @@ $(document).ready(function(){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
 		//Take times and convert them into moment.js objects
-		var avails = []
+		var avails = [];
 		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
 		avails.push(m);
 		
@@ -103,10 +114,8 @@ $(document).ready(function(){
 					}
 	  	};
 
-        var meetingId = window.location.href.split('/').pop();
-        var guestURL = "/meetings/" + meetingId;
-
         console.log(guestChoice);
+
 
 	  $.ajax({  
 			type: "POST",  
@@ -114,8 +123,6 @@ $(document).ready(function(){
 			data: guestChoice,  
 			success: function(response){  
   			//Setting Lightbox variable to the AJAX response
-        meetingId = response;
-
         // Display the lightbox
         $(".fancybox").click();
       }
@@ -191,9 +198,9 @@ $(document).ready(function(){
   }
 
   function disableButtons() {
-    var l = 0
-    var r = 0
-    var newdate = moment(date)
+    var l = 0;
+    var r = 0;
+    var newdate = moment(date);
     $.each( selectionArray, function(index, selection){
       if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
         l=1

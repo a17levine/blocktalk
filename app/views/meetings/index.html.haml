@@ -11,7 +11,9 @@
         .clear
       .inner-wrapper
         .selectable.day
-          %h3.day_header
+          %h3.day_helper today
+          %h5.day_header
+          %br
           .ui-state-default.hour(data-time="00") 12m
           .ui-state-default.hour(data-time="01") 1a
           .ui-state-default.hour(data-time="02") 2a
@@ -43,7 +45,7 @@
   .large-5.columns.inputs
     %div#datepicker
     %form
-      %input(type="text" class="hostEmail" id="right-label" placeholder="Your Email")
+      %input(type="email" class="hostEmail" id="right-label" placeholder="your email address")
       .rightcontent
     .submit
       %a(href="#" class="large button") get link

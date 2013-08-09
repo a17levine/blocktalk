@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'sqlite3'
 gem 'quiet_assets'
 gem 'zeroclipboard-rails'
+gem 'icalendar'
 
 
 # Gems used only for assets and not required
