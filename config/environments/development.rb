@@ -40,7 +40,7 @@ Blocktalk::Application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     # user_name:            'mksblocktalk@gmail.com',
-    user_name:            'auctioneerbot@gmail.com',
+    user_name:            'mksblocktalk@gmail.com',
     password:             'workhardplayhard',
     authentication:       'plain',
     enable_starttls_auto: true  }

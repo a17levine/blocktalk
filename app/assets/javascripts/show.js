@@ -42,6 +42,7 @@ $(document).ready(function(){
     afterLoad   : function() {
       this.inner.append( '<h1>real talk, right quick:</h1>' );
       this.inner.append( '<h3>we just emailed you. check for a calendar invite.</h3>' );
+      this.inner.append( "<a href='" + guestURL + "'><p>go to meeting page</p></a> ");
     }
   });
 
