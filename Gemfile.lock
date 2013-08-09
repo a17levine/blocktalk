@@ -81,6 +81,7 @@ GEM
     hike (1.2.3)
     http_parser.rb (0.5.3)
     i18n (0.6.1)
+    icalendar (1.4.1)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -173,6 +174,7 @@ DEPENDENCIES
   compass-rails
   guard-livereload
   haml-rails
+  icalendar
   jquery-rails
   jquery-ui-rails
   pry

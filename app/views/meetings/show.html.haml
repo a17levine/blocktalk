@@ -1,7 +1,8 @@
-- javascript 'show.js'
-- stylesheet 'show.css.scss'
-
 - if @meeting.planned
 	= render partial: "display_meeting"
+	- javascript '_display_meeting'
 - else
+	- javascript 'show.js'
+	- stylesheet 'show.css.scss'
 	= render partial: "guest_choose"
+

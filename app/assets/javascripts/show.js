@@ -1,18 +1,19 @@
 $(document).ready(function(){
+  var guestURL = "/meetings/" + meetingId;
+  console.log("guestURL is " + guestURL);
 	
   var hostChoices = guestMessage;
   var avails = hostChoices["guestMessage"]["availableDates"];
-  var _selectRange = false 
-  var _deselectQueue = []
-  var selectionArray = []
-  var finalTime = ""
+  var _selectRange = false;
+  var _deselectQueue = [];
+  var selectionArray = [];
   //Setting up variable for Lightbox later on
-  var meetingId = ''
+  var finalTime = "";
 
   //Push all of the selections made by the first user into selectionArray, so that
   //they can be displayed in the view
   $(avails).each(function(){
-    var m = moment(this).format("YYYY/MM/DD, HH")
+    var m = moment(this).format("YYYY/MM/DD, HH");
     selectionArray.push(m);
   });
 
@@ -32,15 +33,16 @@ $(document).ready(function(){
 	date = moment(dateCalibrate);
   paintDay(0);
   selectFinalTime();
-
+  disableBeforeNow();
   disableButtons();
 
   //Prepare the lightbox
   $(".fancybox").fancybox({
     afterLoad   : function() {
       this.inner.prepend( '<h1>Real Talk, Right Quick:</h1>' );
-      var meetingLink = window.location.href + 'meetings/' + meetingId + '/'
-      this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>"
+      this.inner.prepend( '<h3>Check your email for a calendar invite</h3>' );
+      // var meetingLink = window.location.href + 'meetings/' + meetingId + '/';
+      // this.content = "<a href='" + meetingLink + "'><h2>" + meetingLink + "</h2></a>";
     }
   });
 
@@ -49,30 +51,30 @@ $(document).ready(function(){
 	$('.icon-chevron-sign-right').click(function(){
     //cancel the now outdated click functions
     $('.ui-selected').unbind();
-		slideScheduleLeft()
+		slideScheduleLeft();
     //Remove classes
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
-
+    paintDay(1);
+    selectFinalTime();
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
 	// ** ON BACKWARD BUTTON CLICK **
 	$('.icon-chevron-sign-left').click(function(){
     //cancel the previous click function
     $('.ui-selected').unbind();
-		slideScheduleRight()
+		slideScheduleRight();
     //Remove classes.
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(-1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
-
+    paintDay(-1);
+    selectFinalTime();
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
   // ** ON SUBMIT BUTTON CLICK **
@@ -80,7 +82,7 @@ $(document).ready(function(){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
 		//Take times and convert them into moment.js objects
-		var avails = []
+		var avails = [];
 		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
 		avails.push(m);
 		
@@ -103,10 +105,8 @@ $(document).ready(function(){
 					}
 	  	};
 
-        var meetingId = window.location.href.split('/').pop();
-        var guestURL = "/meetings/" + meetingId;
-
         console.log(guestChoice);
+
 
 	  $.ajax({  
 			type: "POST",  
@@ -114,8 +114,6 @@ $(document).ready(function(){
 			data: guestChoice,  
 			success: function(response){  
   			//Setting Lightbox variable to the AJAX response
-        meetingId = response;
-
         // Display the lightbox
         $(".fancybox").click();
       }
@@ -142,11 +140,29 @@ $(document).ready(function(){
 									 $(".day").removeClass("slideFromRight")},200);
  	}
 
+  function displayDateHelper(){
+    //if currently on today's calendar, display "tomorrow"
+    if (moment().format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("today")}
+    //if on tomorrow's calendar, display "tomorrow"
+    else if (moment().add("day",1).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("tomorrow")}
+    //if on the next day's calendar, display "the day after"
+    else if (moment().add("day",2).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("the day after")
+    }
+    //otherwise display the date in this format --> mon march 2nd
+    else {$('h3.day_helper').text(date.format("ddd MMMM Do"))}
+  }
+
   function paintDay(numdays){
+    $('.ui-selected').removeClass('ui-selected');
+    $('.chosen').removeClass('chosen');
     //adds numdays days to the date variable (-1 or +1)
     date.add('d',numdays);
     //updates the day header with the new date variable in the format.
     $('.day_header').text(date.format("MM/DD/YYYY"));
+    displayDateHelper();
     //now variable becomes 11PM of the day before the new date variable.
     var now = date.startOf('day').subtract('h',1);
     //set the data-time attributes of each div to one hour increments, starting at 12AM.
@@ -165,6 +181,26 @@ $(document).ready(function(){
         }
       })
     });
+  }
+
+  function clickCalendarDates(){
+      $('td:not(.disable)').click(function(){
+      var dayclicked = $( this ).text()
+      var currentday = date.format("D")
+      paintDay(dayclicked-currentday)
+      selectFinalTime()
+    })
+  }
+
+  function disableCalendarDates(){
+    if ($('span.ui-datepicker-month').text() == moment().format("MMMM")){
+      $('td').each(function(){
+        if (parseInt($( this ).text()) < parseInt(moment().format("D"))){
+          console.log("this: " + $( this ).text() + "  now: " + moment().format("D"))
+          $(this).addClass("disable")
+        }
+      })
+    }
   }
 
   function selectFinalTime() {
@@ -188,12 +224,15 @@ $(document).ready(function(){
           { $(this).addClass("selectedDate"); }
       });
     })
+
+    disableCalendarDates()
+    clickCalendarDates()
   }
 
   function disableButtons() {
-    var l = 0
-    var r = 0
-    var newdate = moment(date)
+    var l = 0;
+    var r = 0;
+    var newdate = moment(date);
     $.each( selectionArray, function(index, selection){
       if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
         l=1
@@ -209,5 +248,16 @@ $(document).ready(function(){
     
     if (r == 0){$('.icon-chevron-sign-right').hide()}
     else {$('.icon-chevron-sign-right').show()};
+  }
+
+  function disableBeforeNow() {
+    //disable all divs whos data-times are in the past.
+    $('div').each(function(){
+      if ($(this).attr("data-time") <= moment().format("YYYY/MM/DD, HH")){
+        $(this).addClass("ignore")
+      }
+      else {$(this).removeClass("ignore") 
+      }
+    })
   }
 });
