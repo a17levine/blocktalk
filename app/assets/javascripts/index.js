@@ -7,6 +7,7 @@ $(document).ready(function(){
   var date = moment();
   //Setting up variable for Lightbox later on
   var meetingId = ''
+  var meetingLink = ''
 
   //CALENDAR
   $(function(){  
@@ -63,14 +64,13 @@ $(document).ready(function(){
 	  })
   });
 
-  //Prepare the lightbox
-  var meetingLink = 'http://' + window.location.host + '/meetings/' + meetingId + '/'
+  
   $(".fancybox").fancybox({
            //used to be window.location.href
           afterLoad   : function() {
             this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
             this.content = "<textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='70'>" + meetingLink + '</textarea>' + '<br />' + 
-            "<div class='row'><a href='http://" + meetingLink + "'><h6>click to proceed</h6></a></div>"
+            "<div class='row'><a href='" + meetingLink + "'><h6>click to proceed</h6></a></div>";
              
             // Copy Button for later:      "<p><input type='button' data-clipboard-target='fetext' id='copy' class='button' name='copy' value='copy' data-clipboard-text='Test'/></p>"
             // Document Icon for later:    "<i class='icon-file-text-alt icon-4x'></i>"
@@ -129,6 +129,7 @@ $(document).ready(function(){
 					}
 	  		}
 
+    
     var ajaxRequest = $.ajax({  
       type: "POST",  
       url: "/meetings",  
@@ -137,9 +138,12 @@ $(document).ready(function(){
         //Setting Lightbox variable to the AJAX response
         meetingId = response;
 
+        //Prepare the lightbox
+        meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
         // Display the lightbox
         $(".fancybox").click();
-      } 
+      }
+
     })
   })
 
