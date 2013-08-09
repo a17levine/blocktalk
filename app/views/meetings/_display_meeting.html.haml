@@ -1,7 +1,7 @@
 :javascript
 	meetingTimeMoment = moment("#{@meeting.agreed_time_block.start_time.iso8601}");
 
-.container
+.row
 	%h2= "#{@meeting.guest.email_username} + #{@meeting.host.email_username}"
 
 	%h1.speakingWords ""
