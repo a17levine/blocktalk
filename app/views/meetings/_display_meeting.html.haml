@@ -1,1 +1,9 @@
-%h1 Horray display meeting (as in the meeting is planned)
+:javascript
+	meetingTimeMoment = moment("#{@meeting.agreed_time_block.start_time.iso8601}");
+
+.row
+	%h2= "#{@meeting.guest.email_username} + #{@meeting.host.email_username}"
+
+	%h1.speakingWords ""
+
+	%h3.date

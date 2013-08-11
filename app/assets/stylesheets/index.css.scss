@@ -36,17 +36,26 @@
   }
 }
 
-.icon-chevron-sign-left{
+div.icon-div {
+  width: 90px;
+  height: 55px;
+  display: inline-block;
+  float: left;
+}
+
+.icon-chevron-sign-left {
   display: inline-block;
   margin: 10px;
   margin-right: 15px;
   float: left;
+  text-shadow: 4px 4px 4px #bbb;
 }
 
 .icon-chevron-sign-right {
   display: inline-block;
   margin: 10px;
   float: left;
+  text-shadow: 4px 4px 4px #bbb;
 }
 
 .day_header {
@@ -56,15 +65,27 @@
 
 .hour {
   width: 90%;
-  height: 25px;
-  border: 1px solid black;
+  height: 26px;
+  border: 1px solid #AAA;
   border-bottom: none;
   margin: 0 auto;
-  text-align: right;
+  text-align: center;
+  line-height: 2px;
+  font-size: 14px;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
-.hour:last-child{
-  border-bottom: 1px solid black;
+div.hour:nth-of-type(1) {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 2px solid black;
+}
+
+.hour:last-child {
+  border-bottom: 2px solid black;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .day {
@@ -141,7 +162,6 @@
 
 .schedule {
 	width: 100%;
-	height: 1000px;
 }
 
 div.ui-selecting {
@@ -149,8 +169,12 @@ div.ui-selecting {
 }
 
 div.ui-selected {
-	background-color: #89A9F0;
+	background-color: #BF64FC;
   font-weight: bold;
+}
+
+div.ignore {
+  background-color: #E4DFDF;
 }
 
 .inputs {
@@ -159,12 +183,13 @@ div.ui-selected {
 
 div.submit {
   width: 200px;
-  margin-top: 5px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 a.button {
   text-decoration: none;
+  border-radius: 4px;
 }
 
 .rightcontent {
@@ -174,7 +199,7 @@ a.button {
 /*DATEPICKER*/
 
 #datepicker {
-  width: 260px;
+  margin: 0 auto;
   margin-bottom: 50px;
 }
 
@@ -189,6 +214,10 @@ table.ui-datepicker-calendar {
 .ui-icon.ui-icon-circle-triangle-e,
 .ui-icon.ui-icon-circle-triangle-w {
   display: none;
+}
+
+.ui-datepicker-calendar {
+  margin: 0 auto;
 }
 
 .ui-datepicker tbody td {
@@ -208,17 +237,30 @@ p.ui-state-default {
 .selectedDate p{
   // font-weight: bold;
   width: 1.6em;
-  background-color: #89A9F0;
+  background-color: #BF64FC;
   // font-size: 15px;
   border-radius: 5px;
 }
 
 .hostEmail {
-  height: 30px !important;
+  height: 40px !important;
   border-radius: 5px !important;
+  font-size: 25px !important;
 }
 
 .guestEmail {
   height: 30px !important;
   border-radius: 5px !important;
 }
+
+.day_helper {
+  text-align: center;
+}
+
+textarea {
+  // width: 65%;
+  font-size: 40px;
+  display: inline-block;
+  resize: none;
+}
+

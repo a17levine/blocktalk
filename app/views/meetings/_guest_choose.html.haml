@@ -1,54 +1,58 @@
-%h1 Please select a time
+/ %h1 Please select a time
 
 :javascript
-	guestMessage = #{@meeting.guest_json}
-
-/ %p#feedback
-/ 	%span You've selected
-/ 	%span#select-result
-/ 		none
+  guestMessage = #{@meeting.guest_json}
+  meetingId = #{@meeting.id}
 .row
-	.schedule.large-5.columns
-		.outer-wrapper
-			%i.icon-chevron-sign-left.icon-4x
-			.inner-wrapper
-				.selectable.day
-					%h3.day_header
-					.ui-state-default.hour(data-time="00") 12m
-					.ui-state-default.hour(data-time="01") 1a
-					.ui-state-default.hour(data-time="02") 2a
-					.ui-state-default.hour(data-time="03") 3a
-					.ui-state-default.hour(data-time="04") 4a
-					.ui-state-default.hour(data-time="05") 5a
-					.ui-state-default.hour(data-time="06") 6a
-					.ui-state-default.hour(data-time="07") 7a
-					.ui-state-default.hour(data-time="08") 8a
-					.ui-state-default.hour(data-time="09") 9a
-					.ui-state-default.hour(data-time="10") 10a
-					.ui-state-default.hour(data-time="11") 11a
-					.ui-state-default.hour(data-time="12") 12n
-					.ui-state-default.hour(data-time="13") 1p
-					.ui-state-default.hour(data-time="14") 2p
-					.ui-state-default.hour(data-time="15") 3p
-					.ui-state-default.hour(data-time="16") 4p
-					.ui-state-default.hour(data-time="17") 5p
-					.ui-state-default.hour(data-time="18") 6p
-					.ui-state-default.hour(data-time="19") 7p
-					.ui-state-default.hour(data-time="20") 8p
-					.ui-state-default.hour(data-time="21") 9p
-					.ui-state-default.hour(data-time="22") 10p
-					.ui-state-default.hour(data-time="23") 11p
-				%br.clear
-			%i.icon-chevron-sign-right.icon-4x
-	.large-4.columns.inputs
-		%div#datepicker
-		%form
-			%input(type="text" class="guestEmail" id="right-label" placeholder="Your Email")
-			.rightcontent
-		
-		.submit
-			%a(href="#" class="large button") Choose Time
+  %h3= "these times work for #{@meeting.host.email_username}. please choose one."
+.row
+  .schedule.large-6.columns
+    .outer-wrapper
+      .icon-div
+        %i.icon-chevron-sign-left.icon-4x
+        .clear
+      .inner-wrapper
+        .selectable.day
+          %h3.day_helper
+          %h5.day_header
+          %br
+          .ui-state-default.hour(data-time="00") 12m
+          .ui-state-default.hour(data-time="01") 1a
+          .ui-state-default.hour(data-time="02") 2a
+          .ui-state-default.hour(data-time="03") 3a
+          .ui-state-default.hour(data-time="04") 4a
+          .ui-state-default.hour(data-time="05") 5a
+          .ui-state-default.hour(data-time="06") 6a
+          .ui-state-default.hour(data-time="07") 7a
+          .ui-state-default.hour(data-time="08") 8a
+          .ui-state-default.hour(data-time="09") 9a
+          .ui-state-default.hour(data-time="10") 10a
+          .ui-state-default.hour(data-time="11") 11a
+          .ui-state-default.hour(data-time="12") 12n
+          .ui-state-default.hour(data-time="13") 1p
+          .ui-state-default.hour(data-time="14") 2p
+          .ui-state-default.hour(data-time="15") 3p
+          .ui-state-default.hour(data-time="16") 4p
+          .ui-state-default.hour(data-time="17") 5p
+          .ui-state-default.hour(data-time="18") 6p
+          .ui-state-default.hour(data-time="19") 7p
+          .ui-state-default.hour(data-time="20") 8p
+          .ui-state-default.hour(data-time="21") 9p
+          .ui-state-default.hour(data-time="22") 10p
+          .ui-state-default.hour(data-time="23") 11p
+    .icon-div    
+      %i.icon-chevron-sign-right.icon-4x
+        .clear
+  .large-5.columns.inputs
+    %div#datepicker
+    %form
+      %input(type="email" class="guestEmail" id="right-label" placeholder="your email address")
+      .rightcontent
+    .submit
+      %a(href="#" class="large button") confirm time slot
 
+    %a.fancybox{:href => "#"} 
+    / #test{:style => "display:none;width:300px;"}
 
 
 

@@ -1,79 +1,90 @@
-
-
- $(document).ready(function(){
+$(document).ready(function(){
+  var guestURL = "/meetings/" + meetingId;
+  console.log("guestURL is " + guestURL);
 	
   var hostChoices = guestMessage;
   var avails = hostChoices["guestMessage"]["availableDates"];
-  var _selectRange = false 
-  var _deselectQueue = []
-  var selectionArray = []
-  var finalTime = ""
+  var _selectRange = false;
+  var _deselectQueue = [];
+  var selectionArray = [];
+  //Setting up variable for Lightbox later on
+  var finalTime = "";
 
   //Push all of the selections made by the first user into selectionArray, so that
   //they can be displayed in the view
   $(avails).each(function(){
-    var m = moment(this).format("YYYY/MM/DD, HH")
+    var m = moment(this).format("YYYY/MM/DD, HH");
     selectionArray.push(m);
   });
 
   //  **  CALENDAR  **
   $(function(){  
-        $('#datepicker').datepicker({  
-            inline: false,  
-            showOtherMonths: false,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-
-        styleCalendar()
-
+    $('#datepicker').datepicker({  
+        inline: false,  
+        showOtherMonths: false,  
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
     });  
+    styleCalendar(); 
+  });  
 
  	// Grab first available date from host array
 	var dateCalibrate = hostChoices["guestMessage"]["availableDates"][0];
 	// Snap the show view to that date. 
 	date = moment(dateCalibrate);
-  paintDay(0)
-  selectFinalTime()
+  paintDay(0);
+  selectFinalTime();
+  disableBeforeNow();
+  disableButtons();
 
-  disableButtons()
+  //Prepare the lightbox
+  $(".fancybox").fancybox({
+    'type': 'inline',
+    afterLoad   : function() {
+      this.inner.append( '<h1>real talk, right quick:</h1>' );
+      this.inner.append( '<h3>we just emailed you. check for a calendar invite.</h3>' );
+      this.inner.append( "<a href='" + guestURL + "'><p>go to meeting page</p></a> ");
+    }
+  });
+
+
+
 
 	// ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
     //cancel the now outdated click functions
     $('.ui-selected').unbind();
-		//fly right
-		slideScheduleLeft()
+		slideScheduleLeft();
     //Remove classes
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
-
+    paintDay(1);
+    selectFinalTime();
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
 	// ** ON BACKWARD BUTTON CLICK **
 	$('.icon-chevron-sign-left').click(function(){
     //cancel the previous click function
     $('.ui-selected').unbind();
-		//fly left
-		slideScheduleRight()
+		slideScheduleRight();
     //Remove classes.
     $('.ui-selected').removeClass('chosen');
     $('.ui-selected').removeClass('ui-selected');
-    paintDay(-1)
-    selectFinalTime()
-    styleCalendar()
-    disableButtons()
-
+    paintDay(-1);
+    selectFinalTime();
+    disableBeforeNow();
+    styleCalendar();
+    disableButtons();
 	});
 
+  // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
 		//When submit button is pressed, prevent default
   		event.preventDefault();
 		//Take times and convert them into moment.js objects
-		var avails = []
+		var avails = [];
 		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
 		avails.push(m);
 		
@@ -85,28 +96,34 @@
 		//Shaving off parentheses
 		label = label.replace(/[()]/g,'');
 		
-  		var guestChoice = 
+  	var guestChoice = 
 			{ 
-				"guestChoice"  : 
+				"guestChoice": 
 					{
 					'guestEmail' : $('.guestEmail').val(), 
 					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
           'timeZoneLabel' : label,
           'availableDate' : avails[0]
 					}
-	  		}
+	  	};
 
-        console.log(guestChoice);
+    $('.button').first().attr("disabled", "disabled")
 
-	  		$.ajax({  
-  			type: "POST",  
-  			url: "/meetings/[:id]",  
-  			data: guestChoice,  
-  			success: function(response){  
-    			alert('This shit succeeded');	
-		    	} 
-		})
-	})
+       
+
+
+	  $.ajax({  
+			type: "POST",  
+			url: guestURL,  
+			data: guestChoice,  
+			success: function(response){  
+  			//Setting Lightbox variable to the AJAX response
+        // Display the lightbox
+        $(".fancybox").click();
+        $('.fancybox-error').hide();
+      }
+    });
+  });
 
  	function slideScheduleRight(){
  		//add class to slide right, wait, then add class to slide from left side.
@@ -128,11 +145,29 @@
 									 $(".day").removeClass("slideFromRight")},200);
  	}
 
+  function displayDateHelper(){
+    //if currently on today's calendar, display "tomorrow"
+    if (moment().format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("today")}
+    //if on tomorrow's calendar, display "tomorrow"
+    else if (moment().add("day",1).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("tomorrow")}
+    //if on the next day's calendar, display "the day after"
+    else if (moment().add("day",2).format("YYYY/MM/DD") == date.format("YYYY/MM/DD")){
+      $('h3.day_helper').text("the day after")
+    }
+    //otherwise display the date in this format --> mon march 2nd
+    else {$('h3.day_helper').text(date.format("ddd MMMM Do"))}
+  }
+
   function paintDay(numdays){
+    $('.ui-selected').removeClass('ui-selected');
+    $('.chosen').removeClass('chosen');
     //adds numdays days to the date variable (-1 or +1)
     date.add('d',numdays);
     //updates the day header with the new date variable in the format.
     $('.day_header').text(date.format("MM/DD/YYYY"));
+    displayDateHelper();
     //now variable becomes 11PM of the day before the new date variable.
     var now = date.startOf('day').subtract('h',1);
     //set the data-time attributes of each div to one hour increments, starting at 12AM.
@@ -151,6 +186,26 @@
         }
       })
     });
+  }
+
+  function clickCalendarDates(){
+      $('td:not(.disable)').click(function(){
+      var dayclicked = $( this ).text()
+      var currentday = date.format("D")
+      paintDay(dayclicked-currentday)
+      selectFinalTime()
+    })
+  }
+
+  function disableCalendarDates(){
+    if ($('span.ui-datepicker-month').text() == moment().format("MMMM")){
+      $('td').each(function(){
+        if (parseInt($( this ).text()) < parseInt(moment().format("D"))){
+          console.log("this: " + $( this ).text() + "  now: " + moment().format("D"))
+          $(this).addClass("disable")
+        }
+      })
+    }
   }
 
   function selectFinalTime() {
@@ -174,14 +229,15 @@
           { $(this).addClass("selectedDate"); }
       });
     })
+
+    disableCalendarDates()
+    clickCalendarDates()
   }
 
   function disableButtons() {
-    var l = 0
-    var r = 0
-    var newdate = moment(date)
-    console.log(newdate.endOf('day').format("YYYY/MM/DD, HH"))
-
+    var l = 0;
+    var r = 0;
+    var newdate = moment(date);
     $.each( selectionArray, function(index, selection){
       if (selection < date.startOf('day').format("YYYY/MM/DD, HH")){
         l=1
@@ -191,12 +247,22 @@
       }
 
     });
-  //If not, disable the backwards button
-  if (l == 0){$('.icon-chevron-sign-left').hide()}
-  else {$('.icon-chevron-sign-left').show()};
-  
-  if (r == 0){$('.icon-chevron-sign-right').hide()}
-  else {$('.icon-chevron-sign-right').show()};
-}
+    //If not, disable the backwards button
+    if (l == 0){$('.icon-chevron-sign-left').hide()}
+    else {$('.icon-chevron-sign-left').show()};
+    
+    if (r == 0){$('.icon-chevron-sign-right').hide()}
+    else {$('.icon-chevron-sign-right').show()};
+  }
 
+  function disableBeforeNow() {
+    //disable all divs whos data-times are in the past.
+    $('div').each(function(){
+      if ($(this).attr("data-time") <= moment().format("YYYY/MM/DD, HH")){
+        $(this).addClass("ignore")
+      }
+      else {$(this).removeClass("ignore") 
+      }
+    })
+  }
 });
