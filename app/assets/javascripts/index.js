@@ -5,7 +5,6 @@ $(document).ready(function(){
 	var _deselectQueue = []
 	var selectionArray = []
   var date = moment();
-  //Setting up variable for Lightbox later on
   var meetingId = ''
   var meetingLink = ''
 
@@ -58,19 +57,16 @@ $(document).ready(function(){
 	      _selectRange = false;
 	      //clears the queue
 	      _deselectQueue = [];
-
         styleCalendar()
 	    }
 	  })
   });
-
   
   $(".fancybox").fancybox({
-           //used to be window.location.href
           afterLoad   : function() {
-            this.inner.prepend( '<h1>Share this link with your friend:</h1>' );
-            this.content = "<textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='70'>" + meetingLink + '</textarea>' + '<br />' + 
-            "<div class='row'><a href='" + meetingLink + "'><h6>click to proceed</h6></a></div>";
+            this.inner.prepend( "<div class='row'><div class='small-10 small-offset-2 columns'><h2>Share this link with your friend:</h2></div></div>" );
+            this.content = "<div class='row'><div class='small-10 small-offset-1 columns'><textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='60'>" + meetingLink + '</textarea>' + '<br />' + 
+            "<a href='" + meetingLink + "</div></div>'><div class='row'><div class='button small-4 small-offset-4 columns'>click to proceed</div></a></div>";
              
             // Copy Button for later:      "<p><input type='button' data-clipboard-target='fetext' id='copy' class='button' name='copy' value='copy' data-clipboard-text='Test'/></p>"
             // Document Icon for later:    "<i class='icon-file-text-alt icon-4x'></i>"
