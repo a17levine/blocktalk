@@ -52,6 +52,7 @@ class Meeting < ActiveRecord::Base
   	@guest_json = "{'guestMessage':{'hostEmail': '#{self.host.email.split('@').first}','availableDates': [#{@available_times_in_iso}]}}"
   end
 
+private
 
   def self.generate_token
     number = SecureRandom.hex(3)
