@@ -134,18 +134,18 @@ $(document).ready(function(){
     var ajaxRequest = $.ajax({  
       type: "POST",  
       url: "/meetings",  
-      data: createMessage,  
+      data: createMessage,
+      dataType: "json",
       success: function(response){
         //Setting Lightbox variable to the AJAX response
-        meetingId = response;
+        meetingId = response.token;
 
         //Prepare the lightbox
         meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
         // Display the lightbox
         $(".fancybox").click();
-      }
-
-    })
+      },
+    });
   })
 
   function slideScheduleRight(){

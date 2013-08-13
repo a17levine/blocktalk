@@ -25,7 +25,7 @@ class ConfirmationTimeMailer < ActionMailer::Base
 	       	e.add_attendee "mailto:#{user.email}"
 	       end
 
-	       e.uid "MeetingRequest #{meeting.id}"
+	       e.uid "MeetingRequest #{meeting.token}"
 	       e.summary @subject_line
 	       e.description "This meeting was created with blocktalk"
 	       ical.add_event(e)

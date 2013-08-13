@@ -2,7 +2,7 @@
 
 :javascript
   guestMessage = #{@meeting.guest_json}
-  meetingId = #{@meeting.id}
+  meetingId = "#{@meeting.token}"
 .row
   %h3= "these times work for #{@meeting.host.email_username}. please choose one."
 .row
