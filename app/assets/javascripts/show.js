@@ -1,7 +1,6 @@
 $(document).ready(function(){
+
   var guestURL = "/meetings/" + meetingId;
-  console.log("guestURL is " + guestURL);
-	
   var hostChoices = guestMessage;
   var avails = hostChoices["guestMessage"]["availableDates"];
   var _selectRange = false;
@@ -36,7 +35,7 @@ $(document).ready(function(){
   disableBeforeNow();
   disableButtons();
 
-  //Prepare the lightbox
+  //  ** PREPARE THE LIGHTBOX **
   $(".fancybox").fancybox({
     'type': 'inline',
     afterLoad   : function() {
@@ -45,9 +44,6 @@ $(document).ready(function(){
       this.inner.append( "<a href='" + guestURL + "'><p>go to meeting page</p></a> ");
     }
   });
-
-
-
 
 	// ** ON FORWARD BUTTON CLICK **
 	$('.icon-chevron-sign-right').click(function(){
@@ -106,12 +102,11 @@ $(document).ready(function(){
           'availableDate' : avails[0]
 					}
 	  	};
-
+      
+    //Disable the send button
     $('.button').first().attr("disabled", "disabled")
 
-       
-
-
+    //Send the results to the server, with the guest's choice of timeblock.
 	  $.ajax({  
 			type: "POST",  
 			url: guestURL,  
