@@ -6,7 +6,7 @@ class Meeting < ActiveRecord::Base
 	belongs_to :guest,  class_name: "User", foreign_key: "guest_id"
 	belongs_to :agreed_time_block, class_name: "TimeBlock", foreign_key: "time_block_id"
   
-  attr_accessible :host, :guest, :time_block_id, :host_id, :planned #:agreed_time_block
+  attr_accessible :host, :guest, :time_block_id, :host_id, :planned, :token #:agreed_time_block
 
   def self.create_meeting(parameters)
   	@host_email = parameters[:createMessage][:hostEmail]
@@ -15,7 +15,7 @@ class Meeting < ActiveRecord::Base
     @user = User.return_user_from_email(@host_email)
     @user.latest_time_zone = parameters[:createMessage][:timeZoneLabel] #assign the user the latest_time_zone with the label of the time zone
     @user.latest_time_zone_offset = parameters[:createMessage][:timeZoneOffset] #assign the user the latest_time_zone_offset with the string offset of the time zone
-  	@meeting = @user.meetings.create(host_id: @user.id, planned: false)
+  	@meeting = @user.meetings.create(host_id: @user.id, planned: false, token: Meeting.generate_token)
 		@start_times_array_in_iso8601.each do |startTimeIso8601|
 			unless @meeting.timeblocks.find_by_start_time(DateTime.iso8601(startTimeIso8601))
 				# this didn't do what I wanted. the idea was to
@@ -52,10 +52,12 @@ class Meeting < ActiveRecord::Base
   	@guest_json = "{'guestMessage':{'hostEmail': '#{self.host.email.split('@').first}','availableDates': [#{@available_times_in_iso}]}}"
   end
 
-  def time_zones_match?
-    # result = tru
-    # self.users.each do |user|
-    #   user.
-    # end
+
+  def self.generate_token
+    number = SecureRandom.hex(3)
+    while Meeting.find_by_token(number)
+      number = SecureRandom.hex(3)
+    end
+    number
   end
 end
