@@ -5,7 +5,6 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'quiet_assets'
 gem 'zeroclipboard-rails'
 gem 'icalendar'
@@ -34,7 +33,13 @@ group :development do
 	gem 'binding_of_caller'
 	gem 'pry'
   gem 'guard-livereload'
+  gem 'sqlite3'
 end
+
+group :production do 
+  gem 'pg'
+end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
