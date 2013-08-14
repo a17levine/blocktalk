@@ -33,7 +33,7 @@ class MeetingsController < ApplicationController
 		puts "chosen time is #{params[:guestChoice][:availableDate]}"
 		@meeting.process_chosen_time(params[:guestChoice][:availableDate])
 		 # send emails to both parties
-		# ConfirmationTimeMailer.confirmation_time_email(@meeting).deliver!
+		ConfirmationTimeMailer.confirmation_time_email(@meeting).deliver!
 
 		render nothing: true
 	end
