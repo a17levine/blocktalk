@@ -2,7 +2,7 @@
 
 :javascript
   guestMessage = #{@meeting.guest_json}
-  meetingId = #{@meeting.id}
+  meetingId = "#{@meeting.token}"
 .row
   %h3= "these times work for #{@meeting.host.email_username}. please choose one."
 .row
@@ -16,7 +16,7 @@
           %h3.day_helper
           %h5.day_header
           %br
-          .ui-state-default.hour(data-time="00") 12m
+          .ui-state-default.hour(data-time="00") 
           .ui-state-default.hour(data-time="01") 1a
           .ui-state-default.hour(data-time="02") 2a
           .ui-state-default.hour(data-time="03") 3a

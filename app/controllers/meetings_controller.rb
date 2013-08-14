@@ -10,16 +10,18 @@ class MeetingsController < ApplicationController
 	def create
 		@meeting = Meeting.create_meeting(params)	
 		respond_to do |format|
-			format.js  { }
+			format.js {
+				render :json => { token: @meeting.token }
+			}
 		end
 	end
 
 	def show
-		@meeting = Meeting.find(params[:id])
+		@meeting = Meeting.find_by_token(params[:id])
 	end
 
 	def choose_time
-		@meeting = Meeting.find(params[:id])
+		@meeting = Meeting.find_by_token(params[:id])
 		puts "@meeting is #{@meeting}"
 		@guest = @meeting.process_guest(params[:guestChoice][:guestEmail]) #this creates the user, adds it to the meeting users, sets as guest
 		@guest.add_time_zones(params[:guestChoice][:timeZoneLabel], params[:guestChoice][:timeZoneOffset])
@@ -27,7 +29,7 @@ class MeetingsController < ApplicationController
 		puts "chosen time is #{params[:guestChoice][:availableDate]}"
 		@meeting.process_chosen_time(params[:guestChoice][:availableDate])
 		 # send emails to both parties
-		ConfirmationTimeMailer.confirmation_time_email(@meeting).deliver!
+		# ConfirmationTimeMailer.confirmation_time_email(@meeting).deliver!
 
 		render nothing: true
 	end
