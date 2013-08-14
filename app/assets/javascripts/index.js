@@ -107,22 +107,23 @@ $(document).ready(function(){
 			avails.push(m);
 		});
 
-    console.log(avails)
-
+    //validate that user selects at least one timeblock
     if (avails.length == 0){
       alert("Please select at least one timeblock.");
       return false;
     }
-    
-    else if ($('.hostEmail').val() == ""){
-      alert("Please enter your email address.");
-      return false;
-    }
 
-    else if ($('.hostEmail').val().indexOf("@") == -1){
+    //use regex to validate user email
+    else if (validateEmail($('.hostEmail').val()) == false){
       alert("Please enter a valid email address.");
       return false;
     }
+
+        //validate format of email
+    function validateEmail(email) { 
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    } 
 
 		//Convert Moment object into JS Date object to get timezone
 		//Turning crude date into a moment string, then splitting it
