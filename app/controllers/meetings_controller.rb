@@ -7,6 +7,10 @@ class MeetingsController < ApplicationController
 		@user = User.new
 	end
 
+	def index
+		
+	end
+
 	def create
 		@meeting = Meeting.create_meeting(params)	
 		respond_to do |format|
