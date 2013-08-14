@@ -58,5 +58,7 @@ module Blocktalk
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.assets.precompile += ['_display_meeting.js', 'show.js', 'index.js', 'show.css', 'index.css']
   end
 end

@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'quiet_assets'
 gem 'zeroclipboard-rails'
 gem 'icalendar'
+gem 'haml-rails'
 
 
 # Gems used only for assets and not required
@@ -19,8 +20,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'compass-rails'
   gem 'zurb-foundation', '~> 4.0.0'
-  gem 'haml-rails'
-
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 end
