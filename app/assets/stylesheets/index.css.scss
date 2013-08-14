@@ -233,9 +233,18 @@ table tr {
 }
 
 p.ui-state-default {
+  margin-right: 0;
   margin: 0;
+  padding: 2px 23px 2px 5px;
+  width: 21px;
+  text-align: center
 }
 
+p.ui-state-active {
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  padding: 1px 21px 1px 4px;
+}
 .selectedDate p{
   // font-weight: bold;
   width: 1.6em;

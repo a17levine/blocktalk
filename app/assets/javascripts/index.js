@@ -65,8 +65,9 @@ $(document).ready(function(){
   $(".fancybox").fancybox({
           afterLoad   : function() {
             this.inner.prepend( "<div class='row'><div class='small-10 small-offset-2 columns'><h2>Share this link with your friend:</h2></div></div>" );
-            this.content = "<div class='row'><div class='small-10 small-offset-1 columns'><textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='60'>" + meetingLink + '</textarea>' + '<br />' + 
-            "<a href='" + meetingLink + "'</div></div><div class='row'><div class='button small-4 small-offset-4 columns'>click to proceed</div></a></div>";
+
+            this.content = "<div class='row'><div class='small-10 small-offset-1 columns'><textarea name='box-content' font-size: 48px; id='zclip' rows='2' cols='60'>" + meetingLink + '</textarea></div></div>' + '<br />' + 
+            "<div class='row'><a class='button small-4 small-offset-4' href='" + meetingLink + "'>click to proceed</a></div>";
              
             // Copy Button for later:      "<p><input type='button' data-clipboard-target='fetext' id='copy' class='button' name='copy' value='copy' data-clipboard-text='Test'/></p>"
             // Document Icon for later:    "<i class='icon-file-text-alt icon-4x'></i>"
@@ -105,7 +106,25 @@ $(document).ready(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
 			avails.push(m);
 		});
-		
+
+    //validate that user selects at least one timeblock
+    if (avails.length == 0){
+      alert("Please select at least one timeblock.");
+      return false;
+    }
+
+    //use regex to validate user email
+    else if (validateEmail($('.hostEmail').val()) == false){
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+        //validate format of email
+    function validateEmail(email) { 
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    } 
+
 		//Convert Moment object into JS Date object to get timezone
 		//Turning crude date into a moment string, then splitting it
 		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
