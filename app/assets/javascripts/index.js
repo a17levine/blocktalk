@@ -106,7 +106,24 @@ $(document).ready(function(){
 			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
 			avails.push(m);
 		});
-		
+
+    console.log(avails)
+
+    if (avails.length == 0){
+      alert("Please select at least one timeblock.");
+      return false;
+    }
+    
+    else if ($('.hostEmail').val() == ""){
+      alert("Please enter your email address.");
+      return false;
+    }
+
+    else if ($('.hostEmail').val().indexOf("@") == -1){
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
 		//Convert Moment object into JS Date object to get timezone
 		//Turning crude date into a moment string, then splitting it
 		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
