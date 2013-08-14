@@ -12,10 +12,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//- require jquery-ui
 //= require jquery.ui.selectable
+//= require jquery.ui.datepicker
+//= require jquery.mousewheel-3.0.6.pack
+//= require jquery.zclip
 //= require zeroclipboard
-//= require_tree ./shared
-
+//= require moment.min
+//= require moment-timezone.min
+//= require fancybox/jquery.fancybox
+//= require fancybox/jquery.fancybox-buttons
+//= require fancybox/jquery.fancybox-media
+//= require fancybox/jquery.fancybox-thumbs
+//= require fancybox/jquery.fancybox.pack
 
 $(document).foundation();
