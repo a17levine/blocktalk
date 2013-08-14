@@ -39,7 +39,7 @@ $(document).ready(function(){
   $(".fancybox").fancybox({
     'type': 'inline',
     afterLoad   : function() {
-      this.inner.append( '<h1>real talk, right quick:</h1>' );
+      this.inner.append( '<h1>meeting planned! you are now scheduled.</h1>' );
       this.inner.append( '<h3>we just emailed you. check for a calendar invite.</h3>' );
       this.inner.append( "<a href='" + guestURL + "'><p>go to meeting page</p></a> ");
     }
