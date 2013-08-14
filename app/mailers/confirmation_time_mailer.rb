@@ -32,6 +32,8 @@ class ConfirmationTimeMailer < ActionMailer::Base
 	       ical.publish
 	       # ical.to_ical
 	       # render :text => ical.to_ical, :layout => false
+	       @ical = ical
+	       render 'confirmation_time_email', :layout => false
 	       # binding.pry
       }
   	end
