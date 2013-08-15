@@ -60,6 +60,9 @@ GEM
       multi_json (~> 1.0)
     ffi (1.9.0)
     formatador (0.2.4)
+    foundation-icons-sass-rails (2.0.0)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     fssm (0.2.10)
     guard (1.8.2)
       formatador (>= 0.2.4)
@@ -173,6 +176,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 3.2.1)
   compass-rails
+  foundation-icons-sass-rails
   guard-livereload
   haml-rails
   icalendar

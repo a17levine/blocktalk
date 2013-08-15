@@ -12,10 +12,12 @@
  *= require jquery.fancybox-buttons
  *= require jquery.fancybox-thumbs
  *= require foundation_and_overrides
+ *= require static_pages
  *= require_self
  */
  
  @import "foundation";
+ @import "foundation-icons";
 
  $primaryColor: black;
 
