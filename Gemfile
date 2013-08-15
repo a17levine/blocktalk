@@ -34,6 +34,7 @@ group :development do
 	gem 'pry'
   gem 'guard-livereload'
   gem 'sqlite3'
+  gem 'figaro'
 end
 
 group :production do 

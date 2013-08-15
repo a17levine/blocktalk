@@ -43,6 +43,7 @@ $(document).ready(function(){
 	            }
 	    },
 	    unselecting: function (event, ui) {
+        //adds 'ui-selected class to selection'
 	      $(ui.unselecting).addClass('ui-selected');
 	    },
 	    stop: function () {
@@ -211,9 +212,9 @@ $(document).ready(function(){
     $('.hour').each(function(){
       //set the data-time attributes of each div to one hour increments, starting at 12AM.
       $(this).attr("data-time", now.add('h',1).format("YYYY/MM/DD, HH"));
-      //add ui-selected class to each previously selected hour
       })
 
+    //add ui-selected class to each previously selected hour
     $.each(selectionArray, function(index, selection){
       $('.hour').each(function(){
         if ($( this ).attr('data-time') == selection){
@@ -260,11 +261,12 @@ $(document).ready(function(){
     clickCalendarDates()
   }
 
+// ** BUTTON VISIBILITY **
   function disableButtons() {
-    // console.log(moment().format("MM/DD/YYYY") + " Hello")
     if (date.format("MM/DD/YYYY") <= moment().format("MM/DD/YYYY")){
+          //remove left chevron button
           $('.icon-chevron-sign-left').hide()
-    }
+    }     //show left chevron button
     else {$('.icon-chevron-sign-left').show()};
     }
 
