@@ -30,11 +30,7 @@ class ConfirmationTimeMailer < ActionMailer::Base
 	       e.description "This meeting was created with blocktalk"
 	       ical.add_event(e)
 	       ical.publish
-	       # ical.to_ical
-	       # render :text => ical.to_ical, :layout => false
-	       @ical = ical
-	       render 'confirmation_time_email', :layout => false
-	       # binding.pry
+	       render :text => ical.to_ical, :layout => false
       }
   	end
   end
