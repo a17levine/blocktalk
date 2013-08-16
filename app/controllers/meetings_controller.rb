@@ -1,4 +1,4 @@
-class MeetingsController < ApplicationController
+	class MeetingsController < ApplicationController
 
 	protect_from_forgery :except => [:create]
 

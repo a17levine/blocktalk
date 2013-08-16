@@ -1,17 +1,21 @@
+<head>
 
-
-  <nav class="top-bar">
-    <ul class="title-area">
+<script>
+  jQuery("#responsive_headline").fitText();
+</script>
+</head>
+  <!-- <nav class="top-bar">
+    <ul class="title-area"> -->
       <!-- Title Area -->
-      <li class="name">
+     <!--  <li class="name">
         <h1>
           <a href="#">
             Top Bar Title
           </a>
         </h1>
-      </li>
-      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-    </ul>
+      </li> -->
+     <!--  <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul> -->
  
     <!-- <section class="top-bar-section">
       Right Nav Section
@@ -38,105 +42,109 @@
   <!-- End Top Bar -->
  
   <div class="row">
-    <div class="large-12 columns">
- 
-    <!-- Content Slider -->
- 
-      <div class="row">
-        <div class="large-12 hide-for-small">
- 
-          <div id="featured">
-              <img src="http://placehold.it/1200x500&text=Banner">
-          </div>
- 
+    <div class="large-12 hero">
+  
+      <%= image_tag("earth.png", :class => "earth") %>
+
+      <div class="marketing_speak">
+        <h1 class="marketing_text">Finding time with busy people</h1>
+        <h1 class="marketing_text">anywhere in the world</h1>
+
+        <%= link_to meetings_path do %>
+        <div class="advance button">Get a meeting on the books. Free!
         </div>
+        <% end %>
+
       </div>
- 
-    <!-- End Content Slider -->
- 
-    <!-- Mobile Header -->
- 
-      <div class="row">
-        <div class="large-12 columns show-for-small">
- 
-          <img src="http://placehold.it/1200x700&text=Mobile Header">
- 
-        </div>
-      </div>
-      
 
-
-      <br>
- 
-    <!-- End Mobile Header -->
- 
- 
-      <div class="row">
-        <!-- <div class="large-12 columns"> -->
-          <div class="row">
-
-            <div class="large-4 small-6 columns panel">
-              
-              <i class="general foundicon-calendar myicon"></i>
-
-              <h4>Paint Your Availability</h4><hr>
-              <p>Use our convenient blocks to define times when you can talk. </p>
-            </div>
- 
-            <div class="large-4 small-6 columns panel">
-              <h4>Send to your friend</h4><hr>
-              <p>With unique links, you can use Twitter, Facebook, Email, anything to relay a blocktalk request.</p>
-            </div>
- 
-            <div class="large-4 small-12 columns panel">
-              <i class="general foundicon-globe myicon"></i>
-
-              <h4>All times local</h4><hr>
-              <p>No more confusion about when people are free, even across the world.</p>
-
-              <p>Using Google Calendar, Outlook, or iCal? We'll email you a calendar invite when your friend confirms.</p>
-            </div>
-          </div>
-        <!-- </div> -->
-      </div>      
- 
-    <!-- End Content -->
- 
- 
-    <!-- Footer -->
- 
-      <footer class="row">
-        <div class="large-12 columns"><hr>
-            <div class="row">
- 
-              <div class="large-6 columns">
-                  <p>&copy; Copyright BlockTalk 2013</p>
-              </div>
- 
-              <div class="large-6 small-12 columns">
-                  <ul class="inline-list right">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
-                  </ul>
-              </div>
- 
-            </div>
-        </div>
-      </footer>
- 
-    <!-- End Footer -->
- 
     </div>
   </div>
  
+  <!-- End Content Slider -->
+
+  <!-- Mobile Header -->
+
+  <!--   <div class="row">
+      <div class="large-12 columns show-for-small">
+
+        <img src="http://placehold.it/1200x700&text=Mobile Header">
+
+      </div>
+    </div> -->
+    
+
+
+  <br />
+
+  <!-- End Mobile Header -->
+
+
+  <div class="row features">
+
+    <div class="large-4 small-12 columns">
+      
+      <i class="general foundicon-clock myicon"></i>
+
+      <h4>Paint Your Availability</h4><hr>
+      <p>Use our <strong>convenient blocks</strong> to define times when you can talk. </p>
+    </div>
+
+    <div class="large-4 small-12 columns">
+      
+      <div class="contain_people">
+        <i class="accessibility foundicon-adult share host"></i>
+        <i class="general foundicon-right-arrow share"></i>
+        <i class="accessibility foundicon-adult share guest"></i>
+      </div>
+
+      <h4>Send to your friend</h4><hr>
+      <p>With <strong>unique links</strong>, you can use Twitter, Facebook, Email, anything to relay a blocktalk request.</p>
+    </div>
+
+    <div class="large-4 small-12 columns">
+      <i class="general foundicon-globe myicon"></i>
+
+      <h4>All times local</h4><hr>
+      <p>No more confusion about when people are free, even across the world.</p>
+
+      <p>Using <strong>Google Calendar</strong>, <strong>Outlook</strong>, or <strong>iCal</strong>? We'll email you a calendar invite when your friend confirms.</p>
+    </div>
+  </div>      
+ 
+  <!-- End Content -->
+
+
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns"><hr>
+        <div class="row">
+
+          <div class="large-6 columns">
+              <p>&copy; Copyright BlockTalk 2013</p>
+          </div>
+
+          <!-- <div class="large-6 small-12 columns">
+              <ul class="inline-list right">
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+                <li><a href="#">Link 4</a></li>
+              </ul>
+          </div> -->
+
+        </div>
+    </div>
+  </footer>
+ 
+    <!-- End Footer -->
+  </div>
+ 
   <script>
-  document.write('<script src=js/vendor/' +
-  ('__proto__' in {} ? 'zepto' : 'jquery') +
-  '.js><\/script>')
-  </script>
-  <script>
+    document.write('<script src=js/vendor/' +
+    ('__proto__' in {} ? 'zepto' : 'jquery') +
+    '.js><\/script>')
+    
     $(document).foundation();
   </script>
 <!-- End Footer

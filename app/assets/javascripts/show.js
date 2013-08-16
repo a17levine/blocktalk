@@ -41,7 +41,7 @@ $(document).ready(function(){
     afterLoad   : function() {
       this.inner.append( '<h1>meeting planned! you are now scheduled.</h1>' );
       this.inner.append( '<h3>we just emailed you. check for a calendar invite.</h3>' );
-      this.inner.append( "<a href='" + guestURL + "'><p>go to meeting page</p></a> ");
+      this.inner.append( "<div class='row'><a class='button small-4 small-offset-4' href='" + guestURL + "'>go to meeting page</a></div> ");
     }
   });
 

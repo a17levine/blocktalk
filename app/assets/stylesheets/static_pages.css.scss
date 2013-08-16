@@ -3,16 +3,72 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body {
-	// background-image: image-url("greyzz_@2X.png");
-	background-color: #ecf0f1;
+	
 }
 
-.panel {
+.marketing_speak {
+	width: 33%;
+	position: absolute;
+	top: 115px;
+	right: 5px;
+	padding-right: 84px;
+}
 
+.marketing_text {
+	color: white;
+	padding-right: 12px;
+	line-height: 1em;
+}
+
+.advance {
+	// width: 
+	// position: absolute;
+	float: right;
+}
+
+.hero {
+	position: relative;
+}
+
+img.earth {
+	width: 100%
+}
+
+.features {
+	text-align: center;
+}
+
+.panel.send {
+	padding-left: -8px;
 }
 
 i.myicon {
 	font-size: 10em;
 	margin: auto;
 	font-color: red;
+	text-align: center;
+}
+
+.contain_people {
+	width: 100%;
+}
+
+i.share {
+	font-size: 6em;
+	margin: auto;
+	font-color: red;
+	text-align: center;
+	white-space: nowrap;
+}
+
+i.right-arrow{
+	font-size: 3em;
+}
+
+i.host{
+
+}
+
+i.guest{
+
 }
