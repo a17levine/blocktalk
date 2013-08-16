@@ -8,6 +8,6 @@ Blocktalk::Application.routes.draw do
   	end
   end
 
-  root :to => 'meetings#index'
+  root :to => 'static_pages#index'
 
 end
