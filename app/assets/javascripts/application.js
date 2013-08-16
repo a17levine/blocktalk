@@ -16,6 +16,7 @@
 //= require jquery.ui.datepicker
 //= require jquery.mousewheel-3.0.6.pack
 //= require jquery.zclip
+//= require touchpunch
 //= require zeroclipboard
 //= require moment.min
 //= require moment-timezone.min

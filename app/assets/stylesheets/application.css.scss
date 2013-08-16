@@ -34,3 +34,74 @@
 * {
 	text-transform: lowercase;
 }
+
+
+@media #{$portrait} { 
+  .header {
+    background: #222;
+    box-shadow: #111 0 0 4px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+    h1 {
+      color: #fff;
+      padding-left: 0.5em;
+
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+
+  .schedule {
+    margin-top: 1.2em;
+
+    div.icon-div {
+      display: none;
+    }
+
+    .outer-wrapper {
+      width: 100%;
+    }
+
+    .inner-wrapper, .selectable {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .large-5.small-12 {
+    float: none;
+    margin-top: 3em;
+    width: 100%;
+
+    .ui-datepicker-title {
+      border-top: solid #222 1px;
+      line-height: 5em;
+    }
+
+    .ui-datepicker-calendar {
+      width: 80%;
+    }
+
+    form {
+      border-top: solid #222 1px;
+      padding-top: 2em;
+    }
+
+    .submit {
+      margin: 0;
+    }
+  }
+
+  .fancybox-inner {
+    .small-offset-2, .small-offset-4 {
+      margin-left: 12px;
+    }
+
+    .small-4 {
+      width: 80%;
+    }
+  }
+}
