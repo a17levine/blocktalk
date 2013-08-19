@@ -24,5 +24,6 @@
 //= require fancybox/jquery.fancybox-media
 //= require fancybox/jquery.fancybox-thumbs
 //= require fancybox/jquery.fancybox.pack
+//= require google-analytics
 
 $(document).foundation();
