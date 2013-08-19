@@ -8,6 +8,16 @@ $(document).ready(function(){
   var selectionArray = [];
   //Setting up variable for Lightbox later on
   var finalTime = "";
+  var successfulAjax = false;
+
+  //Getting ENTER KEY to submit email address
+
+  $('input').keypress(function (e) {
+  if (e.which == 13) {
+    $('.button').first().click();
+    return false;
+    }
+  });
 
   //Push all of the selections made by the first user into selectionArray, so that
   //they can be displayed in the view
@@ -77,66 +87,68 @@ $(document).ready(function(){
 
   // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
-		//When submit button is pressed, prevent default
-  		event.preventDefault();
-		//Take times and convert them into moment.js objects
-		var avails = [];
-    console.log(finalTime)
-    //validate that user selects a timeblock
-    if (finalTime == ""){
-      alert("Please select at least one timeblock.");
-      return false;
-    }
-
-		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
-		avails.push(m);
-
-    //use regex to validate user email
-    if (validateEmail($('.guestEmail').val()) == false){
-      alert("Please enter a valid email address.");
-      return false;
-    }
-
-        //validate format of email
-    function validateEmail(email) { 
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    } 
-		
-		//Convert Moment object into JS Date object to get timezone
-		//Turning crude date into a moment string, then splitting it
-		var label = moment(finalTime, "YYYY/MM/DD, HH").toDate().toString().split(' ');
-		//Getting the last item (timezone) in resulting array
-		label = label.pop();
-		//Shaving off parentheses
-		label = label.replace(/[()]/g,'');
-		
-  	var guestChoice = 
-			{ 
-				"guestChoice": 
-					{
-					'guestEmail' : $('.guestEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-          'timeZoneLabel' : label,
-          'availableDate' : avails[0]
-					}
-	  	};
-      
-    //Disable the send button
-    $('.button').first().attr("disabled", "disabled")
-
-    //Send the results to the server, with the guest's choice of timeblock.
-	  $.ajax({  
-			type: "POST",  
-			url: guestURL,  
-			data: guestChoice,  
-			success: function(response){  
-  			//Setting Lightbox variable to the AJAX response
-        // Display the lightbox
-        $(".fancybox").click();
-        $('.fancybox-error').hide();
+    if (successfulAjax == false) {
+  		//When submit button is pressed, prevent default
+    	event.preventDefault();
+  		//Take times and convert them into moment.js objects
+  		var avails = [];
+      console.log(finalTime)
+      //validate that user selects a timeblock
+      if (finalTime == ""){
+        alert("Please select at least one timeblock.");
+        return false;
       }
-    });
+
+  		var m = moment(finalTime, "YYYY/MM/DD, HH").toJSON();
+  		avails.push(m);
+
+      //use regex to validate user email
+      if (validateEmail($('.guestEmail').val()) == false){
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+          //validate format of email
+      function validateEmail(email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      } 
+  		
+  		//Convert Moment object into JS Date object to get timezone
+  		//Turning crude date into a moment string, then splitting it
+  		var label = moment(finalTime, "YYYY/MM/DD, HH").toDate().toString().split(' ');
+  		//Getting the last item (timezone) in resulting array
+  		label = label.pop();
+  		//Shaving off parentheses
+  		label = label.replace(/[()]/g,'');
+  		
+    	var guestChoice = 
+  			{ 
+  				"guestChoice": 
+  					{
+  					'guestEmail' : $('.guestEmail').val(), 
+  					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+            'timeZoneLabel' : label,
+            'availableDate' : avails[0]
+  					}
+  	  	};
+        
+      //Disable the send button
+      $('.button').first().attr("disabled", "disabled")
+
+      //Send the results to the server, with the guest's choice of timeblock.
+  	  $.ajax({  
+  			type: "POST",  
+  			url: guestURL,  
+  			data: guestChoice,  
+  			success: function(response){  
+    			//Setting Lightbox variable to the AJAX response
+          // Display the lightbox
+          $(".fancybox").click();
+          $('.fancybox-error').hide();
+        }
+      });
+    };
   });
 
  	function slideScheduleRight(){

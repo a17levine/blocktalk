@@ -7,6 +7,16 @@ $(document).ready(function(){
   var date = moment();
   var meetingId = ''
   var meetingLink = ''
+  var successfulAjax = false;
+
+  //Getting ENTER KEY to submit email address
+
+  $('input').keypress(function (e) {
+  if (e.which == 13) {
+    $('.button').first().click();
+    return false;
+    }
+  });
 
   //CALENDAR
   $(function(){  
@@ -99,69 +109,70 @@ $(document).ready(function(){
 
   // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
-		//When submit button is pressed, prevent default
-  		event.preventDefault();
-		//Now take times and convert them into moment.js objects
-		var avails = []
-		$(selectionArray).each(function(){
-			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
-			avails.push(m);
-		});
+    if (successfulAjax == false) {
+  		//When submit button is pressed, prevent default
+    		event.preventDefault();
+  		//Now take times and convert them into moment.js objects
+  		var avails = []
+  		$(selectionArray).each(function(){
+  			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
+  			avails.push(m);
+  		});
 
-    //validate that user selects at least one timeblock
-    if (avails.length == 0){
-      alert("Please select at least one timeblock.");
-      return false;
-    }
+      //validate that user selects at least one timeblock
+      if (avails.length == 0){
+        alert("Please select at least one timeblock.");
+        return false;
+      }
 
-    //use regex to validate user email
-    else if (validateEmail($('.hostEmail').val()) == false){
-      alert("Please enter a valid email address.");
-      return false;
-    }
+      //use regex to validate user email
+      else if (validateEmail($('.hostEmail').val()) == false){
+        alert("Please enter a valid email address.");
+        return false;
+      }
 
-        //validate format of email
-    function validateEmail(email) { 
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    } 
+          //validate format of email
+      function validateEmail(email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      } 
 
-		//Convert Moment object into JS Date object to get timezone
-		//Turning crude date into a moment string, then splitting it
-		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
-		//Getting the last item (timezone) in resulting array
-		label = label.pop();
-		//Shaving off parentheses
-		label = label.replace(/[()]/g,'');
-		
-  		var createMessage = 
-			{ 
-				"createMessage"  : 
-					{
-					'hostEmail'  	 : $('.hostEmail').val(), 
-					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-					'timeZoneLabel'  : label, 
-					'availableDates' : avails, 
-					}
-	  		}
+  		//Convert Moment object into JS Date object to get timezone
+  		//Turning crude date into a moment string, then splitting it
+  		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
+  		//Getting the last item (timezone) in resulting array
+  		label = label.pop();
+  		//Shaving off parentheses
+  		label = label.replace(/[()]/g,'');
+  		
+    		var createMessage = 
+  			{ 
+  				"createMessage"  : 
+  					{
+  					'hostEmail'  	 : $('.hostEmail').val(), 
+  					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+  					'timeZoneLabel'  : label, 
+  					'availableDates' : avails, 
+  					}
+  	  		}
+      
+      var ajaxRequest = $.ajax({  
+        type: "POST",  
+        url: "/meetings",  
+        data: createMessage,
+        dataType: "json",
+        success: function(response){
+          //Setting Lightbox variable to the AJAX response
+          meetingId = response.token;
 
-    $('.button').first().attr("disabled", "disabled")
-    
-    var ajaxRequest = $.ajax({  
-      type: "POST",  
-      url: "/meetings",  
-      data: createMessage,
-      dataType: "json",
-      success: function(response){
-        //Setting Lightbox variable to the AJAX response
-        meetingId = response.token;
-
-        //Prepare the lightbox
-        meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
-        // Display the lightbox
-        $(".fancybox").click();
-      },
-    });
+          //Prepare the lightbox
+          meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
+          // Display the lightbox
+          $(".fancybox").click();
+          disableSubmitButton();
+        },
+      });
+    };
   })
 
   function slideScheduleRight(){
@@ -281,38 +292,8 @@ $(document).ready(function(){
     })
   }
 
-  //Zero Clipboard integration
-  // var clip = new ZeroClipboard($("#zeroclip"));
-  // });
-
-  // $("#clear-test").on("click", function(){
-  //   $("#fe_text").val(meetingLink);
-  //   $("#testarea").val("");
-
-    // $('a#zclip').zclip({
-    //   path:'js/ZeroClipboard.swf',
-    //   copy:$('p#zclip').text()
-    // });
-
-    // $('a#copy-zclip').zclip({
-    //   path:'js/ZeroClipboard.swf',
-    //   copy:function(){return $('input#zclip').val();}
-    // });
-
-    // // _______________________
-    // //set path
-    // ZeroClipboard.setMoviePath('http://davidwalsh.name/demo/ZeroClipboard.swf');
-    // //create client
-    // var clip = new ZeroClipboard.Client();
-    // //event
-    // clip.addEventListener('mousedown',function() {
-    // clip.setText(document.getElementById('box-content').value);
-    // });
-    // clip.addEventListener('complete',function(client,text) {
-    //   alert('copied: ' + text);
-    // });
-    // //glue it to the button
-    // clip.glue('copy');
-
-
+  function disableSubmitButton() {
+    $('.button').first().attr("disabled", "disabled");
+    successfulAjax = true;
+  }
 })
