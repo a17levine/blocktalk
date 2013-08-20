@@ -240,6 +240,8 @@ $(document).ready(function(){
       var dayclicked = $( this ).text()
       var currentday = date.format("D")
       paintDay(dayclicked-currentday)
+      disableBeforeNow();
+      disableButtons();
     })
   }
 
