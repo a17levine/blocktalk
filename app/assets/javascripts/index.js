@@ -41,13 +41,15 @@ $(document).ready(function(){
 	            }
 	      //if div has already been selected, adds div to queue
 	      //to be deselected.
-	      if ($(ui.selecting).hasClass('ui-selected')) {
+	      if ($(ui.selecting).hasClass('ui-selected') || $(ui.selecting).hasClass('ignore')) {
 	        _deselectQueue.push(ui.selecting);
 	            }
+        //if the latest selection is not in the array, add it.
 	      var time2 = $(ui.selecting)[0].getAttribute('data-time');
 	      if (jQuery.inArray(time2, selectionArray)==-1){
 	        selectionArray.push(time2);
 	            }
+        //Delete the selection if it is already in the array.
 	      else {
 	        selectionArray.splice( $.inArray(time2,selectionArray),1 );
 	            }
@@ -68,6 +70,14 @@ $(document).ready(function(){
 	      _selectRange = false;
 	      //clears the queue
 	      _deselectQueue = [];
+
+        //Go through the selection array and remove any times that are before the current time.
+        $(selectionArray).each(function(){
+          if (this <= moment().format("YYYY/MM/DD, HH")){
+            selectionArray.splice( $.inArray(this, selectionArray),1);
+          }
+        });
+
         styleCalendar()
 	    }
 	  })
