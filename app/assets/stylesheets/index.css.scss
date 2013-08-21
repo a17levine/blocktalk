@@ -164,6 +164,11 @@ div.hour:nth-of-type(1) {
 	width: 100%;
 }
 
+//makes the monthly calendar cursor a pointer
+p.ui-state-default {
+  cursor: pointer;
+}
+
 div.ui-selecting {
 	background-color: gray;
   transition: background-color 300ms linear;
