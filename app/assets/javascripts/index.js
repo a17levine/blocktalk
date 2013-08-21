@@ -24,6 +24,7 @@ $(document).ready(function(){
       inline: false,  
       showOtherMonths: false,  
       dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      dateFormat: "m/dd/yy",
     });
     styleCalendar();
     clickCalendarDates();
@@ -243,13 +244,19 @@ $(document).ready(function(){
         }
       });
     });
+
+    clickCalendarDates()
+    styleCalendar()
   }
 
   function clickCalendarDates(){
       $('td:not(.disable)').click(function(){
+      var yearclicked = $( this ).attr("data-year");
+      var monthclicked = parseInt($( this ).attr("data-month"))+1;
       var dayclicked = $( this ).text()
       var currentday = date.format("D")
-      paintDay(dayclicked-currentday)
+      $( "#datepicker" ).datepicker( "setDate", monthclicked + "/" + dayclicked + "/" + yearclicked );
+      paintDay(dayclicked-currentday);
       disableBeforeNow();
       disableButtons();
     })
