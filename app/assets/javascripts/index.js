@@ -68,7 +68,7 @@ $(document).ready(function(){
 	      _selectRange = false;
 	      //clears the queue
 	      _deselectQueue = [];
-        styleCalendar()
+        styleCalendar();
 	    }
 	  })
   });
