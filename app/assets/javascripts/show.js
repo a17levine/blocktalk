@@ -212,14 +212,22 @@ $(document).ready(function(){
         }
       })
     });
+
+    clickCalendarDates()
+    styleCalendar()
   }
 
   function clickCalendarDates(){
       $('td:not(.disable)').click(function(){
+      var yearclicked = $( this ).attr("data-year")
+      var monthclicked = parseInt($( this ).attr("data-month"))+1;
       var dayclicked = $( this ).text()
       var currentday = date.format("D")
-      paintDay(dayclicked-currentday)
-      selectFinalTime()
+      $( "#datepicker" ).datepicker( "setDate", monthclicked + "/" + dayclicked + "/" + yearclicked );
+      paintDay(dayclicked-currentday);
+      selectFinalTime();
+      disableBeforeNow();
+      disableButtons();
     })
   }
 

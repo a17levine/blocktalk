@@ -169,11 +169,13 @@ div.hour:nth-of-type(1) {
 
 div.ui-selecting {
 	background-color: gray;
+  transition: background-color 300ms linear;
 }
 
 div.ui-selected {
 	background-color: #2EF52E;
   font-weight: bold;
+  transition: background-color 300ms linear;
 }
 
 div.ignore {
@@ -196,6 +198,7 @@ div.submit {
 
 a.button {
   text-decoration: none;
+  border-radius: 4px;
 }
 
 .rightcontent {
@@ -238,9 +241,18 @@ table tr {
 
 p.ui-state-default {
   margin: 0;
+  margin-right: 0;
+  margin: 0;
+  padding: 2px 23px 2px 5px;
+  width: 21px;
+  text-align: center;
 }
 
-
+p.ui-state-active {
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  padding: 1px 21px 1px 4px;
+}
 
 .selectedDate p{
   // font-weight: bold;
