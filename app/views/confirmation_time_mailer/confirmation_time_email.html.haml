@@ -1,5 +1,5 @@
-%h2 Blocktalk Confirmation Email
+%h2 blocktalk confirmation email
 
-%h3 Welcome to Blocktalk. 
+%h3 your meeting is on the books
 
-/ %h5="#{@email} and #{@email} will meet at NEVER O'CLOCK."
+=link_to "click to view your meeting", meeting_url(@meeting.token)
