@@ -1,7 +1,7 @@
 class ConfirmationTimeMailer < ActionMailer::Base
   
   # default from: "mksblocktalk@gmail.com"
-  # default from: "blocktalk.io"
+  default from: "blocktalk.io"
 
   def confirmation_time_email(meeting)
   	@meeting = meeting
