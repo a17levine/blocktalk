@@ -25,9 +25,11 @@ class ConfirmationTimeMailer < ActionMailer::Base
    # i dont think the following function works
    # trying to add the guests on to the ical email
    # not easy apparently
+
    @meeting.users.each do |user|
    	e.add_attendee "mailto:#{user.email}"
    end
+   
    e.uid "MeetingRequest #{@meeting.token}"
    e.summary @subject_line
    e.description "This meeting was created with blocktalk"
