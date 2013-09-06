@@ -1,3 +1,22 @@
+function startKeyboardShortcuts() {
+  //Getting ENTER KEY to submit email address
+  $('input').keypress(function (e) {
+    if (e.which == 13) {
+      $('.button').first().click();
+      return false;
+    }
+  });
+
+  //Getting RIGHT ARROW KEY to go ahead a day
+  // $('body').keypress(function (e) {
+  //   if (e.which == 39) {
+  //     // $('.icon-chevron-sign-right').first().click();
+  //     alert("you clicked right arrow");
+  //     return false;
+  //   }
+  // });
+}
+
 
 $(document).ready(function(){
 
@@ -9,14 +28,8 @@ $(document).ready(function(){
   var meetingLink = ''
   var successfulAjax = false;
 
-  //Getting ENTER KEY to submit email address
-
-  $('input').keypress(function (e) {
-  if (e.which == 13) {
-    $('.button').first().click();
-    return false;
-    }
-  });
+  startKeyboardShortcuts();
+  
 
   //CALENDAR
   $(function(){  
