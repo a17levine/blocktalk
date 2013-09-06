@@ -16,6 +16,6 @@ function meetingTimeInWords() {
 
 
 $(document).ready(function(){
-	$('.date').first().text(meetingTimeMoment.format("@ h:mm a dddd, MMMM Do YYYY"));
+	$('.date').first().text("Local time: " + meetingTimeMoment.format("h:mma dddd, MMMM Do YYYY"));
   meetingTimeInWords();
 })

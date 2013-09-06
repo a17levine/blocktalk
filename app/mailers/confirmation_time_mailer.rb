@@ -1,7 +1,7 @@
 class ConfirmationTimeMailer < ActionMailer::Base
   
   # default from: "mksblocktalk@gmail.com"
-  default from: "blocktalk.io"
+  # default from: "blocktalk.io"
 
   def confirmation_time_email(meeting)
   	@meeting = meeting
@@ -11,7 +11,7 @@ class ConfirmationTimeMailer < ActionMailer::Base
     # binding.pry
     @agreed_time = meeting.agreed_time_block.start_time.to_datetime
     attachments['event.ics'] = {:mime_type => 'text/calendar', :content => create_ical }
-    mail(from: "blocktalk.io", to: "<#{@host.email}>, <#{@guest.email}>", subject: @subject_line)
+    mail(from: @host.email, reply_to: @host.email, to: "<#{@host.email}>, <#{@guest.email}>", subject: @subject_line)
   end
 
   def create_ical
