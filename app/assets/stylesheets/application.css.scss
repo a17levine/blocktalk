@@ -31,6 +31,19 @@
  	vertical-align: -5px;
  }
 
+ .page-title {
+ 		font-size: 10px;
+ 		color: $primaryColor;
+ }
+
+ .contain-to-grid {
+ 		background-color: white;
+ }
+
+ .top-bar {
+ 		background-color: white;
+ }
+
 * {
 	text-transform: lowercase;
 }
