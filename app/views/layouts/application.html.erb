@@ -26,13 +26,13 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
-    <div class="header row">
-    <a href="<%= root_path %>"><h1 class="subheader">blocktalk</h1>
-    <h6 class="subheader">beta</h6></a>
-    </div>
 
-    <hr />
+  <nav class="top-bar">
+    <ul class="title-area">
+      <li class="name"><a href="<%= root_path %>"><h1 class="subheader">blocktalk</h1>
+    <h6 class="subheader">beta</h6></a></li>
+    </ul>
+  </nav>
 
     <%= yield %>
 
