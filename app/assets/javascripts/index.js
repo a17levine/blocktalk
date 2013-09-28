@@ -133,6 +133,7 @@ $(document).ready(function(){
 
   // ** ON SUBMIT BUTTON CLICK **
 	$('.large.button').click(function(event){
+    disableSubmitButton();
     if (successfulAjax == false) {
   		//When submit button is pressed, prevent default
     		event.preventDefault();
@@ -193,7 +194,7 @@ $(document).ready(function(){
           meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
           // Display the lightbox
           $(".fancybox").click();
-          disableSubmitButton();
+          successfulAjax = true;
         },
       });
     };
@@ -326,6 +327,6 @@ $(document).ready(function(){
 
   function disableSubmitButton() {
     $('.button').first().attr("disabled", "disabled");
-    successfulAjax = true;
+    $('.button').first().text("loading...");
   }
 })
