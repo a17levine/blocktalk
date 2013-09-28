@@ -70,7 +70,7 @@ div.icon-div {
   border-bottom: none;
   margin: 0 auto;
   text-align: center;
-  line-height: 2px;
+  line-height: 25px;
   font-size: 14px;
   border-left: 2px solid black;
   border-right: 2px solid black;
@@ -276,4 +276,12 @@ p.ui-state-active {
 
 .day_helper {
   text-align: center;
+}
+
+.schedule {
+  min-width: 500px;
+}
+
+.final-actions {
+  display: none;
 }

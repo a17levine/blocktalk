@@ -218,7 +218,7 @@ $(document).ready(function(){
   }
 
   function clickCalendarDates(){
-      $('td:not(.disable)').click(function(){
+    $('td:not(.disable)').click(function(){
       var yearclicked = $( this ).attr("data-year")
       var monthclicked = parseInt($( this ).attr("data-month"))+1;
       var dayclicked = $( this ).text()
@@ -244,9 +244,11 @@ $(document).ready(function(){
 
   function selectFinalTime() {
     $('.ui-selected').click(function() {
-    finalTime = this.getAttribute('data-time');
-    $('.hour').removeClass('chosen');
-    $(this).addClass('chosen');
+      finalTime = this.getAttribute('data-time');
+      $('.hour').removeClass('chosen');
+      $(this).addClass('chosen');
+      updateChosenTime();
+      showFinalActions();
     });
   }
 
@@ -298,5 +300,14 @@ $(document).ready(function(){
       else {$(this).removeClass("ignore") 
       }
     })
+  }
+
+  function showFinalActions(){
+    $(".final-actions").show()
+  }
+
+  function updateChosenTime() {
+    var finalTimeText = moment(finalTime, "YYYY/MM/DD, HH").format("ddd MMM Do @h:mma");;
+    $('#chosen-time-text').text(finalTimeText);
   }
 });

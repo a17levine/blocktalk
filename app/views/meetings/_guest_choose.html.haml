@@ -4,7 +4,8 @@
   guestMessage = #{@meeting.guest_json}
   meetingId = "#{@meeting.token}"
 .row
-  %h3= "these times work for #{@meeting.host.email_username}. please choose one."
+  %h3 please choose from available blocks
+  %h6= "from #{@meeting.host.email_username}"
 .row
   .schedule.large-6.columns
     .outer-wrapper
@@ -16,7 +17,7 @@
           %h3.day_helper
           %h5.day_header
           %br
-          .ui-state-default.hour(data-time="00") 
+          .ui-state-default.hour(data-time="00") 12a
           .ui-state-default.hour(data-time="01") 1a
           .ui-state-default.hour(data-time="02") 2a
           .ui-state-default.hour(data-time="03") 3a
@@ -45,13 +46,16 @@
         .clear
   .large-5.columns.inputs
     %div#datepicker
-    %form
-      %input(type="email" class="guestEmail" id="right-label" placeholder="your email address")
-      .rightcontent
-    .submit
-      %a(href="#" class="large button") confirm time slot
+    .final-actions{:id => "final-actions"}
+      %h5.chosen-time-box You have chosen
+      %h3#chosen-time-text some time
+      %form
+        %input(type="email" class="guestEmail" id="right-label" placeholder="your email address")
+        .rightcontent
+      .submit
+        %a(href="#" class="large button") confirm time slot
 
-    %a.fancybox{:href => "#"} 
+      %a.fancybox{:href => "#"} 
     / #test{:style => "display:none;width:300px;"}
 
 
