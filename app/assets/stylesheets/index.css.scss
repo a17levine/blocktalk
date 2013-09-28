@@ -185,6 +185,8 @@ div.ignore {
   background-color: #E4DFDF;
 }
 
+/*Submit area*/
+
 .inputs {
   margin-top: 25px;
 }
@@ -198,6 +200,11 @@ div.submit {
 a.button {
   text-decoration: none;
   border-radius: 4px;
+}
+
+p.errors {
+  display: none;
+  color: red;
 }
 
 .rightcontent {
@@ -282,4 +289,6 @@ textarea {
   display: inline-block;
   resize: none;
 }
+
+
 

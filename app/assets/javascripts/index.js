@@ -132,73 +132,59 @@ $(document).ready(function(){
 	});
 
   // ** ON SUBMIT BUTTON CLICK **
+  var avails = [];
 	$('.large.button').click(function(event){
-    disableSubmitButton();
-    if (successfulAjax == false) {
-  		//When submit button is pressed, prevent default
-    		event.preventDefault();
-  		//Now take times and convert them into moment.js objects
-  		var avails = []
-  		$(selectionArray).each(function(){
-  			var m = moment(this, "YYYY/MM/DD, HH").toJSON();
-  			avails.push(m);
-  		});
+    //When submit button is pressed, prevent default
+    event.preventDefault();
+    //Now take times and convert them into moment.js objects
+    
+    $(selectionArray).each(function(){
+      var m = moment(this, "YYYY/MM/DD, HH").toJSON();
+      avails.push(m);
+    });
+    if (validate() == true) {
+      $('.errors').first().show().text("");
+      disableSubmitButton();
+      if (successfulAjax == false) {
 
-      //validate that user selects at least one timeblock
-      if (avails.length == 0){
-        alert("Please select at least one timeblock.");
-        return false;
-      }
+    		//Convert Moment object into JS Date object to get timezone
+    		//Turning crude date into a moment string, then splitting it
+    		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
+    		//Getting the last item (timezone) in resulting array
+    		label = label.pop();
+    		//Shaving off parentheses
+    		label = label.replace(/[()]/g,'');
+    		
+      		var createMessage = 
+    			{ 
+    				"createMessage"  : 
+    					{
+    					'hostEmail'  	 : $('.hostEmail').val(), 
+    					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
+    					'timeZoneLabel'  : label, 
+    					'availableDates' : avails, 
+    					}
+    	  		}
+        
+        var ajaxRequest = $.ajax({  
+          type: "POST",  
+          url: "/meetings",  
+          data: createMessage,
+          dataType: "json",
+          success: function(response){
+            //Setting Lightbox variable to the AJAX response
+            meetingId = response.token;
 
-      //use regex to validate user email
-      else if (validateEmail($('.hostEmail').val()) == false){
-        alert("Please enter a valid email address.");
-        return false;
-      }
-
-          //validate format of email
-      function validateEmail(email) { 
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-      } 
-
-  		//Convert Moment object into JS Date object to get timezone
-  		//Turning crude date into a moment string, then splitting it
-  		var label = moment(selectionArray[0], "YYYY/MM/DD, HH").toDate().toString().split(' ');
-  		//Getting the last item (timezone) in resulting array
-  		label = label.pop();
-  		//Shaving off parentheses
-  		label = label.replace(/[()]/g,'');
-  		
-    		var createMessage = 
-  			{ 
-  				"createMessage"  : 
-  					{
-  					'hostEmail'  	 : $('.hostEmail').val(), 
-  					'timeZoneOffset' : moment(avails[0]).format('ZZ'),
-  					'timeZoneLabel'  : label, 
-  					'availableDates' : avails, 
-  					}
-  	  		}
-      
-      var ajaxRequest = $.ajax({  
-        type: "POST",  
-        url: "/meetings",  
-        data: createMessage,
-        dataType: "json",
-        success: function(response){
-          //Setting Lightbox variable to the AJAX response
-          meetingId = response.token;
-
-          //Prepare the lightbox
-          meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
-          // Display the lightbox
-          $(".fancybox").click();
-          successfulAjax = true;
-        },
-      });
+            //Prepare the lightbox
+            meetingLink = "http://" + window.location.host + '/meetings/' + meetingId + '/';
+            // Display the lightbox
+            $(".fancybox").click();
+            successfulAjax = true;
+          },
+        });
+      };
     };
-  })
+  });
 
   function slideScheduleRight(){
     //add class to slide right, wait, then add class to slide from left side.
@@ -329,4 +315,43 @@ $(document).ready(function(){
     $('.button').first().attr("disabled", "disabled");
     $('.button').first().text("loading...");
   }
+
+  function displayEmailError() {
+    $('.errors').first().show().text("*Please enter a valid email address")
+  }
+
+  function displayNoTimeblockError() {
+    $('.errors').first().show().text("*Please enter at least one timeblock")
+
+  }
+
+  function validate() {
+    if (validateTimeBlockChosen() == true && validateEmail() == true){
+      return true;
+    }else {
+      return false;
+    };
+  }
+
+  function validateTimeBlockChosen() {
+    //validate that user selects at least one timeblock
+    if (avails.length == 0){
+      displayNoTimeblockError();
+      return false;
+    } 
+    else {
+      return true;
+    }
+  }
+
+  function validateEmail() {
+    emailInput = $('.hostEmail').first().val();
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(emailInput) == true){
+      return true;
+    } else {
+      displayEmailError();
+      return false;
+    }
+  } 
 })
